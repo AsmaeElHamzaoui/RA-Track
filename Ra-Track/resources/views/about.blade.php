@@ -4,6 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Agencies - LimoWide Partnership</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative; /* Needed for absolute positioning of the attribution */
+        }
+        .hero-section .attribution {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .hero-section .attribution a {
+            color: white;
+            text-decoration: none; /* Optional: Remove underline from the link */
+        }
+        .benefit-image {
+            transform: rotate(3deg);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .benefit-number {
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 0.5rem; /* Reduced padding */
+            box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 1rem; /* Added margin */
+        }
+
+        .polaroid.rotate-right {
+            transform: rotate(3deg);
+        }
+
+        .polaroid.rotate-left {
+            transform: rotate(-3deg);
+        }
+
+        .polaroid img {
+            border: 0.2rem solid white; /* Reduced border size */
+            border-bottom: none;
+            display: block;
+        }
+
+        .polaroid p {
+            margin-top: 0.5rem;
+            font-family: 'Shadows Into Light', cursive;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
 
