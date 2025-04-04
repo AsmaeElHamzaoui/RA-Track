@@ -181,7 +181,25 @@
 
 </section>
 
-
+<!-- Section travel -->
+<section class="py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+            <p class="text-gray-700 mb-6">
+                Partnering with LimoWide empowers travel agencies to provide exceptional services to their customers. Our comprehensive booking platform and seamless user experience can enhance their offerings, ultimately giving them the competitive edge they need to succeed.
+            </p>
+            <a href="#" class="inline-block hover:bg-blue-800 px-6 py-3 rounded-full font-small" style="background-color:#162238;color:#FFD476">SEE HOW IT WORKS</a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="polaroid rotate-right">
+                <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="People enjoying travel" class="rounded-lg h-full w-full object-cover">
+            </div>
+            <div class="polaroid rotate-left">
+                <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Luxury travel experience" class="rounded-lg h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+</section>
 </main>
    
 </body>
