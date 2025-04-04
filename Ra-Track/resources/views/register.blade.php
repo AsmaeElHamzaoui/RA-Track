@@ -38,6 +38,13 @@
             <p>Already a member? <a href="/login">Log in</a></p>
         </form>
         
+
+        <!-- Section du Logo et Texte (à droite) -->
+        <div class="logo-section">
+            <img src="URL_DE_VOTRE_LOGO" alt="Logo LimoWide"> <!-- Remplacez par l'URL de votre logo -->
+            <p>Rejoignez LimoWide dès aujourd'hui et découvrez une nouvelle façon de voyager!</p>
+        </div>
+        
     </div>
 
 </body>
