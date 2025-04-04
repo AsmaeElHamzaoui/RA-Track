@@ -121,7 +121,88 @@
             </div>
         </section>
     </div>
+    
+    <!-- Services Section -->
+    <section class="py-16" style="background-image: url('https://c8.alamy.com/compfr/2dcj9xh/texture-hiver-neige-blanche-arriere-plan-des-vacances-de-noel-papier-peint-de-saison-blanc-frais-couleur-neige-nature-fond-d-ecran-premier-gel-texture-brillante-et-nette-2dcj9xh.jpg'); background-size: cover; background-position: center;">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
+                    We Offer the Following<br>
+                    Photovoltaic Services
+                </h2><br>
+                <p class="max-w-2xl mx-auto text-bold text-gray-600">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.
+                </p>
+            </div>
 
+            <!-- Services Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+                <!-- Card 1: Project Planning -->
+                <div class="relative pt-16">
+                    <!-- Circular Image -->
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-100">
+                            <img src="https://www.shutterstock.com/image-photo/travel-by-plane-woman-passenger-260nw-2467550689.jpg"
+                                alt="Project Planning" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="rounded-lg p-6 pt-32 pb-6 text-center text-white h-full flex flex-col" style="background-color:#162238;">
+                        <h3 class="text-xl font-bold mb-3" style="color:#FFD476;">Project Planning</h3>
+                        <p class="text-sm mb-6 flex-grow">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore aliqua.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Procurement -->
+                <div class="relative pt-16">
+                    <!-- Circular Image -->
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-100">
+                            <img src="https://safer-america.com/wp-content/uploads/2024/08/1605-1024.jpg"
+                                alt="Procurement" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="bg-blue-900 rounded-lg p-6 pt-32 pb-6 text-center text-white h-full flex flex-col">
+                        <h3 class="text-xl font-bold mb-2" style="color:#FFD476;">Procurement</h3>
+                        <p class="text-sm mb-6 flex-grow">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore aliqua.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Operation -->
+                <div class="relative pt-16">
+                    <!-- Circular Image -->
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-100">
+                            <img src="https://img.freepik.com/photos-premium/meilleur-lieu-voyage-au-monde_403587-15099.jpg"
+                                alt="Operation" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="rounded-lg p-6 pt-32 pb-6 text-center text-white h-full flex flex-col" style="background-color:#162238;">
+                        <h3 class="text-xl font-bold mb-3" style="color:#FFD476;">Operation</h3>
+                        <p class="text-sm mb-6 flex-grow">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore aliqua.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     
    
