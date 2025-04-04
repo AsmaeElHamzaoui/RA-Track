@@ -12,6 +12,22 @@
                 </div>
             </div>
 
+            <div class="grid grid-cols-1 mx-20 md:grid-cols-6 gap-12">
+                <!-- Company -->
+                <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">COMPANY</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-white text-xs">How it works</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Newsletter</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Careers</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Investors</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Blogs</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Destinations</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
             
         </div>
 </footer>
