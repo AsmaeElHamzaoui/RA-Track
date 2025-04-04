@@ -204,7 +204,159 @@
         </div>
     </section>
 
-    
+     <!-- Airport Transfer Carousel Section -->
+     <section class="py-12" style="background-image: url('https://img.freepik.com/photos-premium/carte-du-monde-blanche-utiliser-comme-illustration-pour-presentation_483511-3724.jpg'); background-size: cover; background-position: center;">
+        <h1 class="text-5xl pt-4 font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
+          Discover Popular Destination
+        </h1>
+       <div class="container mx-auto mt-24 p-4">
+            <div class="w-full max-w-7xl mx-auto relative rounded-lg p-8">
+                <!-- Background Map Image -->
+
+                <!-- Timeline Container -->
+                <div class="relative">
+                    <!-- Dotted Line -->
+                    <div class="dotted-line"></div>
+
+                    <!-- Timeline Items -->
+                    <div class="flex justify-between relative">
+                        <!-- Popular -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-medium mb-2">POPULAR</span>
+                            <div class="diamond" style="background-color:#FFD476;"></div>
+                        </div>
+
+                        <!-- Europe -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-bold mb-2" style="color:#FFD476;">EUROPE</span>
+                            <div class="diamond"></div>
+                        </div>
+
+                        <!-- Asia -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-medium mb-2">ASIA</span>
+                            <div class="diamond" style="background-color:#FFD476;"></div>
+                        </div>
+
+                        <!-- Africa -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-bold mb-2" style="color:#FFD476;">AFRICA</span>
+                            <div class="diamond"></div>
+                        </div>
+
+                        <!-- Australia -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-medium mb-2">AUSTRALIA</span>
+                            <div class="diamond" style="background-color:#FFD476;"></div>
+                        </div>
+
+                        <!-- America -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-bold mb-2" style="color:#FFD476;">AMERICA</span>
+                            <div class="diamond" ></div>
+                        </div>
+
+                        <!-- Oceania -->
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-medium mb-2">OCEANIA</span>
+                            <div class="diamond" style="background-color:#FFD476;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto p-8 flex items-center justify-center">
+            <!-- CSS-Animated Carousel -->
+            <div class="gallery-container">
+                <div class="gallery-track" id="galleryTrack">
+                    <!-- Original 5 images -->
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.summitmedia-digital.com/spotph/images/2021/01/12/revenge-travel-640-1610450263.jpg"
+                            alt="Image 1" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 1</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://c8.alamy.com/comp/2CR2FDY/travel-places-collage-photos-of-the-best-travel-destinations-2CR2FDY.jpg"
+                            alt="Image 2" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 2</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.goway.com/production/hero/iStock-1919241099.jpeg"
+                            alt="Image 3" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 3</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://www.bsr.org/images/heroes/bsr-travel-hero..jpg"
+                            alt="Image 4" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 4</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://www.assahifa.com/english/wp-content/uploads/2021/03/travel-plane-wttc.jpg"
+                            alt="Image 5" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 5</h3>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate images for seamless looping -->
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.summitmedia-digital.com/spotph/images/2021/01/12/revenge-travel-640-1610450263.jpg"
+                            alt="Image 1" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 1</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://c8.alamy.com/comp/2CR2FDY/travel-places-collage-photos-of-the-best-travel-destinations-2CR2FDY.jpg"
+                            alt="Image 2" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 2</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.goway.com/production/hero/iStock-1919241099.jpeg"
+                            alt="Image 3" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 3</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://www.bsr.org/images/heroes/bsr-travel-hero..jpg"
+                            alt="Image 4" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 4</h3>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item w-[250px] rounded-lg overflow-hidden shadow-md">
+                        <img src="https://www.assahifa.com/english/wp-content/uploads/2021/03/travel-plane-wttc.jpg"
+                            alt="Image 5" class="w-full h-48 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="font-semibold">Image 5</h3>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+           
+        </div>
+    </section>
    
 </body>
 
