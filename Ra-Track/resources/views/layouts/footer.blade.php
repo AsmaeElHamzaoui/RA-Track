@@ -84,5 +84,24 @@
             </div>
 
             
+
+
+
+
+
+
+
+
+        <!-- Copyright & Payment Methods -->
+        <div class="flex flex-col md:flex-row items-center justify-between mx-4 mt-6 border-t border-gray-700 pt-4">
+                <p class="text-xs">© 2024 Limowide. All rights reserved</p>
+                <div class="flex items-center space-x-3">
+                    <img class="w-6 h-5" src="https://cryptoast.fr/wp-content/uploads/2024/05/mastercard-crypto-300x150.jpg" alt="Payment Method 1">
+                    <img class="w-6 h-5" src="https://cryptoast.fr/wp-content/uploads/2024/05/mastercard-crypto-300x150.jpg" alt="Payment Method 1">
+                    <img class="w-6 h-5" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Former_Visa_%28company%29_logo.svg" alt="Payment Method 2">
+                    <img class="w-6 h-5" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Former_Visa_%28company%29_logo.svg" alt="Payment Method 3">
+                    <img class="w-6 h-5" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Former_Visa_%28company%29_logo.svg" alt="Payment Method 5">
+                </div>
+            </div>
         </div>
 </footer>
