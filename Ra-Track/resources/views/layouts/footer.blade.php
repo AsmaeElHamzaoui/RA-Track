@@ -48,7 +48,20 @@
                     </ul>
                 </div>
 
-             
+                   <!-- Partnership -->
+                   <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">PARTNERSHIP</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-white text-xs">Business Solutions</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Travel Agencies</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Affiliate & Webmasters</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Drive with Us</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Become A Partner</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Register as Guide</a></li>
+                    </ul>
+                </div>
+
+               
                 
                
             </div>
