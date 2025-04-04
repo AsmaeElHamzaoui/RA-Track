@@ -403,6 +403,55 @@
 
     @include('layouts.footer')
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const track = document.getElementById('galleryTrack');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const slowBtn = document.getElementById('slowBtn');
+            const fastBtn = document.getElementById('fastBtn');
+            const pauseIcon = document.querySelector('.pause-icon');
+            const playIcon = document.querySelector('.play-icon');
+
+            let isPaused = false;
+            let animationDuration = 20; // seconds
+
+            // Toggle pause/play
+            pauseBtn.addEventListener('click', function () {
+                if (isPaused) {
+                    track.style.animationPlayState = 'running';
+                    pauseIcon.classList.remove('hidden');
+                    playIcon.classList.add('hidden');
+                } else {
+                    track.style.animationPlayState = 'paused';
+                    pauseIconclassList.add('hidden');
+                    playIcon.classList.remove('hidden');
+                }
+                isPaused = !isPaused;
+            });
+
+            // Slow down animation
+            slowBtn.addEventListener('click', function () {
+                animationDuration += 5;
+                updateAnimationSpeed();
+            });
+
+            // Speed up animation
+            fastBtn.addEventListener('click', function () {
+                if (animationDuration > 5) {
+                    animationDuration -= 5;
+                    updateAnimationSpeed();
+                }
+            });
+
+            // Update animation speed
+            function updateAnimationSpeed() {
+                track.style.animationDuration = `${animationDuration}s`;
+            }
+
+            // Initialize
+            updateAnimationSpeed();
+        });
+    </script>
 </body>
 
 </html>
