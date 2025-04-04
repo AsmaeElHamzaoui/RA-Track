@@ -452,6 +452,56 @@
             updateAnimationSpeed();
         });
     </script>
+
+<script>
+          document.addEventListener('DOMContentLoaded', function() {
+      
+              // --- JS POUR LA REDIRECTION VERS BOOKING AVEC LES DONNÉES ---
+              const searchButton = document.getElementById('searchFlightsBtn');
+      
+              if (searchButton) {
+                  searchButton.addEventListener('click', function() {
+                      // 1. Récupérer les valeurs du formulaire
+                      const departure = document.getElementById('hero-departure').value;
+                      const arrival = document.getElementById('hero-arrival').value;
+                      const flightDate = document.getElementById('hero-flightDate').value;
+                      const flightClass = document.getElementById('hero-class').value;
+                      const adults = document.getElementById('hero-adults').value;
+                      const children = document.getElementById('hero-children').value;
+      
+                      // Vérification simple (optionnelle)
+                      if (!departure || !arrival || !flightDate) {
+                          alert("Veuillez renseigner au moins le départ, l'arrivée et la date.");
+                          return; // Arrête l'exécution si les champs requis sont vides
+                      }
+      
+                      // 2. Construire l'objet de paramètres
+                      const searchParams = new URLSearchParams();
+                      searchParams.append('departure', departure);
+                      searchParams.append('arrival', arrival);
+                      searchParams.append('date', flightDate);
+                      searchParams.append('class', flightClass);
+                      searchParams.append('adults', adults);
+                      searchParams.append('children', children);
+      
+                      // 3. Construire l'URL de destination
+                      // !! Adapte le chemin vers ta page bookingAirplane !!
+                      // Si elle est à la racine: '/bookingAirplane.html' ou juste '/bookingAirplane'
+                      // Si elle est dans un dossier 'pages': '/pages/bookingAirplane.html'
+                      const targetUrl = '/bookingAirplane?' + searchParams.toString();
+                      // J'utilise '/bookingAirplane' ici, ajuste si besoin.
+                      // Si tu n'utilises pas de serveur du tout et ouvres les fichiers localement,
+                      // utilise un chemin relatif comme 'bookingAirplane.html'
+      
+                      // 4. Rediriger l'utilisateur
+                      window.location.href = targetUrl;
+                  });
+              } else {
+                  console.error("Bouton 'searchFlightsBtn' non trouvé.");
+              }
+      
+          }); // Fin de DOMContentLoaded
+    </script>
 </body>
 
 </html>
