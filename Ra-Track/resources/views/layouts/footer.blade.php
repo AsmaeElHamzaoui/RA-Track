@@ -62,7 +62,24 @@
                 </div>
 
                
-                
+                 <!-- Legal & Help -->
+                 <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">LEGAL</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-white text-xs">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Partnership -->
+                <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">HELP</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-white text-xs">Help&nbspc;Center</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Get Support</a></li>
+                    </ul>
+                </div>
                
             </div>
 
