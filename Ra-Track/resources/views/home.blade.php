@@ -21,7 +21,160 @@
         }
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        .custom-bg {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 0 0 40px 40px;
+        }
+
+        #background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient( #0f0b3d,rgba(42, 37, 82, 0.28));
+            z-index: 1;
+        }
+
+        .header-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 150px;
+        }
+
+        .diamond {
+            width: 10px;
+            height: 10px;
+            transform: rotate(45deg);
+            background-color: black;
+        }
+
+        .dotted-line {
+            border-top: 2px dotted #CBD5E0;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            z-index: 0;
+        }
+
+        /* Styles for the CSS-animated carousel */
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            /* Adjust as needed */
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 20px;
+            animation: scroll 20s linear infinite;
+            /* Adjust duration as needed */
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-270px * 5));
+                /* Adjusted for 5 images including gaps within calc */
+            }
+        }
+
+        /* Pause animation on hover */
+        .gallery-container:hover .gallery-track {
+            animation-play-state: paused;
+        }
+
+        /* Controls */
+        .gallery-controls {
+            position: absolute;
+            top: 1900px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .control-btn {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .inputBox {
+            padding: 12px 10px 12px 10px;
+            border: none;
+            width: 100%;
+            background-color: #162238;
+            border: 1px solid rgba(255, 212, 118, 0.1);
+            color: #fff;
+            font-weight: 300;
+            font-size: 1em;
+            box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.05),
+            5px 5px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+            outline: none;
+        }
+       
+        .inputBox:focus {
+            color: #FFF;
+            border: 1px solid #FFD476;
+        }
+
+        /* End of CSS-animated carousel styles */
+    </style>
 </head>
 
 <body class="bg-gray-100">
