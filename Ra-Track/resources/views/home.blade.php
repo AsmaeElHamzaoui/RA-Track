@@ -30,7 +30,6 @@
         <!-- Vidéo d'arrière-plan -->
         <video autoplay loop muted playsinline id="background-video">
             <source src="{{ asset('videos/Airplane.mp4') }}" type="video/mp4">
-            <!-- Ajoutez d'autres formats de vidéo pour une meilleure compatibilité (webm, ogg) -->
             Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
 
@@ -38,7 +37,7 @@
         <div class="overlay"></div>
         <!-- Header -->
         @include('layouts.header')
-        <!-- Hero Section -->
+        <!-- Section 1 -->
         <section class="hero-content text-white">
             <div class="container mx-auto text-center px-4">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">ENJOY YOUR <span style="color:#FFD476;">INCREDIBLE</span>
