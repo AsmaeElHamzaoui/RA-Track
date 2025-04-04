@@ -357,7 +357,50 @@
            
         </div>
     </section>
-   
+    
+     <!-- Construction Services Section -->
+     <section class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Rebuild Construction -->
+                <div class="text-center">
+                    <img src="https://thumbs.dreamstime.com/b/vector-illustration-icon-repair-installation-maintenance-construction-work-reconstruction-226213927.jpg" alt="Rebuild Construction Icon"
+                        class="mx-auto h-24 w-24 object-contain mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Rebuild Construction</h3>
+                    <p class="text-gray-600 mb-4">In a professional context it often happens that private or clients a
+                        publication to be made and presented with the.</p>
+                </div>
+
+                <!-- Consultancy Construction -->
+                <div class="text-center">
+                    <img src="https://static.vecteezy.com/system/resources/previews/054/593/196/non_2x/dynamic-business-consultancy-icon-design-vector.jpg" alt="Consultancy Construction Icon"
+                        class="mx-auto h-24 w-24 object-contain mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Consultancy Construction</h3>
+                    <p class="text-gray-600 mb-4">In a professional context it often happens that private or corporate
+                        clients corder a publication.</p>
+                </div>
+
+                <!-- Refine Construction -->
+                <div class="text-center">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/043/181/243/small/color-icon-for-refine-vector.jpg" alt="Refine Construction Icon"
+                        class="mx-auto h-24 w-24 object-contain mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Refine Construction</h3>
+                    <p class="text-gray-600 mb-4">In a professional context it often happens that private or corporate
+                        clients a publication to be made and.</p>
+                </div>
+
+                <!-- Customize Construction -->
+                <div class="text-center">
+                    <img src="https://www.creativefabrica.com/wp-content/uploads/2021/03/22/Configuration-customize-icon-Graphics-9858324-1-1-580x386.jpg" alt="Customize Construction Icon"
+                        class="mx-auto h-24 w-24 object-contain mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Customize Construction</h3>
+                    <p class="text-gray-600 mb-4">In a professional context it often happens that private or corporate
+                        clients corder a publication.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 </body>
 
 </html>
