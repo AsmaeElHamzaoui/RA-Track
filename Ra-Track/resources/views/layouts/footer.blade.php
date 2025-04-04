@@ -25,7 +25,21 @@
                         <li><a href="#" class="hover:text-white text-xs">Destinations</a></li>
                     </ul>
                 </div>
+                
+                 <!-- Services -->
+                 <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">SERVICES</h4>
+                    <ul>
+                        <li><a href="#" class="hover:text-white text-xs">Airport Transfer</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Limousine Service</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Private Taxi</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">Chauffeur Service</a></li>
+                        <li><a href="#" class="hover:text-white text-xs">City tour</a></li>
+                    </ul>
+                </div>
 
+                
+               
             </div>
 
             
