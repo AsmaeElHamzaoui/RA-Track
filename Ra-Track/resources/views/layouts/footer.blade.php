@@ -38,6 +38,17 @@
                     </ul>
                 </div>
 
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-semibold mb-2 text-m" style="color:#FFD476;">CONTACT</h4>
+                    <ul>
+                        <li class="text-xs">Address: 1 Peach Place, <br>Wokingham, RG40 1LY,<br> UK</li>
+                        <li class="text-xs">Phone: +44 7458 148595</li>
+                        <li class="text-xs">Email: support@limowide.com</li>
+                    </ul>
+                </div>
+
+             
                 
                
             </div>
