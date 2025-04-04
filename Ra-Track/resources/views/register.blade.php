@@ -5,6 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | LimoWide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': {
+                            800: '#1a2e4c',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,7 +60,7 @@
             <img src="URL_DE_VOTRE_LOGO" alt="Logo LimoWide"> <!-- Remplacez par l'URL de votre logo -->
             <p>Rejoignez LimoWide dès aujourd'hui et découvrez une nouvelle façon de voyager!</p>
         </div>
-        
+
     </div>
 
 </body>
