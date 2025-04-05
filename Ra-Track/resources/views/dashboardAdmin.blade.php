@@ -9,7 +9,7 @@
 <body class="bg-navy text-gray-100">
 
 <div class="flex h-screen">
-    
+
     <!-- Sidebar -->
     <aside class="w-64 bg-navy-dark flex-shrink-0 p-4 flex flex-col justify-between">
         <div>
@@ -56,6 +56,41 @@
             </nav>
         </div>
     </aside>
+
+     <!-- Main Content -->
+     <main class="flex-1 bg-navy p-6 md:p-8 overflow-y-auto relative">
+         <!-- Header commun (peut être adapté par JS si besoin) -->
+         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <div>
+                <h2 id="main-title" class="text-2xl font-semibold">Tableau de Bord</h2>
+                <p class="text-gray-400 text-sm">Aujourd'hui</p> <!-- Date dynamique peut être ajoutée avec JS -->
+            </div>
+            <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <button class="relative p-2 rounded-full hover:bg-navy-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy focus:ring-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.017 5.454 1.31M5.25 17.082l4.125 4.125M18.75 17.082l-4.125 4.125M12 21a.75.75 0 0 1-.75-.75V18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75H12Z" /></svg>
+                    <span class="absolute top-1 right-1 block h-3 w-3 rounded-full bg-red-500 ring-2 ring-navy">
+                       <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                    </span>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <img src="https://via.placeholder.com/40/FFFFFF/808080?text=JP" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-gray-500">
+                    <span>John Pilot</span>
+                </div>
+            </div>
+        </header>
+
+        
+
+        
+
+        
+
+        
+
+
+        
+
+    </main>
 
     
 </div>
