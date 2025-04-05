@@ -4,7 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AirControl - Tableau de Bord</title>
-
+    
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .map-placeholder {
+        position: relative;
+        background: url('https://via.placeholder.com/1000x500/000000/808080?text=World+Map+Placeholder') center center/cover no-repeat;
+    }
+    .map-placeholder::after {
+         content: '';
+         position: absolute;
+         top: 20%; left: 15%;
+         width: 70%; height: 60%;
+         border: 2px dashed rgba(255, 165, 0, 0.6);
+         border-radius: 50% / 10%;
+         transform: rotate(-15deg);
+         opacity: 0.7;
+         pointer-events: none;
+     }
+     /* Styles pour le modal */
+     .modal-backdrop {
+        background-color: rgba(0,0,0,0.6);
+     }
+     /* Style pour le lien actif de la sidebar */
+     .sidebar-link.active {
+        background-color: var(--tw-color-navy-light) !important; /* Utilise la couleur navy-light définie dans la config */
+        color: white !important;
+     }
+     /* Assurer que la couleur navy-light est disponible comme variable CSS */
+     :root {
+        --tw-color-navy-light: #2A3F5F;
+     }
+</style>
 </head>
 <body class="bg-navy text-gray-100">
 
