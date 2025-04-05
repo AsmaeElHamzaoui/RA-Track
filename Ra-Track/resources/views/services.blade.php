@@ -8,7 +8,451 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f3f4f6;
+      /* Light Gray background */
+    }
+
+    .hero-section {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      /* Needed for absolute positioning of the attribution */
+    }
+
+    .hero-section .attribution {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: white;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .hero-section .attribution a {
+      color: white;
+      text-decoration: none;
+      /* Optional: Remove underline from the link */
+    }
+
+    .benefit-image {
+      transform: rotate(3deg);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefit-number {
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 0.5rem;
+      /* Reduced padding */
+      box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 1rem;
+      /* Added margin */
+    }
+
+    .polaroid.rotate-right {
+      transform: rotate(3deg);
+    }
+
+    .polaroid.rotate-left {
+      transform: rotate(-3deg);
+    }
+
+    .polaroid img {
+      border: 0.2rem solid white;
+      /* Reduced border size */
+      border-bottom: none;
+      display: block;
+    }
+
+    .polaroid p {
+      margin-top: 0.5rem;
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.2rem;
+    }
+
+    .featured-posts-container {
+      width: 100%;
+      max-width: 7xl;
+      /* Adjust for larger screens */
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      display: flex;
+      flex-direction: column;
+      /* Stack vertically */
+      gap: 20px;
+    }
+
+    .main-post {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      /* Added shadow */
+      margin-bottom: 0.5rem;
+      height: 50%;
+    }
+
+    .main-post img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .main-post .post-content {
+      padding: 1rem;
+    }
+
+    .main-post .post-category {
+      font-size: 0.6rem;
+      line-height: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.3rem;
+    }
+
+    .main-post .post-title {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.2rem;
+    }
+
+    .main-post .post-description {
+      font-size: 0.75rem;
+      line-height: 1rem;
+      color: #4b5563;
+      margin-bottom: 0.7rem;
+    }
+
+    .main-post .post-author {
+      font-size: 0.6rem;
+      line-height: 0.8rem;
+      color: #6b7280;
+    }
+
+    .read-more {
+      font-size: 0.75rem;
+      line-height: 1rem;
+      font-weight: 500;
+      color: #3b82f6;
+      /* Blue accent color */
+    }
+
+    .right-column {
+      width: 100%;
+      /* Full width on smaller screens */
+    }
+
+    .featured-posts-grid {
+      display: flex;
+      flex-direction: column;
+      /* Stack vertically by default */
+      gap: 1rem;
+    }
+
+    .featured-posts-grid>div {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.8rem;
+      display: flex;
+      /* Image and text side by side */
+      align-items: center;
+      /* Vertically align items */
+      margin-left: 0.5rem;
+      /* Add left margin */
+      margin-right: 0.5rem;
+      /* Add right margin */
+    }
+
+    .featured-posts-grid img {
+      width: 40%;
+      /* Adjust as needed */
+      height: auto;
+      object-fit: cover;
+      border-radius: 0.5rem 0 0 0.5rem;
+      /* Round top-left and bottom-left */
+    }
+
+    .featured-posts-grid .post-content {
+      padding: 0.7rem;
+      width: 60%;
+      /* Occupy remaining space */
+    }
+
+    .featured-posts-grid .post-category {
+      font-size: 0.6rem;
+      line-height: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.3rem;
+    }
+
+    .featured-posts-grid .post-title {
+      font-size: 0.8rem;
+      line-height: 1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.2rem;
+    }
+
+    .featured-posts-grid .post-date {
+      font-size: 0.6rem;
+      line-height: 0.8rem;
+      color: #6b7280;
+    }
+
+    .featured-posts {
+      margin-top: 15px;
+    }
+
+    /* Adjustments for screens larger than 768px */
+    @media (min-width: 768px) {
+      .featured-posts-container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .main-post {
+        width: 60%;
+      }
+
+      .right-column {
+        width: 35%;
+      }
+
+      .featured-posts-grid {
+        display: flex;
+        /* Keep as flex for side-by-side */
+        flex-direction: column;
+      }
+    }
+
+    /* Styles for the New Section */
+    .post-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      /* Responsive columns */
+      gap: 20px;
+      /* Adjust as needed */
+      margin-top: 20px;
+      /* Add space above the grid */
+    }
+
+    .post-grid-item {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-grid-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .post-grid-item .post-content {
+      padding: 1rem;
+    }
+
+    .post-grid-item .post-category {
+      font-size: 0.7rem;
+      color: #6b7280;
+      margin-bottom: 0.3rem;
+    }
+
+    .post-grid-item .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-grid-item .post-description {
+      font-size: 0.8rem;
+      color: #4b5563;
+    }
+
+    .post-grid-item .post-author {
+      font-size: 0.7rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+      /* Adjust position */
+    }
+
+    .read-more {
+      font-size: 0.75rem;
+      line-height: 1rem;
+      font-weight: 500;
+      color: #3b82f6;
+      /* Blue accent color */
+    }
+
+    .category-tags-container {
+      padding: 5px;
+      width: 60%;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .categories h2,
+    .popular-tags h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+
+    .categories ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .categories li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .categories li:last-child {
+      border-bottom: none;
+    }
+
+    .categories a {
+      color: #374151;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .categories a:hover {
+      color: #6b7280;
+    }
+
+    .categories .count {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .popular-tags .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .popular-tags .tag {
+      background-color: #f9fafb;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .popular-tags .tag:hover {
+      background-color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1200px;
+      /* Adjust as needed */
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+    }
+
+    /* New styles for positioning */
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
+      /* Stack on smaller screens */
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .main-wrapper {
+        flex-direction: column;
+        /* Still stack the two main sections */
+      }
+    }
+
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    @media (min-width: 768px) {
+      .top-section {
+        flex-direction: row;
+      }
+    }
+
+    .nature-travel-wrapper {
+      display: flex;
+      flex-direction: column;
+      /* Stack nature and travel on small screens */
+      gap: 20px;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .nature-travel-wrapper {
+        flex-direction: row;
+        /* Nature and travel side by side on larger screens */
+      }
+    }
+
+    /* Give each section a width, adjust as needed */
+    .nature-travel-wrapper>div {
+      width: 330px;
+      /* Example width */
+    }
+
+    .category-tags-container {
+      width: 70%;
+      /* Take up full width on small screens */
+    }
+
+    @media (min-width: 768px) {
+      .category-tags-container {
+        width: 70%;
+        /*Override to full width on larger screens, if needed*/
+      }
+    }
+
+    /* Added margin to the last two sections */
+    .featured-posts,
+    .top-section {
+      margin-bottom: 30px;
+      /* Adjust as needed */
+    }
+  </style>
 </head>
 
 <body class="bg-gray-50">
@@ -174,6 +618,7 @@
   </div>
 
  
+  @include('layouts.footer')
 
 </body>
 
