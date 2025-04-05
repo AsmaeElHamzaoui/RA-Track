@@ -146,7 +146,46 @@
 
     </main>
 
-  
+    <!-- Footer -->
+    @include('layouts.footer')
+
+    <!-- Optional: Add JS for card formatting or validation here -->
+    <script>
+        // Example: Basic card number formatting (adds spaces)
+        const cardNumberInput = document.getElementById('card-number');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue.trim();
+            });
+        }
+
+         // Example: Basic expiry date formatting (adds slash)
+        const expiryInput = document.getElementById('expiry-date');
+         if (expiryInput) {
+            expiryInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                if (value.length > 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                 // Limit month part
+                if (value.length >= 2) {
+                    let month = parseInt(value.substring(0, 2), 10);
+                    if (month < 1) value = '0' + value.substring(1);
+                    if (month > 12) value = '12' + value.substring(2);
+                 }
+
+                e.target.value = value;
+            });
+        }
+    </script>
 
 </body>
 </html>
