@@ -4,7 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AirControl - Tableau de Bord</title>
-    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                           'light': '#2A3F5F',
+                           'DEFAULT': '#1E2A40',
+                           'dark': '#151E2D',
+                         }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Optional: Link compiled CSS -->
+    <!-- <link href="./dist/output.css" rel="stylesheet"> -->
     <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
