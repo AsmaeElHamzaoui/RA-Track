@@ -25,4 +25,13 @@ class Payment extends Model
         return $this->belongsTo(Reservation::class, 'reservation_id');
     }
 
+    
+    /**
+     * Calcul du montant du paiement basé sur le prix de la réservation
+     * Ceci est utile si le montant est récupéré automatiquement à partir de la réservation.
+     */
+    public function getAmountAttribute()
+    {
+        return $this->reservation->price;  // On suppose que `price` est un attribut de la table `reservations`
+    }
 }
