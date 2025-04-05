@@ -79,7 +79,49 @@
                 </form>
             </div>
 
-            
+            <!-- Order Summary -->
+        <div class="bg-slate-800 p-6 md:p-8 rounded-xl shadow-xl h-fit"> {/* h-fit to make it not stretch full height */}
+                 <h2 class="flex items-center space-x-3 mb-6 text-lg font-semibold text-white">
+                    <!-- Receipt Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+                       <path fill-rule="evenodd" d="M5 4a3 3 0 013-3h4a3 3 0 013 3v12a3 3 0 01-3 3H8a3 3 0 01-3-3V4zm3 0a1 1 0 00-1 1v1h6V5a1 1 0 00-1-1H8zM6 9a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 4a1 1 0 100 2h4a1 1 0 100-2H7z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Résumé de la Commande</span>
+                </h2>
+
+                <div class="space-y-3 text-sm">
+                     <div class="flex justify-between">
+                        <div>
+                            <span class="block font-medium text-white">Paris → New York</span>
+                            <span class="block text-slate-400 text-xs">Vol AF123 • 12 Mars 2025</span>
+                        </div>
+                        <span class="font-medium text-white">249,99 €</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Taxes et frais</span>
+                        <span class="font-medium text-white">50,00 €</span>
+                    </div>
+                </div>
+
+                <hr class="border-slate-700 my-4 md:my-5">
+
+                 <div class="flex justify-between text-lg font-semibold text-white">
+                    <span>Total</span>
+                    <span>299,99 €</span>
+                </div>
+
+                 <div class="bg-slate-700/50 p-4 rounded-lg mt-6 text-sm">
+                    <div class="flex items-start space-x-3">
+                        <!-- Shield Icon -->
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C1.58 10.02 4.805 15.04 10 18.056c5.195-3.016 8.42-8.036 7.834-13.056A11.954 11.954 0 0110 1.944zM9 13l-3-3 1.41-1.41L9 10.18l4.59-4.59L15 7l-6 6z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-slate-300">
+                            Vos informations de paiement sont sécurisées. Nous utilisons un cryptage SSL 256-bits pour protéger vos données.
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
