@@ -43,5 +43,13 @@ class FlightController extends Controller
         ], 201);
     }
 
-  
+      /**
+     * Afficher les détails d'un vol spécifique.
+     */
+    public function show($id)
+    {
+        $flight = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->findOrFail($id);
+        return response()->json($flight);
+    }
+
 }
