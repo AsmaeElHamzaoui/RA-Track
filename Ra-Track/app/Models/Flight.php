@@ -22,6 +22,15 @@ class Flight extends Model
         'first_class_price',       // Prix classe première
     ];
 
+     /**
+     * Relation N:1 avec l'entité Plane
+     * Un vol est affecté à un avion.
+     */
+    public function plane()
+    {
+        return $this->belongsTo(Plane::class, 'plane_id');
+    }
+
    
     
 }
