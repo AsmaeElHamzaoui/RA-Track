@@ -408,7 +408,257 @@
     
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const contentSections = document.querySelectorAll('.content-section');
+    const mainTitle = document.getElementById('main-title');
+    const liveMapSection = document.getElementById('live-map-section'); // Pour le cacher hors Dashboard
 
+    // Modals et boutons
+    const flightModal = document.getElementById('flight-modal');
+    const userModal = document.getElementById('user-modal');
+    const openAddFlightButton = document.getElementById('open-add-flight-modal');
+    const openAddUserButton = document.getElementById('open-add-user-modal');
+    const closeModalButtons = document.querySelectorAll('.close-modal');
+
+    // --- Gestion de la navigation par section ---
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const targetId = link.id.replace('nav-', '') + '-content'; // e.g., 'flights-content'
+            const targetTitle = link.querySelector('span').textContent;
+
+            // Cacher toutes les sections
+            contentSections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Afficher la section cible
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                mainTitle.textContent = targetTitle; // Mettre à jour le titre principal
+
+                 // Cacher/Afficher la carte Live Map (seulement sur le dashboard)
+                if (targetId === 'dashboard-content') {
+                    if (liveMapSection) liveMapSection.classList.remove('hidden');
+                } else {
+                    // Pour le dashboard, la carte est dans sa propre section, pas besoin de la cacher ici
+                    // Pour les autres sections, la carte n'est pas affichée par défaut
+                }
+
+                // Initialiser les graphiques si on est dans la section Stats
+                if (targetId === 'stats-content') {
+                    initializeCharts();
+                }
+
+            } else if (link.id === 'nav-live') { // Cas spécial pour "Suivi en Direct" qui pointe vers le dashboard
+                 const dashboardSection = document.getElementById('dashboard-content');
+                 if(dashboardSection) dashboardSection.classList.remove('hidden');
+                 mainTitle.textContent = "Tableau de Bord"; // Ou "Suivi en Direct" si vous préférez
+                 if (liveMapSection) liveMapSection.classList.remove('hidden');
+            }
+
+            // Mettre à jour le style actif du lien sidebar
+            sidebarLinks.forEach(s_link => s_link.classList.remove('active', 'bg-navy-light', 'text-white')); // Retire toutes les classes actives
+            sidebarLinks.forEach(s_link => { // Remet les classes par défaut si besoin (non nécessaire avec remove/add)
+                 if (!s_link.classList.contains('active')) {
+                     s_link.classList.add('text-gray-400');
+                 }
+            });
+            link.classList.add('active', 'bg-navy-light', 'text-white'); // Ajoute les classes actives au lien cliqué
+            link.classList.remove('text-gray-400');
+
+        });
+    });
+
+    // --- Gestion des Modals ---
+    function openModal(modalElement) {
+        if (modalElement) {
+            modalElement.classList.remove('hidden');
+            modalElement.classList.add('flex'); // Utiliser flex pour centrer
+        }
+    }
+
+    function closeModal(modalElement) {
+         if (modalElement) {
+            modalElement.classList.add('hidden');
+            modalElement.classList.remove('flex');
+        }
+    }
+
+    if (openAddFlightButton) {
+        openAddFlightButton.addEventListener('click', () => {
+            // Optionnel: Réinitialiser le formulaire/titre avant d'ouvrir
+            document.getElementById('flight-modal-title').textContent = 'Ajouter un Vol';
+            document.getElementById('flight-form').reset();
+            openModal(flightModal);
+        });
+    }
+
+    if (openAddUserButton) {
+         openAddUserButton.addEventListener('click', () => {
+             document.getElementById('user-modal-title').textContent = 'Ajouter un Utilisateur';
+            document.getElementById('user-form').reset();
+            openModal(userModal);
+        });
+    }
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Trouve le modal parent le plus proche et le ferme
+            const modalToClose = button.closest('#flight-modal, #user-modal');
+            closeModal(modalToClose);
+        });
+    });
+
+    // Fermer le modal en cliquant sur le fond (backdrop)
+    [flightModal, userModal].forEach(modal => {
+        if(modal) {
+            modal.addEventListener('click', (event) => {
+                // Si le clic est directement sur le backdrop (pas sur le contenu du modal)
+                if (event.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+
+    // Logique pour les boutons Modifier/Supprimer (Placeholder)
+    document.querySelectorAll('#flights-content table button[title="Modifier"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 1. Récupérer les données du vol (depuis la ligne du tableau ou via un ID)
+            console.log("Modifier vol cliqué");
+            // 2. Pré-remplir le formulaire du modal
+            document.getElementById('flight-modal-title').textContent = 'Modifier le Vol';
+            // ... remplir les champs ...
+             document.getElementById('flight_number').value = "BA456"; // Exemple
+             // ... autres champs ...
+            // 3. Ouvrir le modal
+            openModal(flightModal);
+        });
+    });
+     document.querySelectorAll('#flights-content table button[title="Supprimer"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce vol ?')) {
+                // Logique de suppression (ex: appel API)
+                console.log("Supprimer vol cliqué");
+                 // Optionnel: supprimer la ligne du tableau
+                 btn.closest('tr').remove();
+            }
+        });
+    });
+    // Faire de même pour les boutons Utilisateurs...
+
+    // --- Initialisation des Graphiques Chart.js ---
+    let flightStatusChartInstance = null;
+    let monthlyFlightsChartInstance = null;
+
+    function initializeCharts() {
+        const flightStatusCtx = document.getElementById('flightStatusChart')?.getContext('2d');
+        const monthlyFlightsCtx = document.getElementById('monthlyFlightsChart')?.getContext('2d');
+
+        // Détruire les instances précédentes si elles existent pour éviter les doublons
+        if (flightStatusChartInstance) flightStatusChartInstance.destroy();
+        if (monthlyFlightsChartInstance) monthlyFlightsChartInstance.destroy();
+
+        // Exemple de données (à remplacer par des données réelles)
+        const flightStatusData = {
+            labels: ['En vol', 'Programmé', 'Arrivé', 'Retardé', 'Annulé'],
+            datasets: [{
+                label: 'Statut des Vols',
+                data: [247, 150, 800, 8, 2],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.7)', // Bleu
+                    'rgba(255, 206, 86, 0.7)', // Jaune
+                    'rgba(75, 192, 192, 0.7)', // Vert Cyan
+                    'rgba(255, 99, 132, 0.7)',  // Rouge
+                    'rgba(153, 102, 255, 0.7)' // Violet
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const monthlyFlightsData = {
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'], // Exemple derniers 6 mois
+            datasets: [{
+                label: 'Vols par Mois',
+                data: [1100, 1050, 1200, 1150, 1258, 1300],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+
+        const chartOptions = {
+            maintainAspectRatio: false, // Important pour que le canvas respecte la taille du div parent
+             plugins: {
+                legend: {
+                    labels: {
+                        color: '#cbd5e1' // Couleur du texte de la légende (gris clair Tailwind)
+                    }
+                }
+            },
+            scales: { // Nécessaire pour les graphiques linéaires/barres
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#cbd5e1' }, // Couleur axe Y
+                    grid: { color: 'rgba(203, 213, 225, 0.2)' } // Couleur grille Y
+                },
+                x: {
+                    ticks: { color: '#cbd5e1' }, // Couleur axe X
+                    grid: { color: 'rgba(203, 213, 225, 0.2)' } // Couleur grille X
+                }
+            }
+        };
+         const pieChartOptions = { // Options spécifiques pour Pie/Doughnut si besoin
+            maintainAspectRatio: false,
+             plugins: {
+                legend: {
+                    position: 'bottom', // Mettre la légende en bas pour les pie charts
+                    labels: {
+                        color: '#cbd5e1'
+                    }
+                }
+            }
+        };
+
+
+        if (flightStatusCtx) {
+            flightStatusChartInstance = new Chart(flightStatusCtx, {
+                type: 'doughnut', // Ou 'pie'
+                data: flightStatusData,
+                options: pieChartOptions
+            });
+        }
+
+        if (monthlyFlightsCtx) {
+            monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, {
+                type: 'line',
+                data: monthlyFlightsData,
+                options: chartOptions
+            });
+        }
+    }
+
+     // Initialiser le dashboard au chargement
+     const initialSection = document.getElementById('dashboard-content');
+     if (initialSection) {
+        initialSection.classList.remove('hidden');
+        if (liveMapSection) liveMapSection.classList.remove('hidden'); // S'assurer que la carte est visible
+     }
+     // Pas besoin d'appeler initializeCharts() ici car le dashboard n'a pas de graphiques
+});
+</script>
 
 </body>
 </html>
