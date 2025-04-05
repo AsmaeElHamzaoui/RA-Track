@@ -8,5 +8,13 @@ use Illuminate\Http\Response;
 
 class AirportController extends Controller
 {
-   
+    /**
+     * Afficher la liste des aéroports.
+     */
+    public function index()
+    {
+        return response()->json(Airport::all(), Response::HTTP_OK);
+    }
+
+  
 }
