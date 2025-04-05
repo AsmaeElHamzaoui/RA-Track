@@ -152,6 +152,76 @@
    
     @include('layouts.footer')
 
+    <script>
+        // --- Leaflet Map Initialization ---
+
+        // Coordinates (Approximate)
+        const cdgCoords = [49.0097, 2.5479]; // Paris CDG
+        const jfkCoords = [40.6413, -73.7781]; // New York JFK
+        // Estimate current position (Manually placed for visual representation)
+        const planePosition = [48.5, -35]; // Slightly adjusted position
+        // Calculate approximate bearing from CDG towards JFK for initial rotation
+        // This is a rough estimate, true bearing changes along a great circle
+        const angleRad = Math.atan2(jfkCoords[1] - cdgCoords[1], jfkCoords[0] - cdgCoords[0]);
+        const angleDeg = angleRad * (180 / Math.PI);
+        const planeHeading = angleDeg + 90 ; // Adjusting based on SVG orientation and desired direction
+
+
+        // 1. Create Map Instance
+        const map = L.map('map', {
+            zoomControl: false // Optional: Hide default zoom controls if needed
+        }).setView([48, -30], 3.5); // Center roughly between Paris & NY, zoom level 3.5
+
+        // 2. Add Tile Layer (Using Esri World Imagery for colored satellite view)
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 18 // Esri might have different max zoom levels
+        }).addTo(map);
+
+
+        // 3. Define Airplane Icon using SVG
+        // Note: RotatedMarker plugin would be better for smooth rotation updates
+        const planeIcon = L.divIcon({
+            html: `<svg xmlns="http://www.w3.org/2000/svg" class="plane-svg-icon" style="transform: rotate(${planeHeading}deg);" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`,
+            className: 'dummy-transparent-bg', // Use this class to prevent default icon styling
+            iconSize: [24, 24], // Match the SVG size in CSS
+            iconAnchor: [12, 12] // Center the icon
+        });
+
+
+        // 4. Draw Curved Flight Path using Leaflet.curve
+        const pathCoords = [
+            'M', cdgCoords, // Move to start
+            'C', // Curve command
+                [52, -10], // Control point 1 (adjust for desired curve shape)
+                [45, -50], // Control point 2 (adjust for desired curve shape)
+                jfkCoords  // End point
+        ];
+
+        const flightPath = L.curve(pathCoords, {
+            color: '#F59E0B', // Tailwind yellow-500
+            weight: 2.5,       // Slightly thicker line
+            opacity: 0.8,
+        }).addTo(map);
+
+        // Fit map bounds to the path slightly zoomed out
+        map.fitBounds(flightPath.getBounds().pad(0.2)); // Add padding around bounds
+
+        // 5. Add Airplane Marker
+        const planeMarker = L.marker(planePosition, {
+             icon: planeIcon,
+             // rotationAngle: planeHeading, // Requires Leaflet.rotatedMarker
+             // rotationOrigin: 'center center' // Requires Leaflet.rotatedMarker
+            }).addTo(map);
+
+        // --- Optional: Basic animation placeholder ---
+        // To implement real-time updates, you would need:
+        // 1. An API providing current flight position and heading.
+        // 2. JavaScript `setInterval` or WebSocket connection to fetch updates.
+        // 3. Update marker position: `planeMarker.setLatLng([newLat, newLng]);`
+        // 4. Update marker rotation (ideally using RotatedMarker plugin or updating the divIcon's HTML style).
+
+    </script>
 
 </body>
 </html>
