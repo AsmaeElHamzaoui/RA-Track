@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('planes', function (Blueprint $table) {
-            $table->uuid('id')->primary();  // Unique identifier for the plane (UUID)
+            $table->id();  // Unique identifier for the plane (UUID)
             $table->string('registration')->unique();  // immatruculation
             $table->string('model'); // Model of the plane (e.g., Airbus A320)
             $table->string('manufacturer'); // Manufacturer of the plane (e.g., Airbus, Boeing)
