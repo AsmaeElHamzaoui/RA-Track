@@ -16,5 +16,21 @@ class AirportController extends Controller
         return response()->json(Airport::all(), Response::HTTP_OK);
     }
 
-  
+    
+      /**
+     * Stocker un nouvel aéroport.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'code_iata' => 'required|string|max:10|unique:airports',
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+        ]);
+
+        $airport = Airport::create($validated);
+        return response()->json($airport, Response::HTTP_CREATED);
+    }
+
+   
 }
