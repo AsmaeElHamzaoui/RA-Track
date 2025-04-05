@@ -79,5 +79,16 @@ class PlaneController extends Controller
         ]);
     }
 
-   
+    /**
+     * Supprimer un avion.
+     */
+    public function destroy($id)
+    {
+        $plane = Plane::findOrFail($id);
+        $plane->delete();
+
+        return response()->json([
+            'message' => 'Plane deleted successfully'
+        ]);
+    }
 }
