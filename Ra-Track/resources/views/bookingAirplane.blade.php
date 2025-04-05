@@ -243,6 +243,22 @@
     </div>
   </div>
 
+  <script>
+    // Initialiser la date à aujourd'hui
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      document.getElementById('flightDate').value = formattedDate;
+      
+      // Gérer le changement de prix
+      const priceRange = document.getElementById('priceRange');
+      const priceValue = document.getElementById('priceValue');
+      
+      priceRange.addEventListener('input', function() {
+        priceValue.textContent = this.value + '€';
+      });
+    });
+  </script>
   
 </body>
 </html>
