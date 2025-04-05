@@ -6,6 +6,25 @@
     <title>AirTrack - Paiement Sécurisé</title>
     <!-- Include Tailwind CSS via Play CDN (for easy setup) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if needed, e.g., for specific icon colors or tweaks */
+        body {
+            background-color: #111827; /* Tailwind's bg-gray-900 / slate-900 */
+        }
+        /* Style placeholder payment icons */
+        .payment-icon {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #1e293b; /* slate-800 */
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 24px; /* Adjust height as needed */
+        }
+    </style>
 </head>
 <body class="bg-slate-900 text-slate-200 font-sans antialiased">
 
