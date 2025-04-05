@@ -56,5 +56,12 @@ class AirportController extends Controller
         return response()->json($airport, Response::HTTP_OK);
     }
 
-   
+    /**
+     * Supprimer un aéroport.
+     */
+    public function destroy(Airport $airport)
+    {
+        $airport->delete();
+        return response()->json(['message' => 'Aéroport supprimé avec succès'], Response::HTTP_NO_CONTENT);
+    }
 }
