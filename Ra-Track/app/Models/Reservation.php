@@ -24,5 +24,14 @@ class Reservation extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Relation N:1 avec l'entité Flight
+     * Une réservation appartient à un vol.
+     */
+    public function flight()
+    {
+        return $this->belongsTo(Flight::class, 'flight_id');
+    }
+
     
 }
