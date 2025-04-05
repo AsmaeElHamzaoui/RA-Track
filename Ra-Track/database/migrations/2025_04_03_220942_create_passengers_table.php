@@ -11,7 +11,14 @@ class CreatePassengersTable extends Migration
      */
     public function up(): void
     {
-       
+        Schema::create('passengers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade'); // Clé étrangère vers la réservation
+            $table->string('name'); // Nom du passager
+            $table->integer('age')->nullable(); // Âge du passager
+            $table->string('gender')->nullable(); // Sexe du passager
+            $table->timestamps();
+        });
     }
 
     /**
