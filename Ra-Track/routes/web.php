@@ -50,4 +50,6 @@ Route::get('/pdfReceipt', function () {
     return view('pdfReceipt');
 });
 
-;
+Route::get('/dashboardAdmin', function () {
+    return view('dashboardAdmin');
+});
