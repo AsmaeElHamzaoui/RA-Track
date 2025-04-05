@@ -6,7 +6,26 @@
     <title>Billet Électronique</title>
     <!-- Tailwind CSS via Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <style>
+        /* Optional: Add custom base styles or specific tweaks */
+        body {
+            background-color: #e5e7eb; /* bg-gray-200 for contrast */
+            padding: 2rem; /* Add padding around the ticket */
+            font-family: sans-serif; /* Basic font */
+        }
+        /* Style for the small grid icon */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px; /* Adjust gap as needed */
+            width: 12px; /* Adjust size as needed */
+            height: 12px;
+        }
+        .icon-grid span {
+            background-color: currentColor; /* Use text color for squares */
+            border-radius: 1px; /* Slight rounding */
+        }
+    </style>
 </head>
 <body>
 
