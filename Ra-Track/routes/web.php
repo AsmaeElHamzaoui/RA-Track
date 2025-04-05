@@ -42,3 +42,7 @@ Route::get('/real-timeTracking', function () {
     return view('real-timeTracking');
 });
 
+Route::get('/payments', function () {
+    return view('payments');
+});
+
