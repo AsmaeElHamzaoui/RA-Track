@@ -16,7 +16,30 @@
          crossorigin=""></script>
     <!-- Include Leaflet.curve plugin -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet-curve@0.8.2/leaflet.curve.min.js"></script>
-
+    <style>
+        /* Set a dark background for the whole page */
+        body {
+            background-color: #111827; /* Equivalent to Tailwind's bg-gray-900 */
+        }
+        /* Optional: Remove default Leaflet icon background/border if using divIcon */
+        .dummy-transparent-bg {
+            background-color: transparent !important;
+            border: none !important;
+        }
+        /* Center the icon properly within its container if using divIcon */
+        .leaflet-marker-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+         /* Style for the airplane SVG icon directly */
+        .plane-svg-icon {
+            width: 24px; /* Control size */
+            height: 24px;
+            fill: #F59E0B; /* Tailwind yellow-500 */
+             /* Rotation is applied via inline style in JS */
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
