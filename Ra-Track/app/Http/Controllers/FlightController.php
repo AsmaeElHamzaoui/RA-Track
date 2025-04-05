@@ -81,5 +81,16 @@ class FlightController extends Controller
         ]);
     }
 
-    
+    /**
+     * Supprimer un vol.
+     */
+    public function destroy($id)
+    {
+        $flight = Flight::findOrFail($id);
+        $flight->delete();
+
+        return response()->json([
+            'message' => 'Flight deleted successfully'
+        ]);
+    }
 }
