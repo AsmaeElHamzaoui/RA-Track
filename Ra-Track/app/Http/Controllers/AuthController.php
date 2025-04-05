@@ -71,5 +71,15 @@ class AuthController extends Controller
         ], 200);
     }
 
-   
+    /**
+     * Déconnexion de l'utilisateur (révocation du token)
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'User logged out successfully'
+        ]);
+    }
 }
