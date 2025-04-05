@@ -46,3 +46,8 @@ Route::get('/payments', function () {
     return view('payments');
 });
 
+Route::get('/pdfReceipt', function () {
+    return view('pdfReceipt');
+});
+
+;
