@@ -22,6 +22,15 @@ class Plane extends Model
         'status',
     ];
 
-    
+    /**
+     * Relation 1:N avec l'entité Flight
+     * Un avion peut être lié à plusieurs vols.
+     */
+    public function flights()
+    {
+        return $this->hasMany(Flight::class, 'plane_id');
+    }
+
+   
 }
 
