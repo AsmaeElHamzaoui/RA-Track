@@ -16,4 +16,13 @@ class Passenger extends Model
         'gender',         // Sexe du passager
     ];
 
+    
+    /**
+     * Relation N:1 avec l'entité Reservation
+     * Un passager appartient à une réservation.
+     */
+    public function reservation()
+    {
+        return $this->belongsTo(Reservation::class, 'reservation_id');
+    }
 }
