@@ -31,6 +31,22 @@ class Flight extends Model
         return $this->belongsTo(Plane::class, 'plane_id');
     }
 
-   
+    /**
+     * Relation N:1 avec l'entité Airport (Aéroport de départ)
+     * Un vol part d'un aéroport de départ.
+     */
+    public function departureAirport()
+    {
+        return $this->belongsTo(Airport::class, 'departure_airport_id');
+    }
+
+    /**
+     * Relation N:1 avec l'entité Airport (Aéroport d'arrivée)
+     * Un vol arrive dans un aéroport d'arrivée.
+     */
+    public function arrivalAirport()
+    {
+        return $this->belongsTo(Airport::class, 'arrival_airport_id');
+    }
     
 }
