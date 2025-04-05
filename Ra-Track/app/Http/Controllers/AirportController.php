@@ -40,4 +40,21 @@ class AirportController extends Controller
         return response()->json($airport, Response::HTTP_OK);
     }
 
+    
+    /**
+     * Mettre à jour un aéroport existant.
+     */
+    public function update(Request $request, Airport $airport)
+    {
+        $validated = $request->validate([
+            'code_iata' => 'sometimes|string|max:10|unique:airports,code_iata,' . $airport->id,
+            'name' => 'sometimes|string|max:255',
+            'location' => 'sometimes|string|max:255',
+        ]);
+
+        $airport->update($validated);
+        return response()->json($airport, Response::HTTP_OK);
+    }
+
+   
 }
