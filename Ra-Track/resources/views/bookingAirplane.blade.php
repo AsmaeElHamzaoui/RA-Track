@@ -260,5 +260,64 @@
     });
   </script>
   
+  <script>
+    // Script pour initialiser le slider de prix (si tu le gardes)
+    document.addEventListener('DOMContentLoaded', function() {
+      const priceRange = document.getElementById('priceRange');
+      const priceValue = document.getElementById('priceValue');
+      if(priceRange && priceValue) {
+          priceValue.textContent = priceRange.value + '€';
+          priceRange.addEventListener('input', function() { priceValue.textContent = this.value + '€'; });
+      }
+
+      // --- JS POUR LIRE LES PARAMÈTRES URL ET REMPLIR LE FORMULAIRE ---
+      const params = new URLSearchParams(window.location.search);
+
+      // Récupérer les valeurs depuis les paramètres URL
+      const departure = params.get('departure');
+      const arrival = params.get('arrival');
+      const date = params.get('date');
+      const flightClass = params.get('class');
+      const adults = params.get('adults');
+      const children = params.get('children');
+
+      // Fonction sécurisée pour définir la valeur d'un champ
+      function setFieldValue(elementId, value) {
+          const element = document.getElementById(elementId);
+          // Vérifie si l'élément existe ET si la valeur n'est pas nulle/vide
+          if (element && value) {
+              element.value = value;
+          } else if (element) {
+             // Optionnel: laisser la valeur par défaut ou mettre une indication
+             // console.log(`Valeur manquante pour ${elementId}`);
+          } else {
+             console.error(`Élément avec ID '${elementId}' non trouvé.`);
+          }
+      }
+
+      // Appliquer les valeurs aux champs du formulaire de cette page
+      setFieldValue('booking-departure', departure);
+      setFieldValue('booking-arrival', arrival);
+      setFieldValue('booking-flightDate', date);
+      setFieldValue('booking-class', flightClass);
+      setFieldValue('booking-adults', adults);
+      setFieldValue('booking-children', children);
+
+      // Optionnel: Afficher un message de confirmation des critères
+      const resultsInfo = document.getElementById('flightResultsInfo');
+      if(resultsInfo && departure && arrival && date){
+          // Formatter la date pour l'affichage (simple)
+           let displayDate = date;
+           try {
+               displayDate = new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+           } catch (e) { /* Garder la date brute si le formatage échoue */ }
+
+          resultsInfo.innerHTML = `Affichage des vols pour : <strong>${departure}</strong> vers <strong>${arrival}</strong> le <strong>${displayDate}</strong>`;
+      } else if(resultsInfo) {
+          resultsInfo.textContent = "Veuillez spécifier vos critères de recherche.";
+      }
+
+    }); // Fin de DOMContentLoaded
+  </script>
 </body>
 </html>
