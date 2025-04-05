@@ -51,5 +51,33 @@ class PlaneController extends Controller
         return response()->json($plane);
     }
 
-  
+      /**
+     * Mettre à jour les informations d'un avion.
+     */
+    public function update(Request $request, $id)
+    {
+        $plane = Plane::findOrFail($id);
+
+        $request->validate([
+            'registration' => 'sometimes|string|unique:planes,registration,' . $id,
+            'model' => 'sometimes|string',
+            'manufacturer' => 'sometimes|string',
+            'airline_company' => 'sometimes|string',
+            'economy_class_capacity' => 'sometimes|integer|min:0',
+            'business_class_capacity' => 'sometimes|integer|min:0',
+            'first_class_capacity' => 'sometimes|integer|min:0',
+            'maximum_load' => 'sometimes|numeric|min:0',
+            'flight_range' => 'sometimes|numeric|min:0',
+            'status' => 'sometimes|string|in:active,inactive,maintenance',
+        ]);
+
+        $plane->update($request->all());
+
+        return response()->json([
+            'message' => 'Plane updated successfully',
+            'plane' => $plane
+        ]);
+    }
+
+   
 }
