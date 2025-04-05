@@ -32,5 +32,12 @@ class AirportController extends Controller
         return response()->json($airport, Response::HTTP_CREATED);
     }
 
-   
+    /**
+     * Afficher un aéroport spécifique.
+     */
+    public function show(Airport $airport)
+    {
+        return response()->json($airport, Response::HTTP_OK);
+    }
+
 }
