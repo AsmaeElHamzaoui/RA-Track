@@ -190,7 +190,53 @@
           </div>
         </div>
         
-        
+        <!-- Flight Results -->
+        <div class="md:col-span-3">
+          <div class="bg-darkblue-800 rounded-lg p-4 mb-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+              <div class="flex items-center mb-2 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                  <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path>
+                  <polygon points="12 15 17 21 7 21 12 15"></polygon>
+                </svg>
+                <div>
+                  <div class="font-medium">Air France</div>
+                  <div class="text-xs text-gray-400">AF1234</div>
+                </div>
+              </div>
+              <div class="text-xl font-bold">459€</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <div class="text-sm text-gray-400">Départ</div>
+                <div class="text-xl font-medium">08:00</div>
+                <div class="text-sm">Paris (CDG)</div>
+              </div>
+              
+              <div class="flex flex-col items-center justify-center">
+                <div class="text-xs text-gray-400">2h 15m</div>
+                <div class="w-full h-px bg-gray-700 my-2 relative">
+                  <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
+                  <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
+                </div>
+                <div class="text-xs text-gray-400">Direct</div>
+              </div>
+              
+              <div>
+                <div class="text-sm text-gray-400">Arrivée</div>
+                <div class="text-xl font-medium">10:15</div>
+                <div class="text-sm">Londres (LHR)</div>
+              </div>
+            </div>
+            
+            <div class="mt-4 flex justify-end">
+              <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-4 rounded text-sm transition">
+                Sélectionner
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       
 
