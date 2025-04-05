@@ -11,7 +11,14 @@ class CreatePaymentsTable extends Migration
      */
     public function up(): void
     {
-       
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade'); // Clé étrangère vers la réservation
+            $table->enum('payment_method', ['credit_card', 'paypal', 'bank_transfer', 'cash'])->default('credit_card'); // Méthode de paiement
+            $table->timestamp('payment_date')->nullable(); // Date du paiement
+            $table->string('transaction_id')->unique(); // Identifiant unique de la transaction
+            $table->timestamps();
+        });
     }
 
     /**
