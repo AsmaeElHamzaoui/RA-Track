@@ -74,7 +74,60 @@
             </div>
         </div>
 
-        
+        <!-- Seat, Class, Terminal -->
+        <div class="flex justify-between items-baseline mt-5 mb-4 text-sm">
+             <div>
+                <span class="text-xs text-gray-500 block">Siège</span>
+                <span class="font-medium">23A</span>
+            </div>
+             <div>
+                <span class="text-xs text-gray-500 block">Classe</span>
+                <span class="font-medium">Business</span>
+            </div>
+             <div class="text-right">
+                <span class="text-xs text-gray-500 block">Terminal</span>
+                <span class="font-medium">2F</span>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="border-gray-200 my-4">
+
+        <!-- Price & Details -->
+        <div class="mt-4">
+            <div class="flex justify-between items-center mb-3">
+                <div>
+                  <span class="text-xs text-gray-500 block">Prix Total</span>
+                  <span class="text-xl font-bold">1,250 €</span>
+                </div>
+                <!-- Paid Badge -->
+                <span class="inline-flex items-center bg-green-100 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Payé
+                </span>
+            </div>
+            <div class="space-y-1 text-sm text-gray-600">
+                <div class="flex items-center space-x-2">
+                    <!-- Baggage Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /> <!-- Simple arrow as placeholder -->
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z"/> <!-- Suitcase part -->
+                    </svg>
+                    <span>Bagage en soute : 23kg inclus</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <!-- Clock Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Embarquement : 09:30</span>
+                </div>
+            </div>
+        </div>
+
+       
 
     </div>
 
