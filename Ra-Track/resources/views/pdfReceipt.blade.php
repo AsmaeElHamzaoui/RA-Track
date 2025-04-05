@@ -41,6 +41,39 @@
             </svg>
         </div>
 
+        <!-- Passenger & Flight Number -->
+        <div class="flex justify-between items-baseline mb-5">
+            <div>
+                <span class="text-xs text-gray-500 block">Passager</span>
+                <span class="font-semibold text-base">M. Jean Dupont</span>
+            </div>
+             <div class="text-right">
+                <span class="text-xs text-gray-500 block">Numéro de vol</span>
+                <span class="font-semibold text-base">AF 1234</span>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="border-gray-200 my-4">
+
+        <!-- Departure & Arrival -->
+        <div class="flex justify-between items-center my-4">
+            <div class="text-left">
+                <span class="text-xs text-gray-500 block">Départ</span>
+                <span class="font-bold text-lg block">Paris (CDG)</span>
+                <span class="text-sm text-gray-700 block">10:30</span>
+                <span class="text-sm text-gray-700 block">23 Mars 2025</span>
+            </div>
+            <!-- Small Plane Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.789 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 16.571V11.5a1 1 0 112 0v5.071a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+            <div class="text-right">
+                 <span class="text-xs text-gray-500 block">Arrivée</span>
+                <span class="font-bold text-lg block">New York (JFK)</span>
+                <span class="text-sm text-gray-700 block">13:45</span>
+                 <span class="text-sm text-gray-700 block">23 Mars 2025</span>
+            </div>
+        </div>
+
         
 
     </div>
