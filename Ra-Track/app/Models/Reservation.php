@@ -9,5 +9,11 @@ class Reservation extends Model
 {
     use HasFactory;
 
-   
+    protected $fillable = [
+        'user_id', // Clé étrangère vers l'utilisateur
+        'flight_id', // Clé étrangère vers le vol
+        'class', // Classe choisie (économy, business, first)
+    ];
+
+  
 }
