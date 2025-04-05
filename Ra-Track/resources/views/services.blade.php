@@ -102,7 +102,72 @@
           </div>
         </div>
       </section>
+    
+      <!-- Tag & Catégories -->
+      <section class="top-section">
 
+        <div class="nature-travel-wrapper mx-10">
+          <div class="post-grid-item">
+            <img
+              src="https://storage.googleapis.com/bd-app-dev-375714.appspot.com/itineraries/0191f77d-dadd-7fbb-ab86-e964830c04f0/location729.jpg"
+              alt="Bali Bliss">
+            <div class="post-content">
+              <div class="post-category">Nature</div>
+              <h3 class="post-title">Bali Bliss: Serenity Amidst Rice Terraces and Waterfalls</h3>
+              <p class="post-description">Explore over a million flight options with our comprehensive search...</p>
+              <p class="post-author">by Limowide • Nov 20, 2023</p>
+              <a href="#" class="read-more">Read More >></a>
+
+            </div>
+          </div>
+          <div class="post-grid-item">
+            <img
+              src="https://www.the-travel-bunny.com/wp-content/uploads/2021/05/best-flight-infographic.jpg"
+              alt="Skyward Journeys">
+            <div class="post-content">
+              <div class="post-category">Travel</div>
+              <h3 class="post-title">Skyward Journeys: Insider Tips for Booking Flights</h3>
+              <p class="post-description">Explore over a million flight options with our comprehensive search...</p>
+              <p class="post-author">by Limowide • Nov 20, 2023</p>
+              <a href="#" class="read-more">Read More >></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="category-tags-container w-[400px]">
+          <div class="categories ">
+            <h2>Categories</h2>
+            <ul>
+              <li><a href="#">Travel</a> <span class="count">(08)</span></li>
+              <li><a href="#">Transportation</a> <span class="count">(09)</span></li>
+              <li><a href="#">Booking</a> <span class="count">(05)</span></li>
+              <li><a href="#">Travel Guide</a> <span class="count">(02)</span></li>
+              <li><a href="#">Airport Transfer</a> <span class="count">(12)</span></li>
+              <li><a href="#">Flight</a> <span class="count">(03)</span></li>
+              <li><a href="#">Nature</a> <span class="count">(10)</span></li>
+            </ul>
+          </div>
+
+          <div class="popular-tags">
+            <h2>Popular Tags</h2>
+            <div class="tags">
+              <a href="#" class="tag">blog</a>
+              <a href="#" class="tag">hotel</a>
+              <a href="#" class="tag">tourism</a>
+              <a href="#" class="tag">booking</a>
+              <a href="#" class="tag">event</a>
+              <a href="#" class="tag">summer</a>
+              <a href="#" class="tag">winter</a>
+              <a href="#" class="tag">travel</a>
+              <a href="#" class="tag">fun</a>
+              <a href="#" class="tag">flight</a>
+              <a href="#" class="tag">ticket</a>
+              <a href="#" class="tag">discount</a>
+            </div>
+          </div>
+        </div>
+      </section>
       
 
     </div>
