@@ -16,5 +16,13 @@ class Payment extends Model
         'transaction_id',  // Identifiant de la transaction
     ];
 
-    
+    /**
+     * Relation N:1 avec l'entité Reservation
+     * Un paiement appartient à une réservation.
+     */
+    public function reservation()
+    {
+        return $this->belongsTo(Reservation::class, 'reservation_id');
+    }
+
 }
