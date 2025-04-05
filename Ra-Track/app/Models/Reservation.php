@@ -33,5 +33,12 @@ class Reservation extends Model
         return $this->belongsTo(Flight::class, 'flight_id');
     }
 
-    
+    /**
+     * Relation 1:N avec l'entité Passenger
+     * Une réservation peut avoir plusieurs passagers.
+     */
+    public function passengers()
+    {
+        return $this->hasMany(Passenger::class, 'reservation_id');
+    }
 }
