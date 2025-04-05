@@ -25,7 +25,8 @@
     </script>
     <!-- Optional: Link compiled CSS -->
     <!-- <link href="./dist/output.css" rel="stylesheet"> -->
-    <style>
+
+<style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -58,11 +59,11 @@
         --tw-color-navy-light: #2A3F5F;
      }
 </style>
+
 </head>
 <body class="bg-navy text-gray-100">
 
 <div class="flex h-screen">
-
     <!-- Sidebar -->
     <aside class="w-64 bg-navy-dark flex-shrink-0 p-4 flex flex-col justify-between">
         <div>
@@ -87,12 +88,17 @@
                             <span>Gestion des Vols</span>
                         </a>
                     </li>
+                    <!-- ==================== NOUVEAU LIEN SIDEBAR AVIONS ==================== -->
                     <li class="mb-2">
-                        <a href="#" id="nav-flights" class="sidebar-link flex items-center space-x-3 p-2 rounded hover:bg-navy-light text-gray-400 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform -rotate-45"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>
-                            <span>Gestion des avions</span>
+                        <a href="#" id="nav-aircraft" class="sidebar-link flex items-center space-x-3 p-2 rounded hover:bg-navy-light text-gray-400 hover:text-white">
+                            <!-- Icône Avion (peut être changée si souhaité) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h17.5" />
+                            </svg>
+                            <span>Gestion des Avions</span>
                         </a>
                     </li>
+                    <!-- ==================== FIN NOUVEAU LIEN SIDEBAR AVIONS ==================== -->
                     <li class="mb-2">
                         <a href="#" id="nav-users" class="sidebar-link flex items-center space-x-3 p-2 rounded hover:bg-navy-light text-gray-400 hover:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
@@ -116,8 +122,8 @@
         </div>
     </aside>
 
-     <!-- Main Content -->
-     <main class="flex-1 bg-navy p-6 md:p-8 overflow-y-auto relative">
+    <!-- Main Content -->
+    <main class="flex-1 bg-navy p-6 md:p-8 overflow-y-auto relative">
          <!-- Header commun (peut être adapté par JS si besoin) -->
          <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
@@ -171,8 +177,8 @@
                 </div>
             </section>
 
-             <!-- Live Flight Map -->
-             <section id="live-map-section" class="bg-navy-light p-4 rounded-lg shadow-md mb-6">
+            <!-- Live Flight Map -->
+            <section id="live-map-section" class="bg-navy-light p-4 rounded-lg shadow-md mb-6">
                  <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold">Carte des Vols en Direct</h3>
                     <div class="flex space-x-2">
@@ -268,6 +274,68 @@
             </section>
         </div>
 
+        <!-- ==================== SECTION GESTION DES AVIONS ==================== -->
+        <div id="aircraft-content" class="content-section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">Gestion des Avions</h3>
+                <button id="open-add-aircraft-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                    Ajouter un Avion
+                </button>
+            </div>
+
+            <section class="bg-navy-light p-4 rounded-lg shadow-md">
+                <h4 class="text-lg font-semibold mb-4">Liste des Avions</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-gray-400 uppercase border-b border-gray-700">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Immatriculation</th>
+                                <th scope="col" class="px-4 py-3">Modèle</th>
+                                <th scope="col" class="px-4 py-3">Compagnie</th>
+                                <th scope="col" class="px-4 py-3">Statut</th>
+                                <th scope="col" class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Exemple de ligne - Remplacer par des données réelles -->
+                            <tr class="border-b border-gray-700 hover:bg-gray-700">
+                                <td class="px-4 py-3 font-medium whitespace-nowrap">F-GZXC</td>
+                                <td class="px-4 py-3">Airbus A320</td>
+                                <td class="px-4 py-3">Air France</td>
+                                <td class="px-4 py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-green-600 text-green-100">Actif</span></td>
+                                <td class="px-4 py-3 flex space-x-2">
+                                    <button class="text-yellow-400 hover:text-yellow-300" title="Modifier">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" title="Supprimer">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-700 hover:bg-gray-700">
+                                <td class="px-4 py-3 font-medium whitespace-nowrap">N732AA</td>
+                                <td class="px-4 py-3">Boeing 737-800</td>
+                                <td class="px-4 py-3">American Airlines</td>
+                                <td class="px-4 py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-600 text-yellow-100">En maintenance</span></td>
+                                <td class="px-4 py-3 flex space-x-2">
+                                    <button class="text-yellow-400 hover:text-yellow-300" title="Modifier">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-400" title="Supprimer">
+                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                             <!-- Ajouter d'autres lignes ici -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <!-- ==================== SECTION GESTION DES AVIONS ==================== -->
+
+
         <!-- ==================== Section Utilisateurs ==================== -->
         <div id="users-content" class="content-section hidden">
              <div class="flex justify-between items-center mb-6">
@@ -362,8 +430,8 @@
              </section>
         </div>
 
-
         <!-- ==================== MODALS ==================== -->
+
         <!-- Modal Ajouter/Modifier Vol -->
         <div id="flight-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
             <div class="bg-navy-light w-full max-w-lg p-6 rounded-lg shadow-xl m-4">
@@ -417,7 +485,9 @@
                 </form>
             </div>
         </div>
+
         
+
 
         <!-- Modal Ajouter/Modifier Utilisateur (Structure similaire au modal Vol) -->
         <div id="user-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
@@ -460,11 +530,8 @@
                 </form>
              </div>
         </div>
-        
 
     </main>
-
-    
 </div>
 
 <script>
@@ -477,8 +544,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modals et boutons
     const flightModal = document.getElementById('flight-modal');
     const userModal = document.getElementById('user-modal');
+    const aircraftModal = document.getElementById('aircraft-modal'); // NOUVEAU: Référence au modal avion
     const openAddFlightButton = document.getElementById('open-add-flight-modal');
     const openAddUserButton = document.getElementById('open-add-user-modal');
+    const openAddAircraftButton = document.getElementById('open-add-aircraft-modal'); // NOUVEAU: Référence au bouton ajouter avion
     const closeModalButtons = document.querySelectorAll('.close-modal');
 
     // --- Gestion de la navigation par section ---
@@ -486,7 +555,11 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
 
-            const targetId = link.id.replace('nav-', '') + '-content'; // e.g., 'flights-content'
+            // NOUVELLE GESTION DES ID (plus générique)
+            let targetId = '';
+            if (link.id.startsWith('nav-')) {
+                targetId = link.id.substring(4) + '-content'; // e.g., 'nav-flights' -> 'flights-content'
+            }
             const targetTitle = link.querySelector('span').textContent;
 
             // Cacher toutes les sections
@@ -501,12 +574,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainTitle.textContent = targetTitle; // Mettre à jour le titre principal
 
                  // Cacher/Afficher la carte Live Map (seulement sur le dashboard)
-                if (targetId === 'dashboard-content') {
-                    if (liveMapSection) liveMapSection.classList.remove('hidden');
-                } else {
-                    // Pour le dashboard, la carte est dans sa propre section, pas besoin de la cacher ici
-                    // Pour les autres sections, la carte n'est pas affichée par défaut
-                }
+                 // La carte est DANS la section dashboard, donc pas besoin de la gérer séparément ici
+                 // (le code original la cachait/montrait en plus de la section, ce qui n'est pas nécessaire)
+                 // if (liveMapSection) { // S'assurer que liveMapSection existe
+                 //    if (targetId === 'dashboard-content') {
+                 //       liveMapSection.classList.remove('hidden');
+                 //    } else {
+                 //       liveMapSection.classList.add('hidden');
+                 //    }
+                 // }
 
                 // Initialiser les graphiques si on est dans la section Stats
                 if (targetId === 'stats-content') {
@@ -517,12 +593,14 @@ document.addEventListener('DOMContentLoaded', () => {
                  const dashboardSection = document.getElementById('dashboard-content');
                  if(dashboardSection) dashboardSection.classList.remove('hidden');
                  mainTitle.textContent = "Tableau de Bord"; // Ou "Suivi en Direct" si vous préférez
-                 if (liveMapSection) liveMapSection.classList.remove('hidden');
+                 // if (liveMapSection) liveMapSection.classList.remove('hidden'); // La carte est dans dashboard-content
+            } else {
+                console.warn(`Section content not found for ID: ${targetId}`); // Aide au débogage
             }
 
             // Mettre à jour le style actif du lien sidebar
             sidebarLinks.forEach(s_link => s_link.classList.remove('active', 'bg-navy-light', 'text-white')); // Retire toutes les classes actives
-            sidebarLinks.forEach(s_link => { // Remet les classes par défaut si besoin (non nécessaire avec remove/add)
+            sidebarLinks.forEach(s_link => { // Remet les classes par défaut
                  if (!s_link.classList.contains('active')) {
                      s_link.classList.add('text-gray-400');
                  }
@@ -538,6 +616,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalElement) {
             modalElement.classList.remove('hidden');
             modalElement.classList.add('flex'); // Utiliser flex pour centrer
+        } else {
+            console.error("Tentative d'ouverture d'un modal non trouvé.");
         }
     }
 
@@ -545,18 +625,21 @@ document.addEventListener('DOMContentLoaded', () => {
          if (modalElement) {
             modalElement.classList.add('hidden');
             modalElement.classList.remove('flex');
+        } else {
+             console.error("Tentative de fermeture d'un modal non trouvé.");
         }
     }
 
+    // Bouton Ajouter Vol
     if (openAddFlightButton) {
         openAddFlightButton.addEventListener('click', () => {
-            // Optionnel: Réinitialiser le formulaire/titre avant d'ouvrir
             document.getElementById('flight-modal-title').textContent = 'Ajouter un Vol';
             document.getElementById('flight-form').reset();
             openModal(flightModal);
         });
     }
 
+    // Bouton Ajouter Utilisateur
     if (openAddUserButton) {
          openAddUserButton.addEventListener('click', () => {
              document.getElementById('user-modal-title').textContent = 'Ajouter un Utilisateur';
@@ -565,16 +648,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // NOUVEAU: Bouton Ajouter Avion
+    if (openAddAircraftButton) {
+         openAddAircraftButton.addEventListener('click', () => {
+             document.getElementById('aircraft-modal-title').textContent = 'Ajouter un Avion';
+            document.getElementById('aircraft-form').reset();
+            openModal(aircraftModal);
+        });
+    }
+
+    // Boutons Fermer Modal (commun à tous les modals)
     closeModalButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Trouve le modal parent le plus proche et le ferme
-            const modalToClose = button.closest('#flight-modal, #user-modal');
+            const modalToClose = button.closest('#flight-modal, #user-modal, #aircraft-modal'); // NOUVEAU: Ajout de #aircraft-modal
             closeModal(modalToClose);
         });
     });
 
     // Fermer le modal en cliquant sur le fond (backdrop)
-    [flightModal, userModal].forEach(modal => {
+    // NOUVEAU: Ajout de aircraftModal à la liste
+    [flightModal, userModal, aircraftModal].forEach(modal => {
         if(modal) {
             modal.addEventListener('click', (event) => {
                 // Si le clic est directement sur le backdrop (pas sur le contenu du modal)
@@ -585,31 +679,82 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Logique pour les boutons Modifier/Supprimer (Placeholder)
+    // --- Logique pour les boutons Modifier/Supprimer (Placeholders) ---
+
+    // >> Pour les Vols
     document.querySelectorAll('#flights-content table button[title="Modifier"]').forEach(btn => {
         btn.addEventListener('click', () => {
-            // 1. Récupérer les données du vol (depuis la ligne du tableau ou via un ID)
             console.log("Modifier vol cliqué");
-            // 2. Pré-remplir le formulaire du modal
             document.getElementById('flight-modal-title').textContent = 'Modifier le Vol';
-            // ... remplir les champs ...
-             document.getElementById('flight_number').value = "BA456"; // Exemple
-             // ... autres champs ...
-            // 3. Ouvrir le modal
+            // Simuler le pré-remplissage
+            const row = btn.closest('tr');
+            const cells = row.querySelectorAll('td');
+            if(cells.length >= 5) { // S'assurer qu'il y a assez de cellules
+                document.getElementById('flight_number').value = cells[0].textContent.trim();
+                document.getElementById('departure_airport').value = cells[1].textContent.trim();
+                document.getElementById('arrival_airport').value = cells[2].textContent.trim();
+                document.getElementById('airline').value = cells[3].textContent.trim();
+                // Pour le statut, il faudrait trouver l'option correspondante dans le select
+                // document.getElementById('status').value = 'Programmé'; // Exemple simple
+            }
             openModal(flightModal);
         });
     });
      document.querySelectorAll('#flights-content table button[title="Supprimer"]').forEach(btn => {
         btn.addEventListener('click', () => {
             if (confirm('Êtes-vous sûr de vouloir supprimer ce vol ?')) {
-                // Logique de suppression (ex: appel API)
                 console.log("Supprimer vol cliqué");
-                 // Optionnel: supprimer la ligne du tableau
                  btn.closest('tr').remove();
             }
         });
     });
-    // Faire de même pour les boutons Utilisateurs...
+
+    // >> NOUVEAU: Pour les Avions
+    document.querySelectorAll('#aircraft-content table button[title="Modifier"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            console.log("Modifier avion cliqué");
+            document.getElementById('aircraft-modal-title').textContent = 'Modifier l\'Avion';
+            // Simuler le pré-remplissage
+             const row = btn.closest('tr');
+            const cells = row.querySelectorAll('td');
+             if(cells.length >= 4) { // S'assurer qu'il y a assez de cellules
+                document.getElementById('aircraft_tail_number').value = cells[0].textContent.trim();
+                document.getElementById('aircraft_model').value = cells[1].textContent.trim();
+                document.getElementById('aircraft_operator').value = cells[2].textContent.trim();
+                // Pour le statut (badge -> select value)
+                const statusText = cells[3].querySelector('span').textContent.trim();
+                document.getElementById('aircraft_status').value = statusText; // Fonctionne si le textContent correspond à la value
+             }
+            openModal(aircraftModal);
+        });
+    });
+     document.querySelectorAll('#aircraft-content table button[title="Supprimer"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet avion ?')) {
+                console.log("Supprimer avion cliqué");
+                 btn.closest('tr').remove();
+            }
+        });
+    });
+
+     // >> Pour les Utilisateurs (existant, juste pour la complétude)
+    document.querySelectorAll('#users-content table button[title="Modifier"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            console.log("Modifier utilisateur cliqué");
+            document.getElementById('user-modal-title').textContent = 'Modifier l\'Utilisateur';
+            // Pré-remplir le formulaire utilisateur...
+            openModal(userModal);
+        });
+    });
+     document.querySelectorAll('#users-content table button[title="Supprimer"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+                console.log("Supprimer utilisateur cliqué");
+                btn.closest('tr').remove();
+            }
+        });
+    });
+
 
     // --- Initialisation des Graphiques Chart.js ---
     let flightStatusChartInstance = null;
@@ -619,14 +764,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const flightStatusCtx = document.getElementById('flightStatusChart')?.getContext('2d');
         const monthlyFlightsCtx = document.getElementById('monthlyFlightsChart')?.getContext('2d');
 
-        // Détruire les instances précédentes si elles existent pour éviter les doublons
         if (flightStatusChartInstance) flightStatusChartInstance.destroy();
         if (monthlyFlightsChartInstance) monthlyFlightsChartInstance.destroy();
 
-        // Exemple de données (à remplacer par des données réelles)
-        const flightStatusData = {
-            labels: ['En vol', 'Programmé', 'Arrivé', 'Retardé', 'Annulé'],
-            datasets: [{
+        const flightStatusData = { /* ... données ... */
+             labels: ['En vol', 'Programmé', 'Arrivé', 'Retardé', 'Annulé'],
+             datasets: [{ /* ... dataset ... */
                 label: 'Statut des Vols',
                 data: [247, 150, 800, 8, 2],
                 backgroundColor: [
@@ -636,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'rgba(255, 99, 132, 0.7)',  // Rouge
                     'rgba(153, 102, 255, 0.7)' // Violet
                 ],
-                borderColor: [
+                borderColor: [ /* ... borders ... */
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
@@ -646,10 +789,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 borderWidth: 1
             }]
         };
-
-        const monthlyFlightsData = {
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'], // Exemple derniers 6 mois
-            datasets: [{
+        const monthlyFlightsData = { /* ... données ... */
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+            datasets: [{ /* ... dataset ... */
                 label: 'Vols par Mois',
                 data: [1100, 1050, 1200, 1150, 1258, 1300],
                 fill: false,
@@ -657,65 +799,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 tension: 0.1
             }]
         };
-
-        const chartOptions = {
-            maintainAspectRatio: false, // Important pour que le canvas respecte la taille du div parent
-             plugins: {
-                legend: {
-                    labels: {
-                        color: '#cbd5e1' // Couleur du texte de la légende (gris clair Tailwind)
-                    }
-                }
-            },
-            scales: { // Nécessaire pour les graphiques linéaires/barres
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: '#cbd5e1' }, // Couleur axe Y
-                    grid: { color: 'rgba(203, 213, 225, 0.2)' } // Couleur grille Y
-                },
-                x: {
-                    ticks: { color: '#cbd5e1' }, // Couleur axe X
-                    grid: { color: 'rgba(203, 213, 225, 0.2)' } // Couleur grille X
-                }
-            }
-        };
-         const pieChartOptions = { // Options spécifiques pour Pie/Doughnut si besoin
+        const chartOptions = { /* ... options ... */
             maintainAspectRatio: false,
-             plugins: {
-                legend: {
-                    position: 'bottom', // Mettre la légende en bas pour les pie charts
-                    labels: {
-                        color: '#cbd5e1'
-                    }
-                }
+             plugins: { legend: { labels: { color: '#cbd5e1' } } },
+            scales: {
+                y: { beginAtZero: true, ticks: { color: '#cbd5e1' }, grid: { color: 'rgba(203, 213, 225, 0.2)' } },
+                x: { ticks: { color: '#cbd5e1' }, grid: { color: 'rgba(203, 213, 225, 0.2)' } }
             }
         };
-
+        const pieChartOptions = { /* ... options ... */
+             maintainAspectRatio: false,
+             plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } }
+        };
 
         if (flightStatusCtx) {
-            flightStatusChartInstance = new Chart(flightStatusCtx, {
-                type: 'doughnut', // Ou 'pie'
-                data: flightStatusData,
-                options: pieChartOptions
-            });
+            flightStatusChartInstance = new Chart(flightStatusCtx, { type: 'doughnut', data: flightStatusData, options: pieChartOptions });
         }
-
         if (monthlyFlightsCtx) {
-            monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, {
-                type: 'line',
-                data: monthlyFlightsData,
-                options: chartOptions
-            });
+            monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, { type: 'line', data: monthlyFlightsData, options: chartOptions });
         }
     }
 
      // Initialiser le dashboard au chargement
-     const initialSection = document.getElementById('dashboard-content');
-     if (initialSection) {
-        initialSection.classList.remove('hidden');
-        if (liveMapSection) liveMapSection.classList.remove('hidden'); // S'assurer que la carte est visible
+     const initialLink = document.querySelector('.sidebar-link.active'); // Trouver le lien actif initial
+     if (initialLink) {
+         initialLink.click(); // Simuler un clic pour afficher la section initiale et définir le titre
+     } else { // Fallback si aucun lien n'est actif par défaut
+        const dashboardSection = document.getElementById('dashboard-content');
+        if (dashboardSection) {
+            dashboardSection.classList.remove('hidden');
+            mainTitle.textContent = "Tableau de Bord";
+        }
      }
-     // Pas besoin d'appeler initializeCharts() ici car le dashboard n'a pas de graphiques
+
 });
 </script>
 
