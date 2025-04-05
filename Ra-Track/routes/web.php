@@ -33,3 +33,8 @@ Route::get('/login', function () {
     return view('login');
 });
 
+
+Route::get('/bookingAirplane', function () {
+    return view('bookingAirplane');
+});
+
