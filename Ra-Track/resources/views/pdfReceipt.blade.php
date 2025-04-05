@@ -32,6 +32,15 @@
             </div>
         </div>
 
+        <!-- QR Code -->
+        <div class="flex justify-center my-8">
+            <!-- Placeholder QR Code SVG -->
+            <svg class="w-32 h-32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#FFFFFF"/>
+              <path fill="#000000" d="M0 0 H30 V30 H0 Z M70 0 H100 V30 H70 Z M0 70 H30 V100 H0 Z M10 10 H20 V20 H10 Z M80 10 H90 V20 H80 Z M10 80 H20 V90 H10 Z M40 0 H60 V10 H40 Z M0 40 H10 V60 H0 Z M40 40 H60 V60 H40 Z M70 40 H80 V50 H70 Z M90 40 H100 V50 H90 Z M40 70 H50 V80 H40 Z M60 70 H70 V80 H60 Z M80 70 H100 V90 H80 Z M40 90 H60 V100 H40 Z M70 90 H80 V100 H70 Z M15 35 h10 v10 h-10 z m10 10 h10 v10 H25 z m10 0 h10 v10 H35 z M15 55 h10 v10 h-10 z M35 55 h10 v10 h-10 z M55 15 h10 v10 H55 z M35 25 h10 v10 H35 z M45 35 h10 v10 H45 z m10 0 h10 v10 H55 z M65 25 h10 v10 H65 z M55 55 h10 v10 H55 z m10 0 h10 v10 H65 z M75 55 h10 v10 H75 z M85 55 h10 v10 H85 z M55 75 h10 v10 H55 z M45 85 h10 v10 H45 z M65 85 h10 v10 H65 z m10 0 h10 v10 H75 z"/>
+            </svg>
+        </div>
+
         
 
     </div>
