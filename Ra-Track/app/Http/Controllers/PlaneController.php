@@ -42,5 +42,14 @@ class PlaneController extends Controller
         ], 201);
     }
 
+    /**
+     * Afficher les détails d'un avion spécifique.
+     */
+    public function show($id)
+    {
+        $plane = Plane::with('flights', 'flightTrackings')->findOrFail($id);
+        return response()->json($plane);
+    }
+
   
 }
