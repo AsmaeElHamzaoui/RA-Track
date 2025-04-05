@@ -130,7 +130,68 @@
       </div>
 
    
-
+     <!-- Results Section -->
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- Filters -->
+        <div class="bg-darkblue-800 rounded-lg p-4">
+          <h2 class="font-bold mb-4">Filtres</h2>
+          
+          <div class="mb-4">
+            <label class="block text-sm text-gray-400 mb-1">Prix maximum</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="1000" 
+              step="10"
+              value="50"
+              id="priceRange"
+              class="w-full"
+            />
+            <div class="flex justify-between text-sm text-gray-400">
+              <span>0€</span>
+              <span id="priceValue">50€</span>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <h3 class="text-sm font-medium mb-2">Heure de départ</h3>
+            <div class="space-y-2 text-sm">
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" />
+                <span>Matin (6h-12h)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" />
+                <span>Après-midi (12h-18h)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" />
+                <span>Soir (18h-00h)</span>
+              </label>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-sm font-medium mb-2">Compagnies</h3>
+            <div class="space-y-2 text-sm">
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" checked />
+                <span>Air France</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" />
+                <span>KLM</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2" />
+                <span>Lufthansa</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
       
 
     </div>
