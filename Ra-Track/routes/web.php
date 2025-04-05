@@ -38,3 +38,7 @@ Route::get('/bookingAirplane', function () {
     return view('bookingAirplane');
 });
 
+Route::get('/real-timeTracking', function () {
+    return view('real-timeTracking');
+});
+
