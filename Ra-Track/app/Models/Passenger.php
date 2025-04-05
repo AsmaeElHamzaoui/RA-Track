@@ -9,5 +9,11 @@ class Passenger extends Model
 {
     use HasFactory;
 
-   
+    protected $fillable = [
+        'reservation_id', // Clé étrangère vers la réservation
+        'name',           // Nom du passager
+        'age',            // Âge du passager
+        'gender',         // Sexe du passager
+    ];
+
 }
