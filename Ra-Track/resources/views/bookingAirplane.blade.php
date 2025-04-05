@@ -243,6 +243,8 @@
     </div>
   </div>
 
+  @include('layouts.footer')
+
   <script>
     // Initialiser la date à aujourd'hui
     document.addEventListener('DOMContentLoaded', function() {
