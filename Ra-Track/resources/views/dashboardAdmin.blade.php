@@ -283,7 +283,24 @@
                  </div>
              </section>
 
-             
+             <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                 <!-- Graphique 1: Vols par Statut -->
+                <div class="bg-navy-light p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold mb-3">Répartition des Statuts de Vol</h4>
+                    <div class="h-64"> <!-- Hauteur fixe pour le canvas -->
+                         <canvas id="flightStatusChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Graphique 2: Vols par Mois -->
+                <div class="bg-navy-light p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold mb-3">Nombre de Vols par Mois</h4>
+                     <div class="h-64">
+                        <canvas id="monthlyFlightsChart"></canvas>
+                    </div>
+                </div>
+                <!-- Ajouter d'autres graphiques ou stats ici -->
+             </section>
         </div>
 
         
