@@ -69,5 +69,37 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
+<script>
+    $(document).ready(function() {
+        $('#aircraft-form').on('submit', function(e) {
+            e.preventDefault(); // Empêche la soumission normale du formulaire
 
+            // Récupérer les données du formulaire
+            var formData = new FormData(this);
+
+            // Effectuer la requête AJAX
+            $.ajax({
+                url: '/api/planes', // URL de l'API
+                type: 'POST',
+                data: formData,
+                processData: false, // Ne pas traiter les données
+                contentType: false, // Ne pas définir le contentType
+                success: function(response) {
+                    // En cas de succès, fermer la modale et afficher un message
+                    alert(response.message); // Afficher un message de succès
+                    $('#aircraft-modal').addClass('hidden'); // Fermer la modale
+                },
+                error: function(xhr, status, error) {
+                    // En cas d'erreur, afficher un message d'erreur
+                    alert('Erreur : ' + xhr.responseJSON.message);
+                }
+            });
+        });
+
+        // Pour fermer la modale si le bouton "annuler" est cliqué
+        $('.close-modal').on('click', function() {
+            $('#aircraft-modal').addClass('hidden');
+        });
+    });
+</script>
 
