@@ -83,6 +83,17 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <!-- ==================== NOUVEAU LIEN SIDEBAR AÉROPORTS ==================== -->
+                    <li class="mb-2">
+                        <a href="#" id="nav-airports" class="sidebar-link flex items-center space-x-3 p-2 rounded hover:bg-navy-light text-gray-400 hover:text-white">
+                            <!-- Icône Aéroport (Exemple: Bâtiment ou Tour) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M8.25 21h7.5M12 3v18m0 0v-6.75m0 6.75H9.75m2.25 0h2.25m-2.25 0V12m0 9V9.75M12 9.75h-2.25m2.25 0h2.25M12 9.75V6m0 3.75v-1.5m0 1.5V3" />
+                            </svg>
+                            <span>Gestion des Aéroports</span>
+                        </a>
+                    </li>
+                    <!-- ==================== FIN NOUVEAU LIEN SIDEBAR AÉROPORTS ==================== -->
                     <li class="mb-2">
                         <a href="#" id="nav-flights" class="sidebar-link flex items-center space-x-3 p-2 rounded hover:bg-navy-light text-gray-400 hover:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform -rotate-45"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>
@@ -148,6 +159,8 @@
         <!-- ==================== Section Dashboard ==================== -->
         @include('components.Dashboard')
 
+        <!-- ==================== SECTION GESTION DES AÉROPORTS ==================== -->
+        <!-- @include('components.airport') -->
 
         <!-- ==================== Section Gestion des Vols ==================== -->
         @include('components.Flight')
@@ -163,6 +176,9 @@
         @include('components.statistics')
 
         <!-- ==================== MODALS ==================== -->
+
+        <!-- ==================== MODAL AÉROPORT ==================== -->
+        <!-- @include('modals.airport') -->
 
         <!-- Modal Ajouter/Modifier Vol -->
         @include('modals.flight')
@@ -183,15 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebarLinks = document.querySelectorAll('.sidebar-link');
     const contentSections = document.querySelectorAll('.content-section');
     const mainTitle = document.getElementById('main-title');
-    const liveMapSection = document.getElementById('live-map-section'); // Pour le cacher hors Dashboard
+    // const liveMapSection = document.getElementById('live-map-section'); // Commenté car la carte est dans dashboard-content
 
     // Modals et boutons
     const flightModal = document.getElementById('flight-modal');
     const userModal = document.getElementById('user-modal');
-    const aircraftModal = document.getElementById('aircraft-modal'); // NOUVEAU: Référence au modal avion
+    const aircraftModal = document.getElementById('aircraft-modal');
+    const airportModal = document.getElementById('airport-modal'); // NOUVEAU: Référence au modal aéroport
     const openAddFlightButton = document.getElementById('open-add-flight-modal');
     const openAddUserButton = document.getElementById('open-add-user-modal');
-    const openAddAircraftButton = document.getElementById('open-add-aircraft-modal'); // NOUVEAU: Référence au bouton ajouter avion
+    const openAddAircraftButton = document.getElementById('open-add-aircraft-modal');
+    const openAddAirportButton = document.getElementById('open-add-airport-modal'); // NOUVEAU: Référence au bouton ajouter aéroport
     const closeModalButtons = document.querySelectorAll('.close-modal');
 
     // --- Gestion de la navigation par section ---
@@ -199,12 +217,24 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
 
-            // NOUVELLE GESTION DES ID (plus générique)
+            // Gestion des ID plus robuste
             let targetId = '';
+            let targetTitle = "Tableau de Bord"; // Default title
+
             if (link.id.startsWith('nav-')) {
-                targetId = link.id.substring(4) + '-content'; // e.g., 'nav-flights' -> 'flights-content'
+                const sectionName = link.id.substring(4); // e.g., 'dashboard', 'flights', 'airports'
+                 if (sectionName === 'live') {
+                     targetId = 'dashboard-content'; // "Suivi en direct" pointe vers le dashboard
+                 } else {
+                     targetId = sectionName + '-content'; // e.g., 'flights-content', 'airports-content'
+                 }
             }
-            const targetTitle = link.querySelector('span').textContent;
+             // Utilise textContent du span pour le titre, plus fiable
+            const span = link.querySelector('span');
+            if (span) {
+                targetTitle = span.textContent;
+            }
+
 
             // Cacher toutes les sections
             contentSections.forEach(section => {
@@ -217,39 +247,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetSection.classList.remove('hidden');
                 mainTitle.textContent = targetTitle; // Mettre à jour le titre principal
 
-                 // Cacher/Afficher la carte Live Map (seulement sur le dashboard)
-                 // La carte est DANS la section dashboard, donc pas besoin de la gérer séparément ici
-                 // (le code original la cachait/montrait en plus de la section, ce qui n'est pas nécessaire)
-                 // if (liveMapSection) { // S'assurer que liveMapSection existe
-                 //    if (targetId === 'dashboard-content') {
-                 //       liveMapSection.classList.remove('hidden');
-                 //    } else {
-                 //       liveMapSection.classList.add('hidden');
-                 //    }
-                 // }
-
                 // Initialiser les graphiques si on est dans la section Stats
                 if (targetId === 'stats-content') {
                     initializeCharts();
                 }
 
-            } else if (link.id === 'nav-live') { // Cas spécial pour "Suivi en Direct" qui pointe vers le dashboard
-                 const dashboardSection = document.getElementById('dashboard-content');
-                 if(dashboardSection) dashboardSection.classList.remove('hidden');
-                 mainTitle.textContent = "Tableau de Bord"; // Ou "Suivi en Direct" si vous préférez
-                 // if (liveMapSection) liveMapSection.classList.remove('hidden'); // La carte est dans dashboard-content
             } else {
-                console.warn(`Section content not found for ID: ${targetId}`); // Aide au débogage
+                // Fallback ou avertissement si la section n'est pas trouvée
+                if (targetId !== 'dashboard-content') { // Ne pas avertir pour 'live' si dashboard est manquant
+                    console.warn(`Section content not found for ID: ${targetId}`);
+                }
+                // Essayer d'afficher le dashboard par défaut si la cible est manquante
+                const dashboardSection = document.getElementById('dashboard-content');
+                if(dashboardSection) {
+                    dashboardSection.classList.remove('hidden');
+                    mainTitle.textContent = "Tableau de Bord";
+                } else {
+                    console.error("Fallback dashboard section not found.");
+                }
             }
 
             // Mettre à jour le style actif du lien sidebar
-            sidebarLinks.forEach(s_link => s_link.classList.remove('active', 'bg-navy-light', 'text-white')); // Retire toutes les classes actives
-            sidebarLinks.forEach(s_link => { // Remet les classes par défaut
+            sidebarLinks.forEach(s_link => s_link.classList.remove('active', 'bg-navy-light', 'text-white'));
+            sidebarLinks.forEach(s_link => {
                  if (!s_link.classList.contains('active')) {
                      s_link.classList.add('text-gray-400');
                  }
             });
-            link.classList.add('active', 'bg-navy-light', 'text-white'); // Ajoute les classes actives au lien cliqué
+            link.classList.add('active', 'bg-navy-light', 'text-white');
             link.classList.remove('text-gray-400');
 
         });
@@ -277,8 +302,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Ajouter Vol
     if (openAddFlightButton) {
         openAddFlightButton.addEventListener('click', () => {
-            document.getElementById('flight-modal-title').textContent = 'Ajouter un Vol';
-            document.getElementById('flight-form').reset();
+            const modalTitle = document.getElementById('flight-modal-title');
+            const form = document.getElementById('flight-form');
+            if(modalTitle) modalTitle.textContent = 'Ajouter un Vol';
+            if(form) form.reset();
+            // Clear potential hidden ID field if used for editing
+            const flightIdInput = document.getElementById('flight_id');
+            if(flightIdInput) flightIdInput.value = '';
             openModal(flightModal);
         });
     }
@@ -286,33 +316,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Ajouter Utilisateur
     if (openAddUserButton) {
          openAddUserButton.addEventListener('click', () => {
-             document.getElementById('user-modal-title').textContent = 'Ajouter un Utilisateur';
-            document.getElementById('user-form').reset();
-            openModal(userModal);
+             const modalTitle = document.getElementById('user-modal-title');
+             const form = document.getElementById('user-form');
+             if(modalTitle) modalTitle.textContent = 'Ajouter un Utilisateur';
+             if(form) form.reset();
+             const userIdInput = document.getElementById('user_id');
+             if(userIdInput) userIdInput.value = '';
+             openModal(userModal);
         });
     }
 
-    // NOUVEAU: Bouton Ajouter Avion
+    // Bouton Ajouter Avion
     if (openAddAircraftButton) {
          openAddAircraftButton.addEventListener('click', () => {
-             document.getElementById('aircraft-modal-title').textContent = 'Ajouter un Avion';
-            document.getElementById('aircraft-form').reset();
-            openModal(aircraftModal);
+             const modalTitle = document.getElementById('aircraft-modal-title');
+             const form = document.getElementById('aircraft-form');
+             if(modalTitle) modalTitle.textContent = 'Ajouter un Avion';
+             if(form) form.reset();
+             const aircraftIdInput = document.getElementById('aircraft_id'); // Assurez-vous que cet ID existe si vous gérez l'édition
+             if(aircraftIdInput) aircraftIdInput.value = '';
+             openModal(aircraftModal);
+        });
+    }
+
+    // NOUVEAU: Bouton Ajouter Aéroport
+    if (openAddAirportButton) {
+         openAddAirportButton.addEventListener('click', () => {
+             const modalTitle = document.getElementById('airport-modal-title');
+             const form = document.getElementById('airport-form');
+             if(modalTitle) modalTitle.textContent = 'Ajouter un Aéroport';
+             if(form) form.reset();
+             const airportIdInput = document.getElementById('airport_id'); // Champ caché pour ID
+             if(airportIdInput) airportIdInput.value = '';
+             openModal(airportModal);
         });
     }
 
     // Boutons Fermer Modal (commun à tous les modals)
     closeModalButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Trouve le modal parent le plus proche et le ferme
-            const modalToClose = button.closest('#flight-modal, #user-modal, #aircraft-modal'); // NOUVEAU: Ajout de #aircraft-modal
+            // MODIFIÉ: Ajout de #airport-modal au sélecteur
+            const modalToClose = button.closest('#flight-modal, #user-modal, #aircraft-modal, #airport-modal');
             closeModal(modalToClose);
         });
     });
 
     // Fermer le modal en cliquant sur le fond (backdrop)
-    // NOUVEAU: Ajout de aircraftModal à la liste
-    [flightModal, userModal, aircraftModal].forEach(modal => {
+    // MODIFIÉ: Ajout de airportModal à la liste
+    [flightModal, userModal, aircraftModal, airportModal].forEach(modal => {
         if(modal) {
             modal.addEventListener('click', (event) => {
                 // Si le clic est directement sur le backdrop (pas sur le contenu du modal)
@@ -323,81 +374,140 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Logique pour les boutons Modifier/Supprimer (Placeholders) ---
+    // --- Logique pour les boutons Modifier/Supprimer (Placeholders et Simulation) ---
+    // Utilisation de la délégation d'événements pour plus de robustesse (fonctionne aussi pour lignes ajoutées dynamiquement)
 
-    // >> Pour les Vols
-    document.querySelectorAll('#flights-content table button[title="Modifier"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log("Modifier vol cliqué");
-            document.getElementById('flight-modal-title').textContent = 'Modifier le Vol';
-            // Simuler le pré-remplissage
-            const row = btn.closest('tr');
-            const cells = row.querySelectorAll('td');
-            if(cells.length >= 5) { // S'assurer qu'il y a assez de cellules
-                document.getElementById('flight_number').value = cells[0].textContent.trim();
-                document.getElementById('departure_airport').value = cells[1].textContent.trim();
-                document.getElementById('arrival_airport').value = cells[2].textContent.trim();
-                document.getElementById('airline').value = cells[3].textContent.trim();
-                // Pour le statut, il faudrait trouver l'option correspondante dans le select
-                // document.getElementById('status').value = 'Programmé'; // Exemple simple
-            }
-            openModal(flightModal);
-        });
-    });
-     document.querySelectorAll('#flights-content table button[title="Supprimer"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Êtes-vous sûr de vouloir supprimer ce vol ?')) {
-                console.log("Supprimer vol cliqué");
-                 btn.closest('tr').remove();
-            }
-        });
-    });
+    function handleTableActions(event, sectionId, modalElement, modalTitleElementId, formElementId, entityName) {
+        const target = event.target;
+        const modifyButton = target.closest('button[title="Modifier"]');
+        const deleteButton = target.closest('button[title="Supprimer"]');
 
-    // >> NOUVEAU: Pour les Avions
-    document.querySelectorAll('#aircraft-content table button[title="Modifier"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log("Modifier avion cliqué");
-            document.getElementById('aircraft-modal-title').textContent = 'Modifier l\'Avion';
-            // Simuler le pré-remplissage
-             const row = btn.closest('tr');
-            const cells = row.querySelectorAll('td');
-             if(cells.length >= 4) { // S'assurer qu'il y a assez de cellules
-                document.getElementById('aircraft_tail_number').value = cells[0].textContent.trim();
-                document.getElementById('aircraft_model').value = cells[1].textContent.trim();
-                document.getElementById('aircraft_operator').value = cells[2].textContent.trim();
-                // Pour le statut (badge -> select value)
-                const statusText = cells[3].querySelector('span').textContent.trim();
-                document.getElementById('aircraft_status').value = statusText; // Fonctionne si le textContent correspond à la value
-             }
-            openModal(aircraftModal);
-        });
-    });
-     document.querySelectorAll('#aircraft-content table button[title="Supprimer"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cet avion ?')) {
-                console.log("Supprimer avion cliqué");
-                 btn.closest('tr').remove();
-            }
-        });
-    });
+        if (modifyButton) {
+            console.log(`Modifier ${entityName} cliqué dans ${sectionId}`);
+            const modalTitle = document.getElementById(modalTitleElementId);
+            if(modalTitle) modalTitle.textContent = `Modifier ${entityName === 'Utilisateur' ? "l'" : "l'"} ${entityName}`;
 
-     // >> Pour les Utilisateurs (existant, juste pour la complétude)
-    document.querySelectorAll('#users-content table button[title="Modifier"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log("Modifier utilisateur cliqué");
-            document.getElementById('user-modal-title').textContent = 'Modifier l\'Utilisateur';
-            // Pré-remplir le formulaire utilisateur...
-            openModal(userModal);
-        });
-    });
-     document.querySelectorAll('#users-content table button[title="Supprimer"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-                console.log("Supprimer utilisateur cliqué");
-                btn.closest('tr').remove();
+            const row = modifyButton.closest('tr');
+            const form = document.getElementById(formElementId);
+            if (form && row) {
+                // Pré-remplissage (exemple générique, à adapter pour chaque entité)
+                const cells = row.querySelectorAll('td');
+                 console.log(`Pré-remplissage pour ${entityName} depuis la ligne.`);
+                 // --- Logique de pré-remplissage spécifique ---
+                 if (entityName === 'Vol' && cells.length >= 5) {
+                     const numInput = form.querySelector('#flight_number');
+                     const depInput = form.querySelector('#departure_airport');
+                     const arrInput = form.querySelector('#arrival_airport');
+                     const airlineInput = form.querySelector('#airline');
+                     const statusInput = form.querySelector('#status'); // Attention, la valeur doit correspondre au `value` de l'option
+                     if(numInput) numInput.value = cells[0].textContent.trim();
+                     if(depInput) depInput.value = cells[1].textContent.trim();
+                     if(arrInput) arrInput.value = cells[2].textContent.trim();
+                     if(airlineInput) airlineInput.value = cells[3].textContent.trim();
+                     // Pour le statut, c'est plus complexe, il faut mapper le texte à la valeur
+                     // if(statusInput) statusInput.value = cells[4].textContent.trim(); // Simple mais peut échouer
+                 } else if (entityName === 'Avion' && cells.length >= 4) {
+                     const tailInput = form.querySelector('#aircraft_tail_number');
+                     const modelInput = form.querySelector('#aircraft_model');
+                     const opInput = form.querySelector('#aircraft_operator');
+                     const statusInput = form.querySelector('#aircraft_status');
+                     const statusBadge = cells[3].querySelector('span');
+                     if(tailInput) tailInput.value = cells[0].textContent.trim();
+                     if(modelInput) modelInput.value = cells[1].textContent.trim();
+                     if(opInput) opInput.value = cells[2].textContent.trim();
+                     if(statusInput && statusBadge) statusInput.value = statusBadge.textContent.trim(); // Suppose que le texte du badge = la valeur de l'option
+                 } else if (entityName === 'Aéroport' && cells.length >= 4) { // NOUVELLE CONDITION
+                     const iataInput = form.querySelector('#airport_iata_code');
+                     const nameInput = form.querySelector('#airport_name');
+                     const cityInput = form.querySelector('#airport_city');
+                     const countryInput = form.querySelector('#airport_country');
+                     const idInput = form.querySelector('#airport_id');
+                     // const icaoInput = form.querySelector('#airport_icao_code');
+                     if(iataInput) iataInput.value = cells[0].textContent.trim();
+                     if(nameInput) nameInput.value = cells[1].textContent.trim();
+                     if(cityInput) cityInput.value = cells[2].textContent.trim();
+                     if(countryInput) countryInput.value = cells[3].textContent.trim();
+                     if(idInput) idInput.value = row.dataset.airportId || ''; // Utilisation de data attribute pour l'ID
+                     // if(icaoInput) icaoInput.value = ... ;
+                 } else if (entityName === 'Utilisateur') {
+                      // Ajouter la logique de pré-remplissage pour l'utilisateur si nécessaire
+                      console.warn(`Pré-remplissage pour ${entityName} non implémenté dans cet exemple.`);
+                      form.reset(); // Reset par défaut
+                 } else {
+                      console.warn(`Impossible de pré-remplir le formulaire ${entityName} : nombre de cellules insuffisant ou type inconnu.`);
+                      form.reset();
+                 }
+            } else {
+                console.error(`Formulaire ${formElementId} ou ligne non trouvés pour modification.`);
             }
-        });
-    });
+            openModal(modalElement);
+        } else if (deleteButton) {
+            if (confirm(`Êtes-vous sûr de vouloir supprimer cet ${entityName === 'Utilisateur' ? '' : 'e'} ${entityName.toLowerCase()} ?`)) {
+                console.log(`Supprimer ${entityName} cliqué dans ${sectionId}`);
+                const row = deleteButton.closest('tr');
+                // --- Ici, ajouter l'appel AJAX pour supprimer sur le serveur ---
+                // Exemple: deleteEntityOnServer(entityName, row.dataset.id);
+                row.remove(); // Supprime la ligne de l'interface (simulation)
+            }
+        }
+    }
+
+    // Appliquer la délégation aux différentes sections
+    const flightsContent = document.getElementById('flights-content');
+    if (flightsContent) flightsContent.addEventListener('click', (e) => handleTableActions(e, 'flights-content', flightModal, 'flight-modal-title', 'flight-form', 'Vol'));
+
+    const aircraftContent = document.getElementById('aircraft-content');
+    if (aircraftContent) aircraftContent.addEventListener('click', (e) => handleTableActions(e, 'aircraft-content', aircraftModal, 'aircraft-modal-title', 'aircraft-form', 'Avion'));
+
+    // NOUVEAU: Délégation pour les Aéroports
+    const airportsContent = document.getElementById('airports-content');
+    if (airportsContent) airportsContent.addEventListener('click', (e) => handleTableActions(e, 'airports-content', airportModal, 'airport-modal-title', 'airport-form', 'Aéroport'));
+
+    const usersContent = document.getElementById('users-content');
+    if (usersContent) usersContent.addEventListener('click', (e) => handleTableActions(e, 'users-content', userModal, 'user-modal-title', 'user-form', 'Utilisateur'));
+
+
+    // --- Gestion Soumission Formulaires (Simulation) ---
+
+    function handleFormSubmit(event, modalElement, entityName) {
+        event.preventDefault(); // Empêche la soumission classique
+        const form = event.target;
+        const formData = new FormData(form);
+        // Essayer de récupérer un ID (pour déterminer si c'est ajout ou modif)
+        // Suppose que le champ ID a un name se terminant par '_id' (ex: flight_id, user_id, airport_id)
+        let entityId = null;
+        for (let [key, value] of formData.entries()) {
+            if (key.endsWith('_id') && value) {
+                entityId = value;
+                break;
+            }
+        }
+        const isUpdating = !!entityId;
+
+        console.log(`Soumission formulaire ${entityName} (${isUpdating ? 'Modification ID: '+entityId : 'Ajout'})`);
+        console.log("Données:", Object.fromEntries(formData.entries()));
+
+        // --- Ici, ajouter l'appel AJAX pour sauvegarder sur le serveur ---
+        // Exemple: saveEntityToServer(entityName, Object.fromEntries(formData.entries()), isUpdating);
+        // Après succès AJAX : Mettre à jour le tableau si nécessaire (ajouter/modifier ligne)
+
+        closeModal(modalElement); // Fermer le modal après la simulation/l'appel AJAX
+        alert(`Formulaire ${entityName} soumis (simulation). Vérifiez la console.`);
+    }
+
+    // Attacher le gestionnaire aux formulaires
+    const flightForm = document.getElementById('flight-form');
+    if(flightForm) flightForm.addEventListener('submit', (e) => handleFormSubmit(e, flightModal, 'Vol'));
+
+    const aircraftForm = document.getElementById('aircraft-form');
+    if(aircraftForm) aircraftForm.addEventListener('submit', (e) => handleFormSubmit(e, aircraftModal, 'Avion'));
+
+    // NOUVEAU: Gestionnaire pour le formulaire Aéroport
+    const airportForm = document.getElementById('airport-form');
+    if(airportForm) airportForm.addEventListener('submit', (e) => handleFormSubmit(e, airportModal, 'Aéroport'));
+
+    const userForm = document.getElementById('user-form');
+    if(userForm) userForm.addEventListener('submit', (e) => handleFormSubmit(e, userModal, 'Utilisateur'));
 
 
     // --- Initialisation des Graphiques Chart.js ---
@@ -415,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
              labels: ['En vol', 'Programmé', 'Arrivé', 'Retardé', 'Annulé'],
              datasets: [{ /* ... dataset ... */
                 label: 'Statut des Vols',
-                data: [247, 150, 800, 8, 2],
+                data: [247, 150, 800, 8, 2], // Données exemples
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.7)', // Bleu
                     'rgba(255, 206, 86, 0.7)', // Jaune
@@ -434,10 +544,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }]
         };
         const monthlyFlightsData = { /* ... données ... */
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'], // Données exemples
             datasets: [{ /* ... dataset ... */
                 label: 'Vols par Mois',
-                data: [1100, 1050, 1200, 1150, 1258, 1300],
+                data: [1100, 1050, 1200, 1150, 1258, 1300], // Données exemples
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
@@ -458,21 +568,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (flightStatusCtx) {
             flightStatusChartInstance = new Chart(flightStatusCtx, { type: 'doughnut', data: flightStatusData, options: pieChartOptions });
+        } else {
+            console.warn("Canvas 'flightStatusChart' non trouvé.");
         }
         if (monthlyFlightsCtx) {
             monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, { type: 'line', data: monthlyFlightsData, options: chartOptions });
+        } else {
+             console.warn("Canvas 'monthlyFlightsChart' non trouvé.");
         }
     }
 
      // Initialiser le dashboard au chargement
-     const initialLink = document.querySelector('.sidebar-link.active'); // Trouver le lien actif initial
+     const initialLink = document.querySelector('.sidebar-link.active');
      if (initialLink) {
-         initialLink.click(); // Simuler un clic pour afficher la section initiale et définir le titre
+         initialLink.click(); // Simuler un clic pour afficher la section initiale et définir le titre/graphiques
      } else { // Fallback si aucun lien n'est actif par défaut
-        const dashboardSection = document.getElementById('dashboard-content');
-        if (dashboardSection) {
-            dashboardSection.classList.remove('hidden');
-            mainTitle.textContent = "Tableau de Bord";
+        const dashboardLink = document.getElementById('nav-dashboard');
+        if(dashboardLink) {
+            dashboardLink.click(); // Tenter de cliquer sur le lien du dashboard
+        } else {
+             // Si même le lien dashboard n'existe pas, afficher la section directement
+            const dashboardSection = document.getElementById('dashboard-content');
+            if (dashboardSection) {
+                contentSections.forEach(section => section.classList.add('hidden')); // Cacher les autres
+                dashboardSection.classList.remove('hidden');
+                mainTitle.textContent = "Tableau de Bord";
+            } else {
+                console.error("Impossible d'initialiser une section par défaut.");
+            }
         }
      }
 
