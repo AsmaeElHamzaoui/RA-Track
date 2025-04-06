@@ -1,4 +1,5 @@
 <!-- ==================== MODAL AVION ==================== -->
+
 <div id="aircraft-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
     <div class="bg-navy-light w-full max-w-3xl p-6 rounded-lg shadow-xl m-4">
         <div class="flex justify-between items-center mb-4">
@@ -64,3 +65,9 @@
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
