@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,5 +50,7 @@ Route::get('/payments', function () {
 Route::get('/pdfReceipt', function () {
     return view('pdfReceipt');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 
 

@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlaneController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
+
 
 Route::get('/planes', [PlaneController::class, 'index']);
 Route::get('/planes/{id}', [PlaneController::class, 'show']);
