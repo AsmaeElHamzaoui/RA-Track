@@ -227,7 +227,75 @@
         openEditModal($(this).data('id'));
     });
 
-    
+    // Soumission du formulaire (ajout ou modification)
+    $form.on('submit', function(e) {
+        e.preventDefault();
+
+        const mode = $form.attr('data-mode');           // 'add' ou 'edit'
+        const planeId = $form.attr('data-plane-id');    // ID de l'avion (si édition)
+        let url = '/api/planes';                        // URL par défaut
+        let method = 'POST';                            // Méthode HTTP par défaut
+
+        // Modifier l’URL et la méthode si c’est une édition
+        if (mode === 'edit' && planeId) {
+            url = `/api/planes/${planeId}`;
+            method = 'POST'; // Toujours POST, on utilise _method pour faire un PUT
+        }
+
+        // Créer un FormData pour envoyer les données
+        const formData = new FormData(this);
+        if (mode === 'edit') formData.append('_method', 'PUT'); // Simuler un PUT
+
+        // Désactiver le bouton pendant l’enregistrement
+        $('#save-aircraft-button').prop('disabled', true).text('Enregistrement...');
+
+        // Envoi AJAX
+        $.ajax({
+            url: url,
+            type: method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                alert(response.message || (mode === 'edit' ? 'Avion mis à jour avec succès!' : 'Avion ajouté avec succès!'));
+                closeModal(); // Fermer le modal
+                refreshAircraftTable(); // Recharger la liste
+            },
+            error: function(xhr) {
+                let errorMessage = xhr.responseJSON?.message || 'Une erreur est survenue.';
+                if (xhr.status === 422 && xhr.responseJSON.errors) {
+                    // Afficher les messages d’erreur de validation
+                    errorMessage += '\n' + Object.values(xhr.responseJSON.errors).join('\n');
+                }
+                alert(errorMessage);
+            },
+            complete: function() {
+                // Réactiver le bouton après l’appel AJAX
+                $('#save-aircraft-button').prop('disabled', false).text('Enregistrer');
+            }
+        });
+    });
+
+    // === Suppression d’un avion ===
+    $aircraftTableBody.on('click', '.delete-aircraft-button', function() {
+        const planeId = $(this).data('id');
+
+        // Demande de confirmation
+        if (confirm('Êtes-vous sûr de vouloir supprimer cet avion ?')) {
+            $.ajax({
+                url: `/api/planes/${planeId}`,
+                type: 'POST',
+                data: { _method: 'DELETE' }, // Méthode simulée DELETE
+                success: function(response) {
+                    alert(response.message || 'Avion supprimé avec succès!');
+                    refreshAircraftTable(); // Recharger la liste
+                },
+                error: function(xhr) {
+                    alert(`Erreur : Impossible de supprimer l'avion. ${xhr.responseJSON?.message || xhr.statusText}`);
+                }
+            });
+        }
+    });
 
     // === Charger la liste des avions au chargement initial de la page ===
    
