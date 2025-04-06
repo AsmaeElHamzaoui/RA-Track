@@ -178,7 +178,7 @@
         <!-- ==================== MODALS ==================== -->
 
         <!-- ==================== MODAL AÉROPORT ==================== -->
-        <!-- @include('modals.airport') -->
+        @include('modals.airport')
 
         <!-- Modal Ajouter/Modifier Vol -->
         @include('modals.flight')
