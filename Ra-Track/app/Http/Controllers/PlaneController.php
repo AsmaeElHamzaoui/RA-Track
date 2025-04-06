@@ -8,21 +8,75 @@ use Illuminate\Http\Request;
 class PlaneController extends Controller
 {
     /**
-     * Afficher la liste de tous les avions.
+     * Affiche la liste des avions.
      */
     public function index()
     {
-        $planes = Plane::with('flights', 'flightTrackings')->get();
+        $planes = Plane::all();
         return response()->json($planes);
     }
 
-      /**
-     * Enregistrer un nouvel avion.
+    /**
+     * Affiche les détails d’un seul avion.
+     */
+    public function show($id)
+    {
+        $plane = Plane::findOrFail($id);
+        return response()->json($plane);
+    }
+    public function getByRegistration($registration){
+        $plane = Plane::findOrFail($registration);
+        return response()->json($plane);
+    }
+
+    /**
+     * Enregistre un nouvel avion.
      */
     public function store(Request $request)
+{
+    // Validation des autres champs
+    $validated = $request->validate([
+        'registration' => 'required|string',
+        'model' => 'required|string',
+        'manufacturer' => 'required|string',
+        'airline_company' => 'required|string',
+        'economy_class_capacity' => 'required|integer|min:0',
+        'business_class_capacity' => 'required|integer|min:0',
+        'first_class_capacity' => 'required|integer|min:0',
+        'maximum_load' => 'required|numeric|min:0',
+        'flight_range' => 'required|integer|min:0',
+        'status' => 'required|in:active,under maintenance,out of service',
+    ]);
+
+    // Vérification si un avion avec la même immatriculation existe déjà
+    $existingPlane = Plane::where('registration', $request->registration)->first();
+
+    if ($existingPlane) {
+        // Si l'immatriculation existe déjà, renvoyer un message d'erreur
+        return response()->json([
+            'message' => 'Un avion existe déjà avec cette immatriculation.',
+        ], 400); // 400 Bad Request
+    }
+
+    // Création du nouvel avion si l'immatriculation est unique
+    $plane = Plane::create($validated);
+
+    return response()->json([
+        'message' => 'Avion ajouté avec succès.',
+        'plane' => $plane
+    ], 201);
+}
+
+
+    /**
+     * Met à jour un avion existant.
+     */
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'registration' => 'required|string|unique:planes',
+        $plane = Plane::findOrFail($id);
+
+        $validated = $request->validate([
+            'registration' => 'required|string|unique:planes,registration,' . $plane->id,
             'model' => 'required|string',
             'manufacturer' => 'required|string',
             'airline_company' => 'required|string',
@@ -30,57 +84,20 @@ class PlaneController extends Controller
             'business_class_capacity' => 'required|integer|min:0',
             'first_class_capacity' => 'required|integer|min:0',
             'maximum_load' => 'required|numeric|min:0',
-            'flight_range' => 'required|numeric|min:0',
-            'status' => 'required|string|in:active,inactive,maintenance',
+            'flight_range' => 'required|integer|min:0',
+            'status' => 'required|in:active,under maintenance,out of service',
         ]);
 
-        $plane = Plane::create($request->all());
+        $plane->update($validated);
 
         return response()->json([
-            'message' => 'Plane created successfully',
-            'plane' => $plane
-        ], 201);
-    }
-
-    /**
-     * Afficher les détails d'un avion spécifique.
-     */
-    public function show($id)
-    {
-        $plane = Plane::with('flights', 'flightTrackings')->findOrFail($id);
-        return response()->json($plane);
-    }
-
-      /**
-     * Mettre à jour les informations d'un avion.
-     */
-    public function update(Request $request, $id)
-    {
-        $plane = Plane::findOrFail($id);
-
-        $request->validate([
-            'registration' => 'sometimes|string|unique:planes,registration,' . $id,
-            'model' => 'sometimes|string',
-            'manufacturer' => 'sometimes|string',
-            'airline_company' => 'sometimes|string',
-            'economy_class_capacity' => 'sometimes|integer|min:0',
-            'business_class_capacity' => 'sometimes|integer|min:0',
-            'first_class_capacity' => 'sometimes|integer|min:0',
-            'maximum_load' => 'sometimes|numeric|min:0',
-            'flight_range' => 'sometimes|numeric|min:0',
-            'status' => 'sometimes|string|in:active,inactive,maintenance',
-        ]);
-
-        $plane->update($request->all());
-
-        return response()->json([
-            'message' => 'Plane updated successfully',
+            'message' => 'Avion mis à jour avec succès.',
             'plane' => $plane
         ]);
     }
 
     /**
-     * Supprimer un avion.
+     * Supprime un avion.
      */
     public function destroy($id)
     {
@@ -88,7 +105,7 @@ class PlaneController extends Controller
         $plane->delete();
 
         return response()->json([
-            'message' => 'Plane deleted successfully'
+            'message' => 'Avion supprimé avec succès.'
         ]);
     }
 }
