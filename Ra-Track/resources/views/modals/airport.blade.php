@@ -46,3 +46,73 @@
 </div>
 <!-- ==================== FIN MODAL AÉROPORT (Autocomplete) ==================== -->
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // --- Airport Location Autocomplete Script ---
+
+    const locationInput = document.getElementById('airport_location_autocomplete');
+    const suggestionsContainer = document.getElementById('location-suggestions');
+
+    // !! Autocomplete Data Source (Example) !!
+    // Replace with dynamic data fetching (API/Backend) in a real application.
+    const locationsData = [
+        "Paris, France", "London, United Kingdom", "New York, USA", "Tokyo, Japan",
+        "Dubai, UAE", "Berlin, Germany", "Rome, Italy", "Madrid, Spain",
+        "Los Angeles, USA", "Chicago, USA", "Singapore, Singapore", "Sydney, Australia",
+        "Toronto, Canada", "Vancouver, Canada", "Mexico City, Mexico", "Sao Paulo, Brazil",
+        "Buenos Aires, Argentina", "Moscow, Russia", "Beijing, China", "Shanghai, China",
+        "Mumbai, India", "Delhi, India", "Cairo, Egypt", "Johannesburg, South Africa"
+        // Add more relevant locations
+    ];
+
+    if (locationInput && suggestionsContainer) {
+        // Event listener for typing in the input field
+        locationInput.addEventListener('input', function() {
+            const inputText = this.value.toLowerCase().trim();
+            suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+            suggestionsContainer.classList.add('hidden'); // Hide by default
+
+            if (inputText.length > 0) { // Start suggesting after at least one character
+                // Filter the data based on the input text
+                const filteredLocations = locationsData.filter(location =>
+                    location.toLowerCase().includes(inputText)
+                );
+
+                // Display filtered suggestions
+                if (filteredLocations.length > 0) {
+                    filteredLocations.forEach(location => {
+                        const suggestionDiv = document.createElement('div');
+                        suggestionDiv.textContent = location;
+                        // Apply Tailwind classes for styling suggestions
+                        suggestionDiv.className = 'px-3 py-2 text-sm text-gray-200 hover:bg-navy cursor-pointer';
+
+                        // Event listener for clicking on a suggestion
+                        suggestionDiv.addEventListener('click', () => {
+                            locationInput.value = location; // Fill input with selected suggestion
+                            suggestionsContainer.innerHTML = ''; // Clear suggestions
+                            suggestionsContainer.classList.add('hidden'); // Hide container
+                        });
+
+                        suggestionsContainer.appendChild(suggestionDiv);
+                    });
+                    suggestionsContainer.classList.remove('hidden'); // Show container if there are suggestions
+                }
+            }
+        });
+
+        // Event listener to hide suggestions when the input loses focus
+        locationInput.addEventListener('blur', () => {
+            // Use a short delay to allow click event on suggestion to register first
+            setTimeout(() => {
+                suggestionsContainer.classList.add('hidden');
+            }, 150); // Adjust delay if needed
+        });
+
+    } else {
+        // Log a warning if the required HTML elements are not found
+        console.warn("Autocomplete elements not found (#airport_location_autocomplete or #location-suggestions). Autocomplete will not function.");
+    }
+
+    // --- End Airport Location Autocomplete Script ---
+});
+</script>
