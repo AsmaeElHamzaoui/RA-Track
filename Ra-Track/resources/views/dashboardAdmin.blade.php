@@ -160,7 +160,7 @@
         @include('components.Dashboard')
 
         <!-- ==================== SECTION GESTION DES AÉROPORTS ==================== -->
-        <!-- @include('components.airport') -->
+        @include('components.airport')
 
         <!-- ==================== Section Gestion des Vols ==================== -->
         @include('components.Flight')
