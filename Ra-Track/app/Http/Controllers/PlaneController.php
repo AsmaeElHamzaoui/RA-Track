@@ -12,7 +12,8 @@ class PlaneController extends Controller
      */
     public function index()
     {
-        $planes = Plane::all();
+        $planes = Plane::orderBy('id', 'asc')->get();
+
         return response()->json($planes);
     }
 
