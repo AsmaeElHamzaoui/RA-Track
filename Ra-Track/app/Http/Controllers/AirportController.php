@@ -13,7 +13,9 @@ class AirportController extends Controller
      */
     public function index()
     {
-        return response()->json(Airport::all(), Response::HTTP_OK);
+        $airports = Airport::orderBy('id', 'asc')->get();
+
+        return response()->json($airports);
     }
 
     
