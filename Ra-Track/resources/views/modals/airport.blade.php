@@ -17,7 +17,7 @@
 
             <div class="mb-4">
                 <label for="airport_iata_code" class="block text-sm font-medium text-gray-300 mb-1">Code IATA</label>
-                <input type="text" id="airport_iata_code" name="iata_code" class="w-full bg-navy border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: CDG" maxlength="3" required>
+                <input type="text" id="airport_iata_code" name="code_iata" class="w-full bg-navy border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: CDG" maxlength="3" required>
             </div>
 
             <div class="mb-4">
@@ -29,8 +29,7 @@
             <div class="mb-4 relative">
                 <label for="airport_location_autocomplete" class="block text-sm font-medium text-gray-300 mb-1">Localisation (Ville, Pays)</label>
                 <input type="text" id="airport_location_autocomplete" name="location" class="w-full bg-navy border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" placeholder="Commencez à taper (ex: Paris...)" required autocomplete="off">
-                <div id="location-suggestions" class="absolute z-10 w-full bg-navy-light border border-gray-600 rounded-b mt-1 max-h-48 overflow-y-auto hidden">
-                </div>
+                <div id="location-suggestions" class="absolute z-10 w-full bg-navy-light border border-gray-600 rounded-b mt-1 max-h-48 overflow-y-auto hidden"></div>
             </div>
 
             <div class="flex justify-end space-x-3 pt-4 border-t border-gray-700">
@@ -45,6 +44,7 @@
     </div>
 </div>
 <!-- ==================== FIN MODAL AÉROPORT (Autocomplete) ==================== -->
+
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -116,3 +116,6 @@
     // --- End Airport Location Autocomplete Script ---
 });
 </script>
+
+
+
