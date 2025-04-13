@@ -16,25 +16,28 @@
                 <div>
                     <label for="plane_id" class="block text-sm font-medium text-gray-300 mb-1">Avion</label>
                     <select id="plane_id" name="plane_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
-                        <!-- Vous devez ajouter dynamiquement les avions ici -->
-                        <option value="1">Avion 1</option>
-                        <option value="2">Avion 2</option>
+                        <!-- Boucler sur les avions et remplir le select -->
+                        @foreach ($planes as $plane)
+                            <option value="{{ $plane->id }}">{{ $plane->registration }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
                     <label for="departure_airport_id" class="block text-sm font-medium text-gray-300 mb-1">Aéroport Départ</label>
                     <select id="departure_airport_id" name="departure_airport_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
-                        <!-- Vous devez ajouter dynamiquement les aéroports ici -->
-                        <option value="1">Aéroport 1</option>
-                        <option value="2">Aéroport 2</option>
+                        <!-- Boucler sur les aéroports et remplir le select -->
+                        @foreach ($airports as $airport)
+                            <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
                     <label for="arrival_airport_id" class="block text-sm font-medium text-gray-300 mb-1">Aéroport Arrivée</label>
                     <select id="arrival_airport_id" name="arrival_airport_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
-                        <!-- Vous devez ajouter dynamiquement les aéroports ici -->
-                        <option value="1">Aéroport 1</option>
-                        <option value="2">Aéroport 2</option>
+                        <!-- Boucler sur les aéroports et remplir le select -->
+                        @foreach ($airports as $airport)
+                            <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
@@ -75,6 +78,7 @@
         </form>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
