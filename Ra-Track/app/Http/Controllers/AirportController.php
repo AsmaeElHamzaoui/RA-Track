@@ -46,24 +46,33 @@ class AirportController extends Controller
     /**
      * Mettre à jour un aéroport existant.
      */
-    public function update(Request $request, Airport $airport)
+    public function update(Request $request, $id )
     {
+        $airport = Airport::findOrFail($id);
         $validated = $request->validate([
-            'code_iata' => 'sometimes|string|max:10|unique:airports,code_iata,' . $airport->id,
-            'name' => 'sometimes|string|max:255',
-            'location' => 'sometimes|string|max:255',
+            'code_iata' => 'required|string|max:10|unique:airports,code_iata,' . $airport->id,
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
         ]);
 
         $airport->update($validated);
-        return response()->json($airport, Response::HTTP_OK);
+        return response()->json([
+            'message' => 'airport mis à jour avec succès.',
+            'airport' => $airport
+        ]);
     }
 
     /**
      * Supprimer un aéroport.
      */
-    public function destroy(Airport $airport)
+    public function destroy($id)
     {
+
+        $airport= Airport::findOrFail($id);
         $airport->delete();
-        return response()->json(['message' => 'Aéroport supprimé avec succès'], Response::HTTP_NO_CONTENT);
+
+        return response()->json([
+            'message' => 'Airport supprimé avec succès.'
+        ]);
     }
 }
