@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function showDashboard()
     {
-        $flights = Flight::all(); // Récupère tous les avions
+        $flights = Flight::all(); // Récupère tous les vols
         $planes = Plane::all(); // Récupère tous les avions
         $airports = Airport::all(); // Récupère tous les aéroports
         // Retourner la vue avec les données des avions
