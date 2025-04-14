@@ -14,6 +14,6 @@ class HomeController extends Controller
         $planes = Plane::all(); // Récupère tous les avions
         $airports = Airport::all(); // Récupère tous les aéroports
         // Retourner la vue avec les données des avions
-        return view('bookingAirplane', compact('planes','airports','flights')); // Passe la variable à la vue
+        return view('home', compact('planes','airports','flights')); // Passe la variable à la vue
     }
 }
