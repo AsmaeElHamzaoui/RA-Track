@@ -15,7 +15,7 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->get();
+        $flights = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->orderBy('id', 'asc')->get();
         return response()->json($flights);
     }
 
