@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,6 +100,7 @@
     }
   </style>
 </head>
+
 <body class="min-h-screen bg-darkblue-900 text-white">
   <!-- Header -->
   @include('layouts.header')
@@ -114,24 +116,26 @@
       <div class="bg-darkblue-800 rounded-lg p-4 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
-            <label class="block text-sm text-gray-400 mb-1">Départ</label>
-            <div class="relative">
-              <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                <option value="" disabled selected>Ville de départ</option>
-                <option value="Paris (CDG)">Paris (CDG)</option>
-                <option value="Lyon (LYS)">Lyon (LYS)</option>
-                <option value="Marseille (MRS)">Marseille (MRS)</option>
-              </select>
-            </div>
+          <form method="GET" action="{{ route('booking') }}">
+              <label class="block text-sm text-gray-400 mb-1">Départ</label>
+              <div class="relative">
+                <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                  <option value="" disabled selected>Ville de départ</option>
+                  <!-- Boucler sur les aéroports et remplir le select -->
+                  @foreach ($airports as $airport)
+                  <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                  @endforeach
+                </select>
+              </div>
           </div>
           <div>
             <label class="block text-sm text-gray-400 mb-1">Arrivée</label>
             <div class="relative">
               <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                <option value="" disabled selected>Ville d'arrivée</option>
-                <option value="Londres (LHR)">Londres (LHR)</option>
-                <option value="New York (JFK)">New York (JFK)</option>
-                <option value="Tokyo (HND)">Tokyo (HND)</option>
+                <!-- Boucler sur les aéroports et remplir le select -->
+                @foreach ($airports as $airport)
+                <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -141,9 +145,9 @@
               type="date"
               id="booking-flightDate"
               name="date"
-              class="w-full bg-darkblue-900 border border-gray-700 rounded p-2"
-            />
+              class="w-full bg-darkblue-900 border border-gray-700 rounded p-2" />
           </div>
+          
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
@@ -183,33 +187,33 @@
               Rechercher des Vols
             </button>
           </div>
+          </form>
         </div>
       </div>
 
-   
-     <!-- Results Section -->
-     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+      <!-- Results Section -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <!-- Filters -->
         <div class="bg-darkblue-800 rounded-lg p-4">
           <h2 class="font-bold mb-4">Filtres</h2>
-          
+
           <div class="mb-4">
             <label class="block text-sm text-gray-400 mb-1">Prix maximum</label>
-            <input 
-              type="range" 
-              min="0" 
-              max="1000" 
+            <input
+              type="range"
+              min="0"
+              max="1000"
               step="10"
               value="50"
               id="priceRange"
-              class="w-full"
-            />
+              class="w-full" />
             <div class="flex justify-between text-sm text-gray-400">
               <span>0€</span>
               <span id="priceValue">50€</span>
             </div>
           </div>
-          
+
           <div class="mb-4">
             <h3 class="text-sm font-medium mb-2">Heure de départ</h3>
             <div class="space-y-2 text-sm">
@@ -227,7 +231,7 @@
               </label>
             </div>
           </div>
-          
+
           <div>
             <h3 class="text-sm font-medium mb-2">Compagnies</h3>
             <div class="space-y-2 text-sm">
@@ -246,7 +250,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Flight Results -->
         <div class="md:col-span-3">
           <div class="bg-darkblue-800 rounded-lg p-4 mb-4">
@@ -263,14 +267,14 @@
               </div>
               <div class="text-xl font-bold">459€</div>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <div class="text-sm text-gray-400">Départ</div>
                 <div class="text-xl font-medium">08:00</div>
                 <div class="text-sm">Paris (CDG)</div>
               </div>
-              
+
               <div class="flex flex-col items-center justify-center">
                 <div class="text-xs text-gray-400">2h 15m</div>
                 <div class="w-full h-px bg-gray-700 my-2 relative">
@@ -279,14 +283,14 @@
                 </div>
                 <div class="text-xs text-gray-400">Direct</div>
               </div>
-              
+
               <div>
                 <div class="text-sm text-gray-400">Arrivée</div>
                 <div class="text-xl font-medium">10:15</div>
                 <div class="text-sm">Londres (LHR)</div>
               </div>
             </div>
-            
+
             <div class="mt-4 flex justify-end">
               <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-4 rounded text-sm transition">
                 Sélectionner
@@ -295,7 +299,7 @@
           </div>
         </div>
       </div>
-      
+
 
     </div>
   </div>
@@ -308,25 +312,27 @@
       const today = new Date();
       const formattedDate = today.toISOString().split('T')[0];
       document.getElementById('flightDate').value = formattedDate;
-      
+
       // Gérer le changement de prix
       const priceRange = document.getElementById('priceRange');
       const priceValue = document.getElementById('priceValue');
-      
+
       priceRange.addEventListener('input', function() {
         priceValue.textContent = this.value + '€';
       });
     });
   </script>
-  
+
   <script>
     // Script pour initialiser le slider de prix (si tu le gardes)
     document.addEventListener('DOMContentLoaded', function() {
       const priceRange = document.getElementById('priceRange');
       const priceValue = document.getElementById('priceValue');
-      if(priceRange && priceValue) {
-          priceValue.textContent = priceRange.value + '€';
-          priceRange.addEventListener('input', function() { priceValue.textContent = this.value + '€'; });
+      if (priceRange && priceValue) {
+        priceValue.textContent = priceRange.value + '€';
+        priceRange.addEventListener('input', function() {
+          priceValue.textContent = this.value + '€';
+        });
       }
 
       // --- JS POUR LIRE LES PARAMÈTRES URL ET REMPLIR LE FORMULAIRE ---
@@ -342,16 +348,16 @@
 
       // Fonction sécurisée pour définir la valeur d'un champ
       function setFieldValue(elementId, value) {
-          const element = document.getElementById(elementId);
-          // Vérifie si l'élément existe ET si la valeur n'est pas nulle/vide
-          if (element && value) {
-              element.value = value;
-          } else if (element) {
-             // Optionnel: laisser la valeur par défaut ou mettre une indication
-             // console.log(`Valeur manquante pour ${elementId}`);
-          } else {
-             console.error(`Élément avec ID '${elementId}' non trouvé.`);
-          }
+        const element = document.getElementById(elementId);
+        // Vérifie si l'élément existe ET si la valeur n'est pas nulle/vide
+        if (element && value) {
+          element.value = value;
+        } else if (element) {
+          // Optionnel: laisser la valeur par défaut ou mettre une indication
+          // console.log(`Valeur manquante pour ${elementId}`);
+        } else {
+          console.error(`Élément avec ID '${elementId}' non trouvé.`);
+        }
       }
 
       // Appliquer les valeurs aux champs du formulaire de cette page
@@ -364,19 +370,25 @@
 
       // Optionnel: Afficher un message de confirmation des critères
       const resultsInfo = document.getElementById('flightResultsInfo');
-      if(resultsInfo && departure && arrival && date){
-          // Formatter la date pour l'affichage (simple)
-           let displayDate = date;
-           try {
-               displayDate = new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-           } catch (e) { /* Garder la date brute si le formatage échoue */ }
+      if (resultsInfo && departure && arrival && date) {
+        // Formatter la date pour l'affichage (simple)
+        let displayDate = date;
+        try {
+          displayDate = new Date(date).toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        } catch (e) {
+          /* Garder la date brute si le formatage échoue */ }
 
-          resultsInfo.innerHTML = `Affichage des vols pour : <strong>${departure}</strong> vers <strong>${arrival}</strong> le <strong>${displayDate}</strong>`;
-      } else if(resultsInfo) {
-          resultsInfo.textContent = "Veuillez spécifier vos critères de recherche.";
+        resultsInfo.innerHTML = `Affichage des vols pour : <strong>${departure}</strong> vers <strong>${arrival}</strong> le <strong>${displayDate}</strong>`;
+      } else if (resultsInfo) {
+        resultsInfo.textContent = "Veuillez spécifier vos critères de recherche.";
       }
 
     }); // Fin de DOMContentLoaded
   </script>
 </body>
+
 </html>
