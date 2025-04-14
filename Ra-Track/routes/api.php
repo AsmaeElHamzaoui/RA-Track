@@ -44,3 +44,4 @@ Route::post('/flights', [FlightController ::class, 'store']);
 Route::put('/flights/{id}', [FlightController ::class, 'update']);
 Route::delete('/flights/{id}', [FlightController ::class, 'destroy']);
 
+
