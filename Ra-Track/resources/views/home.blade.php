@@ -204,10 +204,10 @@
                             <label for="hero-departure" class="block text-sm text-gray-300 mb-1">Départ</label>
                             <div class="relative">
                                 <select id="hero-departure" class="inputBox" required class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                  <option value="" disabled selected>Ville de départ</option>
-                                  <option value="Paris (CDG)">Paris (CDG)</option>
-                                  <option value="Lyon (LYS)">Lyon (LYS)</option>
-                                  <option value="Marseille (MRS)">Marseille (MRS)</option>
+                                 <!-- Boucler sur les aéroports et remplir le select -->
+                                   @foreach ($airports as $airport)
+                                     <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                   @endforeach
                                 </select>
                             </div>
                         </div>
@@ -215,10 +215,10 @@
                             <label for="hero-arrival" class="block text-sm text-gray-300 mb-1">Arrivée</label>
                             <div class="relative">
                                 <select id="hero-arrival" class="inputBox" required class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                  <option value="" disabled selected>Ville d'arrivée</option>
-                                  <option value="Londres (LHR)">Londres (LHR)</option>
-                                  <option value="New York (JFK)">New York (JFK)</option>
-                                  <option value="Tokyo (HND)">Tokyo (HND)</option>
+                                  <!-- Boucler sur les aéroports et remplir le select -->
+                                   @foreach ($airports as $airport)
+                                     <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                   @endforeach
                                 </select>
                             </div>
                         </div>
