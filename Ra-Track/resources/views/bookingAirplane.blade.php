@@ -23,89 +23,22 @@
     }
   </script>
   <style>
-    body {
-      background-color: #121826;
-      color: white;
-    }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      background: #2d3748;
-      height: 4px;
-      border-radius: 2px;
-      outline: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #3b82f6;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    input[type="range"]::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: #3b82f6;
-      border-radius: 50%;
-      cursor: pointer;
-      border: none;
-    }
-
-    input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #4a5568;
-      border-radius: 3px;
-      background-color: #121826;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    input[type="checkbox"]:checked {
-      background-color: #3b82f6;
-      border-color: #3b82f6;
-    }
-
-    input[type="checkbox"]:checked::after {
-      content: "";
-      width: 6px;
-      height: 6px;
-      display: block;
-      background-color: white;
-      border-radius: 1px;
-    }
-
-    input[type="date"] {
-      color-scheme: dark;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.5rem center;
-      background-size: 1.5em 1.5em;
-      padding-right: 2.5rem;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
+    /* Styles CSS inchangés */
+    body { background-color: #121826; color: white; }
+    input[type="range"] { -webkit-appearance: none; appearance: none; background: #2d3748; height: 4px; border-radius: 2px; outline: none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; background: #3b82f6; border-radius: 50%; cursor: pointer; }
+    input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: #3b82f6; border-radius: 50%; cursor: pointer; border: none; }
+    input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; border: 1px solid #4a5568; border-radius: 3px; background-color: #121826; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    input[type="checkbox"]:checked { background-color: #3b82f6; border-color: #3b82f6; }
+    input[type="checkbox"]:checked::after { content: ""; width: 6px; height: 6px; display: block; background-color: white; border-radius: 1px; }
+    input[type="date"] { color-scheme: dark; }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
   </style>
 </head>
 
 <body class="min-h-screen bg-darkblue-900 text-white">
   <!-- Header -->
   @include('layouts.header')
-
-
   <!-- Main Content -->
   <div class="p-4 md:p-8">
     <div class="max-w-6xl mx-auto">
@@ -114,281 +47,232 @@
 
       <!-- Search Form -->
       <div class="bg-darkblue-800 rounded-lg p-4 mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div>
-          <form method="GET" action="{{ route('booking') }}">
-              <label class="block text-sm text-gray-400 mb-1">Départ</label>
+        {{-- Le formulaire pointe vers la route 'booking' avec la méthode GET --}}
+        <form method="GET" action="{{ route('booking') }}">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+                <label for="booking-departure" class="block text-sm text-gray-400 mb-1">Départ</label>
+                <div class="relative">
+                  {{-- Le name="departure" sera utilisé dans le contrôleur --}}
+                  <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                    <option value="">Ville de départ</option> {{-- Option par défaut --}}
+                    {{-- Boucle sur les aéroports fournis par le contrôleur --}}
+                    @foreach ($airports as $airport)
+                      {{-- Sélectionne l'option si son ID correspond à la valeur 'departure' de la requête précédente --}}
+                      <option value="{{ $airport->id }}" {{ request('departure') == $airport->id ? 'selected' : '' }}>
+                        {{ $airport->name }} {{-- Affiche le nom de l'aéroport --}}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
+            <div>
+              <label for="booking-arrival" class="block text-sm text-gray-400 mb-1">Arrivée</label>
               <div class="relative">
-                <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                  <option value="" disabled selected>Ville de départ</option>
-                  <!-- Boucler sur les aéroports et remplir le select -->
+                 {{-- Le name="arrival" sera utilisé dans le contrôleur --}}
+                <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                  <option value="">Ville d'arrivée</option> {{-- Option par défaut --}}
+                   {{-- Boucle sur les aéroports fournis par le contrôleur --}}
                   @foreach ($airports as $airport)
-                  <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                     {{-- Sélectionne l'option si son ID correspond à la valeur 'arrival' de la requête précédente --}}
+                    <option value="{{ $airport->id }}" {{ request('arrival') == $airport->id ? 'selected' : '' }}>
+                      {{ $airport->name }}
+                    </option>
                   @endforeach
                 </select>
               </div>
-          </div>
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Arrivée</label>
-            <div class="relative">
-              <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                <!-- Boucler sur les aéroports et remplir le select -->
-                @foreach ($airports as $airport)
-                <option value="{{ $airport->id }}">{{ $airport->name }}</option>
-                @endforeach
-              </select>
+            </div>
+            <div>
+              <label for="booking-flightDate" class="block text-sm text-gray-400 mb-1">Date</label>
+              {{-- Le name="date" sera utilisé dans le contrôleur --}}
+              {{-- La valeur est pré-remplie avec la date de la requête précédente --}}
+              <input
+                type="date"
+                id="booking-flightDate"
+                name="date"
+                value="{{ request('date') }}"
+                class="w-full bg-darkblue-900 border border-gray-700 rounded p-2" />
             </div>
           </div>
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Date</label>
-            <input
-              type="date"
-              id="booking-flightDate"
-              name="date"
-              class="w-full bg-darkblue-900 border border-gray-700 rounded p-2" />
-          </div>
-          
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Classe</label>
-            <div class="relative">
-              <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                <option value="Economique">Économique</option>
-                <option value="Premium">Premium</option>
-                <option value="Affaires">Affaires</option>
-                <option value="Premiere">Première</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Passagers</label>
-            <div class="grid grid-cols-2 gap-2">
-              <div class="relative">
-                <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                  <option value="1">1 Adulte</option>
-                  <option value="2">2 Adultes</option>
-                  <option value="3">3 Adultes</option>
-                  <option value="4">4 Adultes</option>
-                </select>
+          {{-- Garde les champs Classe et Passagers pour la cohérence de l'interface --}}
+          {{-- Leurs valeurs seront aussi conservées après soumission grâce à request() --}}
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+             <div>
+                <label for="booking-class" class="block text-sm text-gray-400 mb-1">Classe</label>
+                <div class="relative">
+                  <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                    <option value="Economique" {{ request('class') == 'Economique' ? 'selected' : '' }}>Économique</option>
+                    <option value="Premium" {{ request('class') == 'Premium' ? 'selected' : '' }}>Premium</option>
+                    <option value="Affaires" {{ request('class') == 'Affaires' ? 'selected' : '' }}>Affaires</option>
+                    <option value="Premiere" {{ request('class') == 'Premiere' ? 'selected' : '' }}>Première</option>
+                  </select>
+                </div>
               </div>
-              <div class="relative">
-                <select id="booking-children" name="children" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
-                  <option value="0">0 Enfant</option>
-                  <option value="1">1 Enfant</option>
-                  <option value="2">2 Enfants</option>
-                  <option value="3">3 Enfants</option>
-                </select>
+             <div>
+                <label class="block text-sm text-gray-400 mb-1">Passagers</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="relative">
+                    <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                      {{-- Utilise 1 comme valeur par défaut si 'adults' n'est pas dans la requête --}}
+                      <option value="1" {{ request('adults', '1') == '1' ? 'selected' : '' }}>1 Adulte</option>
+                      <option value="2" {{ request('adults') == '2' ? 'selected' : '' }}>2 Adultes</option>
+                      <option value="3" {{ request('adults') == '3' ? 'selected' : '' }}>3 Adultes</option>
+                      <option value="4" {{ request('adults') == '4' ? 'selected' : '' }}>4 Adultes</option>
+                    </select>
+                  </div>
+                  <div class="relative">
+                    <select id="booking-children" name="children" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                       {{-- Utilise 0 comme valeur par défaut si 'children' n'est pas dans la requête --}}
+                      <option value="0" {{ request('children', '0') == '0' ? 'selected' : '' }}>0 Enfant</option>
+                      <option value="1" {{ request('children') == '1' ? 'selected' : '' }}>1 Enfant</option>
+                      <option value="2" {{ request('children') == '2' ? 'selected' : '' }}>2 Enfants</option>
+                      <option value="3" {{ request('children') == '3' ? 'selected' : '' }}>3 Enfants</option>
+                    </select>
+                  </div>
+                </div>
               </div>
+            <div class="flex items-end">
+              {{-- Le bouton de type submit déclenche l'envoi du formulaire --}}
+              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition">
+                Rechercher des Vols
+              </button>
             </div>
           </div>
-          <div class="flex items-end">
-            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition">
-              Rechercher des Vols
-            </button>
-          </div>
-          </form>
-        </div>
+        </form> {{-- Fin du formulaire --}}
       </div>
 
 
       <!-- Results Section -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <!-- Filters -->
+        <!-- Filters (Partie Filtres - inchangée et non fonctionnelle pour le moment) -->
         <div class="bg-darkblue-800 rounded-lg p-4">
           <h2 class="font-bold mb-4">Filtres</h2>
 
           <div class="mb-4">
             <label class="block text-sm text-gray-400 mb-1">Prix maximum</label>
-            <input
-              type="range"
-              min="0"
-              max="1000"
-              step="10"
-              value="50"
-              id="priceRange"
-              class="w-full" />
+            <input type="range" min="0" max="1000" step="10" value="500" id="priceRange" class="w-full" />
             <div class="flex justify-between text-sm text-gray-400">
               <span>0€</span>
-              <span id="priceValue">50€</span>
+              <span id="priceValue">500€</span> {{-- Initialement à 500€, sera mis à jour par JS si présent --}}
             </div>
           </div>
 
           <div class="mb-4">
             <h3 class="text-sm font-medium mb-2">Heure de départ</h3>
             <div class="space-y-2 text-sm">
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" />
-                <span>Matin (6h-12h)</span>
-              </label>
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" />
-                <span>Après-midi (12h-18h)</span>
-              </label>
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" />
-                <span>Soir (18h-00h)</span>
-              </label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Matin (6h-12h)</span></label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Après-midi (12h-18h)</span></label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Soir (18h-00h)</span></label>
             </div>
           </div>
 
           <div>
             <h3 class="text-sm font-medium mb-2">Compagnies</h3>
             <div class="space-y-2 text-sm">
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" checked />
-                <span>Air France</span>
-              </label>
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" />
-                <span>KLM</span>
-              </label>
-              <label class="flex items-center">
-                <input type="checkbox" class="mr-2" />
-                <span>Lufthansa</span>
-              </label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" checked /><span>Air France</span></label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>KLM</span></label>
+              <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Lufthansa</span></label>
             </div>
           </div>
         </div>
 
         <!-- Flight Results -->
         <div class="md:col-span-3">
-          <div class="bg-darkblue-800 rounded-lg p-4 mb-4">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-              <div class="flex items-center mb-2 md:mb-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
-                  <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path>
-                  <polygon points="12 15 17 21 7 21 12 15"></polygon>
-                </svg>
+          {{-- Utilisation de @forelse pour boucler sur les vols ou afficher un message si la collection est vide --}}
+          {{-- La variable $flights doit être passée par le contrôleur --}}
+          @forelse ($flights as $flight)
+            {{-- Début de la structure HTML pour UN résultat de vol (identique à ton exemple statique) --}}
+            <div class="bg-darkblue-800 rounded-lg p-4 mb-4">
+              <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                <div class="flex items-center mb-2 md:mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                    <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path>
+                    <polygon points="12 15 17 21 7 21 12 15"></polygon>
+                  </svg>
+                  <div>
+                    {{-- Afficher le nom de la compagnie (adapte 'airline_name' si le nom de ta colonne est différent) --}}
+                    <div class="font-medium">{{ $flight->airline_name ?? 'Compagnie Aérienne' }}</div>
+                    {{-- Afficher le numéro de vol (adapte 'flight_number') --}}
+                    <div class="text-xs text-gray-400">{{ $flight->flight_number ?? 'N/A' }}</div>
+                  </div>
+                </div>
+                 {{-- Afficher le prix (adapte 'price') --}}
+                <div class="text-xl font-bold">{{ $flight->price ?? 'N/A' }}€</div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <div class="font-medium">Air France</div>
-                  <div class="text-xs text-gray-400">AF1234</div>
+                  <div class="text-sm text-gray-400">Départ</div>
+                   {{-- Formater l'heure de départ (adapte 'departure_time') --}}
+                   {{-- Assure-toi que Carbon est disponible, sinon utilise date() de PHP --}}
+                  <div class="text-xl font-medium">{{ \Carbon\Carbon::parse($flight->departure_time)->format('H:i') }}</div>
+                  {{-- Afficher le nom de l'aéroport de départ via la relation Eloquent --}}
+                  {{-- Assure-toi que la relation 'departureAirport' existe dans ton modèle Flight --}}
+                  <div class="text-sm">{{ $flight->departureAirport->name ?? 'Aéroport Départ' }}</div>
+                </div>
+
+                <div class="flex flex-col items-center justify-center">
+                  {{-- Calculer et afficher la durée du vol --}}
+                  <div class="text-xs text-gray-400">
+                     {{ \Carbon\Carbon::parse($flight->departure_time)->diff(\Carbon\Carbon::parse($flight->arrival_time))->format('%hh %im') }}
+                  </div>
+                  <div class="w-full h-px bg-gray-700 my-2 relative">
+                    <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
+                    <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
+                  </div>
+                   {{-- Tu peux ajouter une logique ici pour 'Direct' ou 'Escale' si tu as l'info --}}
+                  <div class="text-xs text-gray-400">Direct</div>
+                </div>
+
+                <div>
+                  <div class="text-sm text-gray-400">Arrivée</div>
+                  {{-- Formater l'heure d'arrivée (adapte 'arrival_time') --}}
+                  <div class="text-xl font-medium">{{ \Carbon\Carbon::parse($flight->arrival_time)->format('H:i') }}</div>
+                  {{-- Afficher le nom de l'aéroport d'arrivée via la relation Eloquent --}}
+                  {{-- Assure-toi que la relation 'arrivalAirport' existe dans ton modèle Flight --}}
+                  <div class="text-sm">{{ $flight->arrivalAirport->name ?? 'Aéroport Arrivée' }}</div>
                 </div>
               </div>
-              <div class="text-xl font-bold">459€</div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <div class="text-sm text-gray-400">Départ</div>
-                <div class="text-xl font-medium">08:00</div>
-                <div class="text-sm">Paris (CDG)</div>
-              </div>
-
-              <div class="flex flex-col items-center justify-center">
-                <div class="text-xs text-gray-400">2h 15m</div>
-                <div class="w-full h-px bg-gray-700 my-2 relative">
-                  <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
-                  <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
-                </div>
-                <div class="text-xs text-gray-400">Direct</div>
-              </div>
-
-              <div>
-                <div class="text-sm text-gray-400">Arrivée</div>
-                <div class="text-xl font-medium">10:15</div>
-                <div class="text-sm">Londres (LHR)</div>
+              <div class="mt-4 flex justify-end">
+                {{-- Le bouton Sélectionner peut mener à une page de détails ou de confirmation --}}
+                {{-- Pour l'instant, il ne fait rien --}}
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-4 rounded text-sm transition">
+                  Sélectionner
+                </a>
               </div>
             </div>
-
-            <div class="mt-4 flex justify-end">
-              <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-4 rounded text-sm transition">
-                Sélectionner
-              </button>
+            {{-- Fin de la structure HTML pour UN résultat de vol --}}
+          @empty
+            {{-- Ce message s'affiche si la collection $flights est vide --}}
+            <div class="bg-darkblue-800 rounded-lg p-4 text-center text-gray-400">
+              Aucun vol trouvé correspondant à vos critères de recherche.
             </div>
-          </div>
+          @endforelse
+          {{-- Fin de la boucle @forelse --}}
         </div>
       </div>
-
 
     </div>
   </div>
 
-  @include('layouts.footer')
+   @include('layouts.footer')
 
   <script>
-    // Initialiser la date à aujourd'hui
-    document.addEventListener('DOMContentLoaded', function() {
-      const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0];
-      document.getElementById('flightDate').value = formattedDate;
-
-      // Gérer le changement de prix
-      const priceRange = document.getElementById('priceRange');
-      const priceValue = document.getElementById('priceValue');
-
-      priceRange.addEventListener('input', function() {
-        priceValue.textContent = this.value + '€';
-      });
-    });
-  </script>
-
-  <script>
-    // Script pour initialiser le slider de prix (si tu le gardes)
+    // Script pour initialiser et gérer le slider de prix (inchangé, mais non connecté au filtre PHP pour l'instant)
     document.addEventListener('DOMContentLoaded', function() {
       const priceRange = document.getElementById('priceRange');
       const priceValue = document.getElementById('priceValue');
       if (priceRange && priceValue) {
+        // Initialiser la valeur affichée basée sur la valeur initiale du range
         priceValue.textContent = priceRange.value + '€';
+        // Mettre à jour la valeur affichée lorsque le slider est bougé
         priceRange.addEventListener('input', function() {
           priceValue.textContent = this.value + '€';
         });
       }
-
-      // --- JS POUR LIRE LES PARAMÈTRES URL ET REMPLIR LE FORMULAIRE ---
-      const params = new URLSearchParams(window.location.search);
-
-      // Récupérer les valeurs depuis les paramètres URL
-      const departure = params.get('departure');
-      const arrival = params.get('arrival');
-      const date = params.get('date');
-      const flightClass = params.get('class');
-      const adults = params.get('adults');
-      const children = params.get('children');
-
-      // Fonction sécurisée pour définir la valeur d'un champ
-      function setFieldValue(elementId, value) {
-        const element = document.getElementById(elementId);
-        // Vérifie si l'élément existe ET si la valeur n'est pas nulle/vide
-        if (element && value) {
-          element.value = value;
-        } else if (element) {
-          // Optionnel: laisser la valeur par défaut ou mettre une indication
-          // console.log(`Valeur manquante pour ${elementId}`);
-        } else {
-          console.error(`Élément avec ID '${elementId}' non trouvé.`);
-        }
-      }
-
-      // Appliquer les valeurs aux champs du formulaire de cette page
-      setFieldValue('booking-departure', departure);
-      setFieldValue('booking-arrival', arrival);
-      setFieldValue('booking-flightDate', date);
-      setFieldValue('booking-class', flightClass);
-      setFieldValue('booking-adults', adults);
-      setFieldValue('booking-children', children);
-
-      // Optionnel: Afficher un message de confirmation des critères
-      const resultsInfo = document.getElementById('flightResultsInfo');
-      if (resultsInfo && departure && arrival && date) {
-        // Formatter la date pour l'affichage (simple)
-        let displayDate = date;
-        try {
-          displayDate = new Date(date).toLocaleDateString('fr-FR', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          });
-        } catch (e) {
-          /* Garder la date brute si le formatage échoue */ }
-
-        resultsInfo.innerHTML = `Affichage des vols pour : <strong>${departure}</strong> vers <strong>${arrival}</strong> le <strong>${displayDate}</strong>`;
-      } else if (resultsInfo) {
-        resultsInfo.textContent = "Veuillez spécifier vos critères de recherche.";
-      }
-
-    }); // Fin de DOMContentLoaded
+    });
   </script>
-</body>
 
+</body>
 </html>
