@@ -45,6 +45,11 @@ Route::get('/payments', function () {
 Route::get('/pdfReceipt', function () {
     return view('pdfReceipt');
 });
+
+Route::get('/reservation', function () {
+    return view('reservation');
+});
+
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name('booking');
 

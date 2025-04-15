@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\FlightController;
+use App\Http\Controllers\ReservationController;
 
 
 /*
@@ -44,4 +45,6 @@ Route::post('/flights', [FlightController ::class, 'store']);
 Route::put('/flights/{id}', [FlightController ::class, 'update']);
 Route::delete('/flights/{id}', [FlightController ::class, 'destroy']);
 
+Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
+Route::post('/reservation', [ReservationController::class, 'submit'])->name('reservation.submit');
 
