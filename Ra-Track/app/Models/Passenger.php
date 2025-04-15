@@ -11,7 +11,8 @@ class Passenger extends Model
 
     protected $fillable = [
         'reservation_id', // Clé étrangère vers la réservation
-        'name',           // Nom du passager
+        'firstname',           // Nom du passager
+        'lastname',
         'age',            // Âge du passager
         'gender',         // Sexe du passager
     ];
