@@ -6,6 +6,7 @@ use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PassengerController;
 
 
 /*
@@ -45,6 +46,13 @@ Route::post('/flights', [FlightController ::class, 'store']);
 Route::put('/flights/{id}', [FlightController ::class, 'update']);
 Route::delete('/flights/{id}', [FlightController ::class, 'destroy']);
 
+//routes reservations
 Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
 Route::post('/reservation', [ReservationController::class, 'submit'])->name('reservation.submit');
 
+// routes passengers
+Route::get('/passengers', [PassengerController::class, 'index']);        // Lire tous les passagers
+Route::post('/passengers', [PassengerController::class, 'store']);       // Créer un nouveau passager
+Route::get('/passengers/{id}', [PassengerController::class, 'show']);    // Lire un passager spécifique
+Route::put('/passengers/{id}', [PassengerController::class, 'update']);  // Mettre à jour un passager
+Route::delete('/passengers/{id}', [PassengerController::class, 'destroy']); // Supprimer un passager
