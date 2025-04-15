@@ -48,5 +48,17 @@ class PassengerController extends Controller
         ], 201);
     }
 
- 
+
+       /**
+     * Affiche un passager spécifique.
+     */
+    public function show(Passenger $passenger)
+    {
+        return response()->json([
+            'status' => 'success',
+            'data' => $passenger
+        ]);
+    }
+
+   
 }
