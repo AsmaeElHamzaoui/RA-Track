@@ -60,5 +60,32 @@ class PassengerController extends Controller
         ]);
     }
 
+    /**
+     * Met à jour un passager existant.
+     */
+    public function update(Request $request, Passenger $passenger)
+    {
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'age' => 'nullable|integer|min:0',
+            'sexe' => 'nullable|in:Homme,Femme',
+        ]);
+
+        $passenger->update([
+            'lastname' => $validated['nom'],
+            'firstname' => $validated['prenom'],
+            'age' => $validated['age'],
+            'gender' => $validated['sexe'],
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Passager mis à jour avec succès.',
+            'data' => $passenger
+        ]);
+    }
+
    
+ 
 }
