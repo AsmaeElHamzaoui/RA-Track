@@ -52,7 +52,7 @@ class FlightController extends Controller
     public function show($id)
     {
         $flight = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->findOrFail($id);
-        return response()->json($flight);
+        return view('detailsFlight', ['flight' => $flight]);
     }
   
     
