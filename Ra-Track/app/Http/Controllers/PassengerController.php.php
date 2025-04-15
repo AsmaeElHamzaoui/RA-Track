@@ -20,5 +20,33 @@ class PassengerController extends Controller
         ]);
     }
 
-   
+    /**
+     * Enregistre un nouveau passager.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'age' => 'nullable|integer|min:0',
+            'sexe' => 'nullable|in:Homme,Femme',
+        ]);
+
+        $passenger = Passenger::create([
+            'reservation_id' => $validated['reservation_id'],
+            'lastname' => $validated['nom'],
+            'firstname' => $validated['prenom'],
+            'age' => $validated['age'],
+            'gender' => $validated['sexe'],
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Passager créé avec succès.',
+            'data' => $passenger
+        ], 201);
+    }
+
+ 
 }
