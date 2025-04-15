@@ -12,6 +12,7 @@ class Reservation extends Model
     protected $fillable = [
         'user_id', // Clé étrangère vers l'utilisateur
         'flight_id', // Clé étrangère vers le vol
+        'passenger_id', // Clé étrangère vers le passager
         'class', // Classe choisie (économy, business, first)
     ];
 
