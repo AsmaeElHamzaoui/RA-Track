@@ -235,21 +235,22 @@
               </div>
 
               <div class="mt-4 flex justify-end">
-                {{-- Le bouton Sélectionner peut mener à une page de détails ou de confirmation --}}
-                {{-- Pour l'instant, il ne fait rien --}}
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-4 rounded text-sm transition">
-                  Sélectionner
-                </a>
+              <form method="GET" action="{{ route('reservation.show', ['flight' => $flight->id]) }}">
+                 <input type="hidden" name="departure" value="{{ request('departure') }}">
+                 <input type="hidden" name="arrival" value="{{ request('arrival') }}">
+                 <input type="hidden" name="date" value="{{ request('date') }}">
+                 <input type="hidden" name="class" value="{{ request('class') }}">
+                 <input type="hidden" name="adults" value="{{ request('adults') }}">
+                 <input type="hidden" name="children" value="{{ request('children') }}">
+                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-3 rounded">Sélectionner</button>
+              </form>
               </div>
             </div>
-            {{-- Fin de la structure HTML pour UN résultat de vol --}}
           @empty
-            {{-- Ce message s'affiche si la collection $flights est vide --}}
             <div class="bg-darkblue-800 rounded-lg p-4 text-center text-gray-400">
               Aucun vol trouvé correspondant à vos critères de recherche.
             </div>
           @endforelse
-          {{-- Fin de la boucle @forelse --}}
         </div>
       </div>
 
