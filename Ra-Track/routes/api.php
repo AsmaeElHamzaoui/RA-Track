@@ -7,6 +7,7 @@ use App\Http\Controllers\AirportController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PassengerController;
+use App\Http\Controllers\Auth\AuthController;
 
 
 /*
@@ -23,6 +24,11 @@ use App\Http\Controllers\PassengerController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// routes authentication
+Route::post('register', [AuthController::class, 'register']);  // Route pour l'inscription
+Route::post('login', [AuthController::class, 'login']);        // Route pour la connexion
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Route pour la déconnexion
 
 
 // routes planes
