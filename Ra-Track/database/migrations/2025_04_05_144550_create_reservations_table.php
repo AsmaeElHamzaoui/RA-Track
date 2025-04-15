@@ -15,6 +15,7 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Clé étrangère vers l'utilisateur
             $table->foreignId('flight_id')->constrained('flights')->onDelete('cascade'); // Clé étrangère vers le vol
+            $table->integer('passenger_id'); // clé étrangère vers le passager
             $table->enum('class', ['economy', 'business', 'first'])->default('economy'); // Classe choisie
             $table->timestamps();
         });
