@@ -244,6 +244,9 @@
                  <input type="hidden" name="children" value="{{ request('children') }}">
                  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-3 rounded">Sélectionner</button>
               </form>
+              <form method="GET" action="{{ route('flight.show', ['flight' => $flight->id]) }}">
+                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-3 rounded">Détail</button>
+              </form>
               </div>
             </div>
           @empty
