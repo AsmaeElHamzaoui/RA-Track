@@ -39,7 +39,7 @@ Route::put('/airports/{id}', [AirportController::class, 'update']);
 Route::delete('/airports/{id}', [AirportController::class, 'destroy']);
 
 //routes flights
-Route::get('/flights', [FlightController ::class, 'index']);
+Route::get('/flights', [FlightController ::class, 'index'])->name('flight.show');
 Route::get('/flights/{id}', [FlightController ::class, 'show']);
 Route::post('/flights', [FlightController ::class, 'store']);
 Route::put('/flights/{id}', [FlightController ::class, 'update']);
