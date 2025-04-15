@@ -86,6 +86,17 @@ class PassengerController extends Controller
         ]);
     }
 
-   
+    /**
+     * Supprime un passager.
+     */
+    public function destroy(Passenger $passenger)
+    {
+        $passenger->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Passager supprimé avec succès.'
+        ]);
+    }
  
 }
