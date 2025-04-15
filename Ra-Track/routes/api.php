@@ -7,7 +7,7 @@ use App\Http\Controllers\AirportController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PassengerController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AuthController;
 
 
 /*
