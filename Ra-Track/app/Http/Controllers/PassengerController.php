@@ -20,43 +20,42 @@ class PassengerController extends Controller
      */
     public function store(Request $request)
     {
-        // Récupérer les données
         $data = $request->all();
-
-        // Vérifier si c'est une seule entrée (objet JSON) ou un tableau de plusieurs
-        $isMultiple = isset($data[0]) && is_array($data[0]);
-
+    
+        if (empty($data)) {
+            return response()->json(['message' => 'Aucune donnée envoyée.'], 400);
+        }
+    
+        $isMultiple = is_array($data) && array_keys($data) === range(0, count($data) - 1);
         $passengers = [];
-
+    
         if ($isMultiple) {
             foreach ($data as $item) {
-                $validated = validator($item, [
-                    'reservation_id' => 'required|exists:reservations,id',
-                    'firstname' => 'required|string',
-                    'lastname' => 'required|string',
-                    'age' => 'nullable|integer',
-                    'gender' => 'nullable|string|in:male,female,other',
-                ])->validate();
-
+                $validated = validator($item, $this->passengerValidationRules())->validate();
                 $passengers[] = Passenger::create($validated);
             }
         } else {
-            $validated = $request->validate([
-                'reservation_id' => 'required|exists:reservations,id',
-                'firstname' => 'required|string',
-                'lastname' => 'required|string',
-                'age' => 'nullable|integer',
-                'gender' => 'nullable|string|in:male,female,other',
-            ]);
-
+            $validated = $request->validate($this->passengerValidationRules());
             $passengers[] = Passenger::create($validated);
         }
-
+    
         return response()->json([
             'message' => count($passengers) > 1 ? 'Passagers créés avec succès.' : 'Passager créé avec succès.',
             'data' => $passengers
         ], 201);
     }
+    
+    private function passengerValidationRules(): array
+    {
+        return [
+            'reservation_id' => 'required|exists:reservations,id',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'age' => 'nullable|integer',
+            'gender' => 'nullable|string|in:male,female,other',
+        ];
+    }
+    
 
     /**
      * Affiche un passager par ID

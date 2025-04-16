@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -41,7 +42,44 @@ class AuthController extends Controller
         ], 201);
     }
 
-  
+    public function store(Request $request)
+    {
+        // Logique d'inscription Laravel classique
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'in:admin,maintenanceagent,pilot,client', // Vérification du rôle
+        ]);
+    
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => $validatedData['role'] ?? 'client', // Par défaut, rôle client
+        ]);
+    
+        Auth::login($user);
+    
+        // Récupérer une réservation stockée en session
+        if (session()->has('pending_reservation_id')) {
+            $reservationId = session()->pull('pending_reservation_id');
+    
+            // Attacher l'utilisateur à la réservation
+            $reservation = Reservation::find($reservationId);
+            if ($reservation && !$reservation->user_id) {
+                $reservation->update(['user_id' => $user->id]);
+            }
+    
+            // Rediriger vers la page de paiement
+            return redirect()->route('payment.show', ['reservation' => $reservationId]);
+        }
+    
+        // Redirection normale
+        return redirect()->route('dashboard'); // ou une autre route par défaut
+    }
+    
+    
       /**
      * Connexion d'un utilisateur
      */
