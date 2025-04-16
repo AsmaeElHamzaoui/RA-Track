@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::get('/services', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+// routes authentication
+Route::post('register', [AuthController::class, 'register'])->name('register');  // Route pour l'inscription
+Route::post('login', [AuthController::class, 'login']);        // Route pour la connexion
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Route pour la déconnexion
+
 
 Route::get('/login', function () {
     return view('login');
