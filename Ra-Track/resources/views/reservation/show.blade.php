@@ -68,7 +68,7 @@
     <!-- Main Content Area -->
     <main class="container mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6 md:p-8">
 
-        <form action="{{ route('reservation.submit') }}" method="POST">
+        <form action="{{ route('reservation') }}" method="POST">
             @csrf
              {{-- Hidden inputs to pass flight and booking details if needed by the controller --}}
              <input type="hidden" name="flight_id" value="{{ $flight->id }}">
@@ -183,63 +183,36 @@
 
             <!-- Passenger Details Sections -->
             @php
-                $totalPassengers = (int) request('adults') + (int) request('children');
-                $numAdults = (int) request('adults');
-            @endphp
+    $totalPassengers = (int) request('adults') + (int) request('children');
+@endphp
 
-            @if($totalPassengers > 0)
-                 <h2 class="text-xl font-semibold mb-4 text-gray-700">Informations des passagers</h2> {{-- Changed to French --}}
-            @endif
+@if($totalPassengers > 0)
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Informations des passagers</h2>
+@endif
 
-            @for ($i = 1; $i <= $totalPassengers; $i++)
-                @php
-                    // Determine if the current passenger is an adult or child for the title
-                    $passengerType = ($i <= $numAdults) ? 'Adulte' : 'Enfant';
-                    $passengerIndex = ($i <= $numAdults) ? $i : $i - $numAdults;
-                @endphp
-                <section class="mb-8 border-t border-gray-200 pt-6">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-700"> {{-- Changed h2 to h3 for hierarchy --}}
-                        {{-- Using appropriate icons based on type --}}
-                        @if($passengerType == 'Adulte')
-                            <i class="fas fa-user mr-2 text-indigo-600"></i>Passager {{ $passengerType }} {{ $passengerIndex }}
-                        @else
-                            <i class="fas fa-child mr-2 text-indigo-600"></i>Passager {{ $passengerType }} {{ $passengerIndex }}
-                        @endif
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        <!-- Last Name (Nom) -->
-                        <div>
-                            <label for="passenger_{{ $i }}_last_name" class="block text-sm font-medium text-gray-700 mb-1">Nom</label> {{-- Changed to French --}}
-                            <input type="text" id="passenger_{{ $i }}_last_name" name="passengers[{{ $i }}][nom]" placeholder="Nom de famille" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"> {{-- Added required, changed placeholder --}}
-                        </div>
-                        <!-- First Name (Prénom) -->
-                        <div>
-                            <label for="passenger_{{ $i }}_first_name" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label> {{-- Changed to French --}}
-                            <input type="text" id="passenger_{{ $i }}_first_name" name="passengers[{{ $i }}][prenom]" placeholder="Prénom" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"> {{-- Added required --}}
-                        </div>
-                         <!-- Gender (Sexe) -->
-                         <div class="md:col-span-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Sexe</label> {{-- Changed to French --}}
-                            <div class="flex items-center space-x-4 mt-1">
-                                <label class="flex items-center space-x-1 cursor-pointer">
-                                    {{-- Use the same name attribute structure --}}
-                                    <input type="radio" name="passengers[{{ $i }}][sexe]" value="Homme" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"> {{-- Added required --}}
-                                    <span class="text-sm text-gray-700">Homme</span> {{-- Changed to French --}}
-                                </label>
-                                <label class="flex items-center space-x-1 cursor-pointer">
-                                    <input type="radio" name="passengers[{{ $i }}][sexe]" value="Femme" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"> {{-- Added required --}}
-                                    <span class="text-sm text-gray-700">Femme</span> {{-- Changed to French --}}
-                                </label>
-                            </div>
-                        </div>
-                        <!-- Age -->
-                        <div>
-                            <label for="passenger_{{ $i }}_age" class="block text-sm font-medium text-gray-700 mb-1">Âge</label> {{-- Changed to French --}}
-                            <input type="number" id="passenger_{{ $i }}_age" name="passengers[{{ $i }}][age]" placeholder="Âge" required min="0" class="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"> {{-- Added required, min=0 --}}
-                        </div>
-                    </div>
-                </section>
-            @endfor
+@for ($i = 1; $i <= $totalPassengers; $i++)
+    <form action="{{ route('passengers.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="flight_id" value="{{ request('flight_id') }}"> <!-- Ajoutez d'autres informations nécessaires -->
+        
+        <div class="mb-4">
+            <h3 class="font-bold mb-2 text-gray-700">Passager {{ $i }}</h3>
+            <input type="text" name="passengers[{{ $i }}][first_name]" placeholder="Prénom" required class="input-class">
+            <input type="text" name="passengers[{{ $i }}][last_name]" placeholder="Nom" required class="input-class">
+            <select name="passengers[{{ $i }}][gender]" required class="input-class">
+                <option value="">Sexe</option>
+                <option value="male">Homme</option>
+                <option value="female">Femme</option>
+            </select>
+            <input type="number" name="passengers[{{ $i }}][age]" placeholder="Âge" required class="input-class">
+        </div>
+
+        <button type="submit" class="btn-class">Ajouter Passager</button>
+    </form>
+@endfor
+
+
+
 
 
             <!-- Book Now Button -->
@@ -255,14 +228,7 @@
 
     <!-- JavaScript (Optional - for potential future enhancements like date pickers or dynamic passenger forms) -->
     <script>
-        // Example: You could add JavaScript here for things like:
-        // - Initializing a date picker for the departure date if it were editable.
-        // - Dynamically adding/removing passenger form sections if the number of passengers could be changed on this page.
-        // - Form validation before submission.
-
-        // The simple show/hide logic from the original example isn't directly applicable
-        // here because the number of passengers is determined by the request parameters
-        // and rendered by the Blade loop.
+       
     </script>
 
 </body>
