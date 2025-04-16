@@ -22,7 +22,7 @@
 
                     @auth
                         <li>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="/logout">
                                 @csrf
                                 <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600" style="background-color:#FFD476">
                                     Log Out
