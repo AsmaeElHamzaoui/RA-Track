@@ -8,95 +8,92 @@ use Illuminate\Http\Request;
 class PassengerController extends Controller
 {
     /**
-     * Affiche la liste de tous les passagers.
+     * Liste tous les passagers
      */
     public function index()
     {
-        $passengers = Passenger::all();
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $passengers
-        ]);
+        return response()->json(Passenger::all(), 200);
     }
 
     /**
-     * Enregistre un nouveau passager.
+     * Crée un ou plusieurs passagers
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'age' => 'nullable|integer|min:0',
-            'sexe' => 'nullable|in:Homme,Femme',
-        ]);
+        // Récupérer les données
+        $data = $request->all();
 
-        $passenger = Passenger::create([
-            'reservation_id' => $validated['reservation_id'],
-            'lastname' => $validated['nom'],
-            'firstname' => $validated['prenom'],
-            'age' => $validated['age'],
-            'gender' => $validated['sexe'],
-        ]);
+        // Vérifier si c'est une seule entrée (objet JSON) ou un tableau de plusieurs
+        $isMultiple = isset($data[0]) && is_array($data[0]);
+
+        $passengers = [];
+
+        if ($isMultiple) {
+            foreach ($data as $item) {
+                $validated = validator($item, [
+                    'reservation_id' => 'required|exists:reservations,id',
+                    'firstname' => 'required|string',
+                    'lastname' => 'required|string',
+                    'age' => 'nullable|integer',
+                    'gender' => 'nullable|string|in:male,female,other',
+                ])->validate();
+
+                $passengers[] = Passenger::create($validated);
+            }
+        } else {
+            $validated = $request->validate([
+                'reservation_id' => 'required|exists:reservations,id',
+                'firstname' => 'required|string',
+                'lastname' => 'required|string',
+                'age' => 'nullable|integer',
+                'gender' => 'nullable|string|in:male,female,other',
+            ]);
+
+            $passengers[] = Passenger::create($validated);
+        }
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Passager créé avec succès.',
-            'data' => $passenger
+            'message' => count($passengers) > 1 ? 'Passagers créés avec succès.' : 'Passager créé avec succès.',
+            'data' => $passengers
         ], 201);
     }
 
-
-       /**
-     * Affiche un passager spécifique.
+    /**
+     * Affiche un passager par ID
      */
-    public function show(Passenger $passenger)
+    public function show($id)
     {
-        return response()->json([
-            'status' => 'success',
-            'data' => $passenger
-        ]);
+        $passenger = Passenger::findOrFail($id);
+        return response()->json($passenger);
     }
 
     /**
-     * Met à jour un passager existant.
+     * Met à jour un passager
      */
-    public function update(Request $request, Passenger $passenger)
+    public function update(Request $request, $id)
     {
+        $passenger = Passenger::findOrFail($id);
+
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'age' => 'nullable|integer|min:0',
-            'sexe' => 'nullable|in:Homme,Femme',
+            'firstname' => 'sometimes|required|string',
+            'lastname' => 'sometimes|required|string',
+            'age' => 'nullable|integer',
+            'gender' => 'nullable|string|in:male,female,other',
         ]);
 
-        $passenger->update([
-            'lastname' => $validated['nom'],
-            'firstname' => $validated['prenom'],
-            'age' => $validated['age'],
-            'gender' => $validated['sexe'],
-        ]);
+        $passenger->update($validated);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Passager mis à jour avec succès.',
-            'data' => $passenger
-        ]);
+        return response()->json(['message' => 'Passager mis à jour avec succès', 'data' => $passenger]);
     }
 
     /**
-     * Supprime un passager.
+     * Supprime un passager
      */
-    public function destroy(Passenger $passenger)
+    public function destroy($id)
     {
+        $passenger = Passenger::findOrFail($id);
         $passenger->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Passager supprimé avec succès.'
-        ]);
+        return response()->json(['message' => 'Passager supprimé avec succès']);
     }
- 
 }
