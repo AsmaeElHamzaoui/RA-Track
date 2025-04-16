@@ -25,11 +25,7 @@ class ReservationController extends Controller
 
     public function index(Request $request)
     {
-        // Optionnel : Récupérer uniquement les réservations de l'utilisateur connecté
-        // Décommentez la ligne suivante si nécessaire et assurez-vous que l'authentification est active
-        // $reservations = Reservation::where('user_id', Auth::id())->with(['user', 'flight', 'passengers'])->get();
-
-        // Ou récupérer toutes les réservations (pour un admin par exemple)
+    
         $reservations = Reservation::with(['user', 'flight', 'passengers'])->get(); // Eager load relationships
 
         return response()->json([
@@ -42,7 +38,6 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        // --- 1. Validation (ESSENTIEL - À faire AVANT tout !) ---
         $totalPassengers = (int) $request->input('adults', 0) + (int) $request->input('children', 0);
         $validator = Validator::make($request->all(), [
             'flight_id' => 'required|integer|exists:flights,id',
@@ -56,10 +51,9 @@ class ReservationController extends Controller
             'passengers.*.gender'    => 'required|string|in:male,female',
             'passengers.*.age'       => 'required|integer|min:0|max:120',
         ],[
-            // Ajoutez des messages d'erreur personnalisés en français si vous le souhaitez
             'passengers.size' => 'Le nombre de passagers fournis ne correspond pas au nombre de voyageurs indiqués.',
             'passengers.*.firstname.required' => 'Le prénom du passager :position est requis.',
-            // etc.
+            
         ]);
 
         if ($validator->fails()) {
@@ -119,14 +113,10 @@ class ReservationController extends Controller
 
         // --- 3. Redirection basée sur l'authentification ---
         if (!Auth::check()) {
-            // CAS 1: Utilisateur NON connecté (Invité)
-            // Stocker l'ID de la réservation en session pour la récupérer après inscription/connexion
             session(['pending_reservation_id' => $reservation->id]);
-
-            // Rediriger vers la page d'inscription
-            // Optionnel: ajouter un message flash pour informer l'utilisateur
-            return redirect()->route('register')
-                       ->with('info', 'Veuillez vous inscrire ou vous connecter pour continuer vers le paiement.');
+        
+            return redirect()->route('login')
+                   ->with('info', 'Veuillez vous connecter pour continuer vers le paiement.');
         } else {
             // CAS 2: Utilisateur DÉJÀ connecté
             // Rediriger directement vers la page de paiement, en passant l'ID de la réservation
