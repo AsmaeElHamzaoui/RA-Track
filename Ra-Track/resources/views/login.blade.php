@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | LimoWide</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script>
@@ -66,19 +66,21 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 212, 118, 0.3);
             box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
-            5px 5px 15px rgba(0, 0, 0, 0.35),
-            inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-            inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+                5px 5px 15px rgba(0, 0, 0, 0.35),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.35);
         }
 
         .register-container .logo-section {
-            width: 50%; /* La moitié de la largeur */
+            width: 50%;
+            /* La moitié de la largeur */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            order: 2; /* Place la section logo à droite */
+            order: 2;
+            /* Place la section logo à droite */
         }
 
         .register-container .logo-section img {
@@ -93,12 +95,14 @@
         }
 
         .register-form {
-            width: 50%; /* La moitié de la largeur */
+            width: 50%;
+            /* La moitié de la largeur */
             display: flex;
             flex-direction: column;
             gap: 25px;
             align-items: center;
-            order: 1; /* Place le formulaire à gauche */
+            order: 1;
+            /* Place le formulaire à gauche */
         }
 
         .register-form h2 {
@@ -124,7 +128,7 @@
             border-radius: 25px;
             font-size: 1em;
             box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.05),
-            5px 5px 15px rgba(0, 0, 0, 0.2);
+                5px 5px 15px rgba(0, 0, 0, 0.2);
             transition: 0.5s;
             outline: none;
         }
@@ -176,9 +180,9 @@
             font-weight: 500;
             cursor: pointer;
             box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
-            5px 5px 15px rgba(0, 0, 0, 0.35),
-            inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-            inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+                5px 5px 15px rgba(0, 0, 0, 0.35),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.35);
             width: 100%;
         }
 
@@ -203,7 +207,8 @@
     <div class="register-container">
 
         <!-- Formulaire de connexion (à gauche) -->
-        <form class="register-form" action="#" method="POST">
+        <form class="register-form" action="/login" method="POST">
+            @csrf
             <h2>Login</h2>
             <div class="inputBox">
                 <input type="email" name="email" required="required">
@@ -220,6 +225,7 @@
             </div>
             <p>Not a member? <a href="/register">Create Account</a></p>
         </form>
+
 
         <!-- Section du Logo et Texte (à droite) -->
         <div class="logo-section">
