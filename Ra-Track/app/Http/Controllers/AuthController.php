@@ -14,6 +14,12 @@ class AuthController extends Controller
     /**
      * Inscription d'un nouvel utilisateur (API version)
      */
+
+     public function showLoginForm()
+{
+    return view('login');
+}
+
     public function register(Request $request)
     {
         $validatedData = $request->validate([
@@ -85,28 +91,42 @@ class AuthController extends Controller
      * Connexion d’un utilisateur via formulaire HTML (WEB)
      */
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
 
-            // Redirection selon les réservations
-            $reservation = Reservation::where('user_id', $user->id)->latest()->first();
-            if ($reservation) {
-                return redirect()->route('reservation.show', ['reservation' => $reservation->id]);
+        // ⚠️ Si une réservation est en attente en session (non encore liée à un utilisateur)
+        if (session()->has('pending_reservation_id')) {
+            $reservationId = session()->pull('pending_reservation_id');
+
+            $reservation = Reservation::find($reservationId);
+            if ($reservation && !$reservation->user_id) {
+                $reservation->update(['user_id' => $user->id]);
             }
 
-            return redirect()->route('home');
+            return redirect()->route('payment.show', ['reservation' => $reservationId]);
         }
 
-        return back()->withErrors([
-            'email' => 'Identifiants incorrects.',
-        ]);
+        // ✅ Sinon, on regarde s’il a une réservation en base
+        $reservation = Reservation::where('user_id', $user->id)->latest()->first();
+        if ($reservation) {
+            return redirect()->route('reservation.show', ['reservation' => $reservation->id]);
+        }
+
+        // ✅ Sinon, direction la page d’accueil
+        return redirect()->route('home');
     }
+
+    return back()->withErrors([
+        'email' => 'Identifiants incorrects.',
+    ]);
+}
+
 
     /**
      * Déconnexion
