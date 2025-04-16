@@ -233,9 +233,9 @@
                             <div class="relative">
                                 <select id="hero-class" class="inputBox" class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
                                   <option value="Economique">Économique</option>
-                                  <option value="Premium">Premium</option>
-                                  <option value="Affaires">Affaires</option>
-                                  <option value="Premiere">Première</option>
+                                  <option value="economy">Economy</option>
+                                  <option value="business">Business</option>
+                                  <option value="first">First</option>
                                 </select>
                             </div>
                         </div>
