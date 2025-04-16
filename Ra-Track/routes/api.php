@@ -52,13 +52,20 @@ Route::post('/flights', [FlightController ::class, 'store']);
 Route::put('/flights/{id}', [FlightController ::class, 'update']);
 Route::delete('/flights/{id}', [FlightController ::class, 'destroy']);
 
-//routes reservations
-Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
-Route::post('/reservation', [ReservationController::class, 'submit'])->name('reservation.submit');
+
 
 // routes passengers
 Route::get('/passengers', [PassengerController::class, 'index']);        // Lire tous les passagers
-Route::post('/passengers', [PassengerController::class, 'store']);       // Créer un nouveau passager
+Route::post('/passengers', [PassengerController::class, 'store'])->name('passenger.store'); // Créer un nouveau passager
 Route::get('/passengers/{id}', [PassengerController::class, 'show']);    // Lire un passager spécifique
 Route::put('/passengers/{id}', [PassengerController::class, 'update']);  // Mettre à jour un passager
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy']); // Supprimer un passager
+
+
+
+// Protéger ces routes avec l'authentification
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('reservations', ReservationController::class);
+    // Assure-toi que les routes pour les passagers existent aussi
+    // Route::apiResource('passengers', PassengerController::class)->except(['create', 'edit']); // Si c'est une API
+});
