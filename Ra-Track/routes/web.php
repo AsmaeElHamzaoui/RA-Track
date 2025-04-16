@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', [HomeController::class, 'showBooking']);
+Route::get('/', [HomeController::class, 'showBooking'])->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -33,14 +34,23 @@ Route::get('/register', function () {
 });
 
 // routes authentication
-Route::post('register', [AuthController::class, 'register'])->name('register');  // Route pour l'inscription
-Route::post('login', [AuthController::class, 'login']);        // Route pour la connexion
-Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Route pour la déconnexion
+Route::post('/register', [AuthController::class, 'store'])->name('register'); // version HTML
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); // conserve celle-ci uniquement
+
+//routes dashboard
+Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
+Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name('booking');
 
 
-Route::get('/login', function () {
-    return view('login');
-});
+//routes reservations
+Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation');
+Route::put('/reservation/{id}', [ReservationController::class, 'update']);  
+Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
+Route::get('/payment/{reservation}', [PaymentController::class, 'show'])->name('payment.show');
+
 
 Route::get('/real-timeTracking', function () {
     return view('real-timeTracking');
@@ -53,19 +63,3 @@ Route::get('/payments', function () {
 Route::get('/pdfReceipt', function () {
     return view('pdfReceipt');
 });
-
-Route::get('/reservation', function () {
-    return view('reservation');
-});
-
-Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
-Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name('booking');
-
-
-//routes reservations
-Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
-Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation');
-// Route::get('/reservation/{id}', [ReservationController::class, 'show']);    
-Route::put('/reservation/{id}', [ReservationController::class, 'update']);  
-Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
-

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
-     * Inscription d'un nouvel utilisateur
+     * Inscription d'un nouvel utilisateur (API version)
      */
     public function register(Request $request)
     {
@@ -21,18 +20,16 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'in:admin,maintenanceagent,pilot,client', // Vérification du rôle
+            'role' => 'in:admin,maintenanceagent,pilot,client',
         ]);
 
-        // Création de l'utilisateur
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'role' => $validatedData['role'] ?? 'client', // Par défaut, rôle client
+            'role' => $validatedData['role'] ?? 'client',
         ]);
 
-        // Création du token d'authentification
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -42,46 +39,50 @@ class AuthController extends Controller
         ], 201);
     }
 
+    /**
+     * Inscription via formulaire HTML (WEB)
+     */
     public function store(Request $request)
     {
-        // Logique d'inscription Laravel classique
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'in:admin,maintenanceagent,pilot,client', // Vérification du rôle
+            'role' => 'in:admin,maintenanceagent,pilot,client',
         ]);
-    
+
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'role' => $validatedData['role'] ?? 'client', // Par défaut, rôle client
+            'role' => $validatedData['role'] ?? 'client',
         ]);
-    
+
         Auth::login($user);
-    
-        // Récupérer une réservation stockée en session
+
+        // Si une réservation est en attente en session
         if (session()->has('pending_reservation_id')) {
             $reservationId = session()->pull('pending_reservation_id');
-    
-            // Attacher l'utilisateur à la réservation
+
             $reservation = Reservation::find($reservationId);
             if ($reservation && !$reservation->user_id) {
                 $reservation->update(['user_id' => $user->id]);
             }
-    
-            // Rediriger vers la page de paiement
+
             return redirect()->route('payment.show', ['reservation' => $reservationId]);
         }
-    
-        // Redirection normale
-        return redirect()->route('dashboard'); // ou une autre route par défaut
+
+        // Redirection selon les réservations
+        $reservation = Reservation::where('user_id', $user->id)->latest()->first();
+        if ($reservation) {
+            return redirect()->route('reservation.show', ['reservation' => $reservation->id]);
+        }
+
+        return redirect()->route('home');
     }
-    
-    
-      /**
-     * Connexion d'un utilisateur
+
+    /**
+     * Connexion d’un utilisateur via formulaire HTML (WEB)
      */
     public function login(Request $request)
     {
@@ -90,34 +91,29 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Vérification des identifiants
-        $user = User::where('email', $credentials['email'])->first();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            // Redirection selon les réservations
+            $reservation = Reservation::where('user_id', $user->id)->latest()->first();
+            if ($reservation) {
+                return redirect()->route('reservation.show', ['reservation' => $reservation->id]);
+            }
+
+            return redirect()->route('home');
         }
 
-        // Création du token d'authentification
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User logged in successfully',
-            'user' => $user,
-            'token' => $token,
-        ], 200);
+        return back()->withErrors([
+            'email' => 'Identifiants incorrects.',
+        ]);
     }
 
     /**
-     * Déconnexion de l'utilisateur (révocation du token)
+     * Déconnexion
      */
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-
-        return response()->json([
-            'message' => 'User logged out successfully'
-        ]);
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Déconnecté avec succès.');
     }
 }
