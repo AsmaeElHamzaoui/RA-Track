@@ -102,9 +102,9 @@
                 <div class="relative">
                   <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
                     <option value="Economique" {{ request('class') == 'Economique' ? 'selected' : '' }}>Économique</option>
-                    <option value="Premium" {{ request('class') == 'Premium' ? 'selected' : '' }}>Premium</option>
-                    <option value="Affaires" {{ request('class') == 'Affaires' ? 'selected' : '' }}>Affaires</option>
-                    <option value="Premiere" {{ request('class') == 'Premiere' ? 'selected' : '' }}>Première</option>
+                    <option value="economy" {{ request('class') == 'economy' ? 'selected' : '' }}>Economy</option>
+                    <option value="business" {{ request('class') == 'business' ? 'selected' : '' }}>Business</option>
+                    <option value="first" {{ request('class') == 'first' ? 'selected' : '' }}>First</option>
                   </select>
                 </div>
               </div>
