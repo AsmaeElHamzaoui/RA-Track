@@ -120,7 +120,7 @@ class ReservationController extends Controller
         } else {
             // CAS 2: Utilisateur DÉJÀ connecté
             // Rediriger directement vers la page de paiement, en passant l'ID de la réservation
-            return redirect()->route('payment.show', ['reservation' => $reservation->id]);
+            return redirect()->route('payments.index', ['reservation' => $reservation->id]);
             // Assurez-vous que la route 'payment.show' accepte bien un paramètre {reservation}
             // Et que le contrôleur associé peut gérer la récupération de la réservation via cet ID.
         }
