@@ -115,7 +115,7 @@ class AuthController extends Controller
         // ✅ Sinon, on regarde s’il a une réservation en base
         $reservation = Reservation::where('user_id', $user->id)->latest()->first();
         if ($reservation) {
-            return redirect()->route('reservation.show', ['reservation' => $reservation->id]);
+            return redirect()->route('reservation.show', ['flight' => $reservation->id]);
         }
 
         // ✅ Sinon, direction la page d’accueil
