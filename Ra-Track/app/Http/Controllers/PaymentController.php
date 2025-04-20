@@ -191,5 +191,15 @@ class PaymentController extends Controller
             return redirect()->route('payments.index', ['reservation' => $reservationId])->with('error', 'Une erreur inattendue est survenue lors de la confirmation.');
         }
     }
-    
+     /**
+     * Gère la redirection après une annulation de paiement.
+     */
+    public function cancel(Request $request) // Ajout de Request pour potentiellement récupérer l'ID si passé en query param
+    {
+        $reservationId = $request->query('reservation_id');
+        $redirectRoute = $reservationId ? route('payments.index', $reservationId) : route('dashboard'); // Retourne à la page de paiement si possible
+
+        return redirect($redirectRoute)
+               ->with('info', 'Le processus de paiement a été annulé. Votre réservation n\'est pas confirmée.');
+    }
 }
