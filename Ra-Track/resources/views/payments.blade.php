@@ -26,5 +26,8 @@
         @endforeach
     </ul>
 
-   
+    <form action="{{ route('stripe.checkout', ['reservation' => $reservation->id]) }}" method="GET">
+        @csrf
+        <button type="submit" class="btn btn-success">Payer avec Stripe</button>
+    </form>
 </div>
