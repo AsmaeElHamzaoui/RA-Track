@@ -71,5 +71,27 @@ class Reservation extends Model
         }
     }
 
+   
+    public function getPriceForPassenger(Passenger $passenger): ?float
+    {
+        $basePrice = $this->getBasePriceForClass();
+
+        if ($basePrice === null || $basePrice < 0) {
+            // Le prix de base n'a pas pu être déterminé ou est invalide
+             Log::error("Prix de base invalide ou non trouvé pour la classe '{$this->class}' sur vol ID {$this->flight_id}");
+            return null;
+        }
+
+        // Appliquer la règle d'âge
+        if ($passenger->age > 15) {
+            // Adulte (ou jeune >= 16 ans) : plein tarif
+            return $basePrice;
+        } else {
+            // Enfant (<= 15 ans) : moitié prix
+            return $basePrice / 2;
+        }
+    }
+
+    
     
 }
