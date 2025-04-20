@@ -93,5 +93,28 @@ class Reservation extends Model
     }
 
     
-    
+    public function calculateTotalPrice(): ?float
+    {
+        if ($this->passengers->isEmpty()) {
+             Log::warning("Tentative de calcul du prix total sans passagers pour la réservation ID: {$this->id}");
+            return 0.0; // Ou null si tu préfères
+        }
+
+        $total = 0;
+        foreach ($this->passengers as $passenger) {
+            $passengerPrice = $this->getPriceForPassenger($passenger);
+
+            if ($passengerPrice === null) {
+                // Si on ne peut pas calculer le prix d'un seul passager, le total est invalide
+                Log::error("Impossible de calculer le prix total car le prix du passager ID {$passenger->id} est indéterminé.");
+                return null;
+            }
+            $total += $passengerPrice;
+        }
+
+        // Arrondir à 2 décimales à la fin
+        return round($total, 2);
+    }
+
+  
 }
