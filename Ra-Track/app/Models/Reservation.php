@@ -116,5 +116,10 @@ class Reservation extends Model
         return round($total, 2);
     }
 
-  
+    public function isConfirmed(): bool
+    {
+        // Vérifie simplement s'il existe au moins un paiement pour cette réservation.
+        // 'exists()' est efficace car il ne charge pas les données du paiement.
+        return $this->payments()->exists();
+    }
 }
