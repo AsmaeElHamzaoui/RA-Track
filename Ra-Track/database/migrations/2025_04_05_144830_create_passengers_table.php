@@ -17,6 +17,7 @@ class CreatePassengersTable extends Migration
             $table->string('firstname'); // Nom du passager
             $table->string('lastname'); // Prénom du passenger
             $table->integer('age')->nullable(); // Âge du passager
+            $table->string('seat_number')->nullable();
             $table->string('gender')->nullable(); // Sexe du passager
             $table->timestamps();
         });
