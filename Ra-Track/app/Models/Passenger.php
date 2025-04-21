@@ -14,6 +14,7 @@ class Passenger extends Model
         'firstname',           // Nom du passager
         'lastname',
         'age',            // Âge du passager
+        'seat_number',    // Numéro de siège
         'gender',         // Sexe du passager
     ];
 
