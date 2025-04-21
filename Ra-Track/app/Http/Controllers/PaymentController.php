@@ -11,6 +11,9 @@ use Stripe\Exception\ApiErrorException;
 use Illuminate\Http\Request; // Pour la méthode success
 use Illuminate\Support\Facades\Log; // Pour logger
 use App\Models\Payment; // Pour la méthode success
+use App\Models\Passenger; // Pour la méthode success
+use Illuminate\Database\QueryException; // Pour attraper les erreurs DB spécifiques
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class PaymentController extends Controller
@@ -110,86 +113,216 @@ class PaymentController extends Controller
         }
     }
 
-      /**
-     * Gère la redirection après un paiement réussi.
-     */
     public function success(Request $request, $reservationId)
     {
+        // 1. Récupérer la réservation
         $reservation = Reservation::find($reservationId);
-
         if (!$reservation) {
-             Log::error("Réservation ID {$reservationId} non trouvée lors du retour de succès Stripe.");
-             return redirect()->route('home')->with('error', 'Réservation non trouvée.');
+            Log::error("Réservation ID {$reservationId} non trouvée lors du retour de succès Stripe.");
+            return redirect()->route('home')->with('error', 'Réservation non trouvée.');
         }
 
+        // 2. Récupérer l'ID de session Stripe
         $stripeSessionId = $request->query('session_id');
-
         if (!$stripeSessionId) {
-             Log::warning("ID de session Stripe manquant pour réservation ID {$reservationId}.");
-             return redirect()->route('payments.index', ['reservation' => $reservation->id])->with('error', 'Information de paiement manquante.');
+            Log::warning("ID de session Stripe manquant pour réservation ID {$reservationId}.");
+            // Redirige vers la page de paiement de cette réservation si possible
+            return redirect()->route('payments.index', ['reservation' => $reservation->id])
+                   ->with('error', 'Information de paiement manquante pour confirmer la transaction.');
         }
 
+        // 3. Traitement principal dans un bloc try pour gérer les erreurs
         try {
+            // Configurer Stripe
             Stripe::setApiKey(config('services.stripe.secret'));
+            // Récupérer la session Stripe
             $session = Session::retrieve($stripeSessionId);
             Log::debug('Stripe Session Retrieved:', ['session_id' => $stripeSessionId, 'status' => $session->payment_status, 'metadata' => $session->metadata]);
 
-            // Vérification CRUCIALE
+            // 4. Vérification CRUCIALE : Statut 'paid' et correspondance des métadonnées
             if ($session->metadata->reservation_id == $reservation->id && $session->payment_status == 'paid') {
 
                 Log::info("Condition IF succès REMPLIE pour résa {$reservation->id}.");
 
-                // Vérifier si un paiement existe déjà pour cette transaction (évite doublons)
-                 $existingPayment = Payment::where('transaction_id', $session->payment_intent)->first();
-                 if ($existingPayment) {
-                     Log::info("Paiement déjà existant trouvé pour résa {$reservation->id}.");
-                     // Le paiement est déjà traité, on redirige vers le dashboard.
-                     return redirect()->route('dashboard')
-                        ->with('success', 'Votre réservation est déjà confirmée.'); // Message légèrement ajusté
-                 }
-                Log::info("Tentative de création de l'enregistrement Payment pour réservation {$reservation->id}.");
+                // 5. Charger les relations nécessaires de manière efficace
+                $reservation->loadMissing(['passengers', 'flight.plane']);
+
+                // 6. Vérifier si le paiement a déjà été enregistré pour éviter les doublons
+                $existingPayment = Payment::where('transaction_id', $session->payment_intent)->first();
+
+                if ($existingPayment) {
+                    Log::info("Paiement déjà existant trouvé pour résa {$reservation->id} (Transac ID: {$session->payment_intent}). Redirection vers confirmation.");
+                    // Si le paiement est déjà enregistré, rediriger directement vers la confirmation
+                    return redirect()->route('reservation.confirmation', ['reservation' => $reservation->id])
+                           ->with('info', 'Cette réservation a déjà été confirmée.'); // Message informatif
+                }
+
+                // --- 7. Assignation des Sièges (si nécessaire) ---
+                // Placé avant la création du Payment : si l'assignation échoue, on ne crée pas l'enregistrement Payment.
                 try {
+                    $this->assignSeats($reservation); // Appel de la méthode d'assignation (voir ci-dessous)
+                } catch (\Exception $e) {
+                    // Si l'assignation échoue (ex: plus de sièges), on log et redirige avec erreur
+                    Log::error("ERREUR critique lors de l'assignation des sièges pour résa {$reservation->id}: " . $e->getMessage());
+                    return redirect()->route('payments.index', ['reservation' => $reservation->id]) // Retour à la page précédente
+                           ->with('error', 'Paiement réussi, mais une erreur est survenue lors de l\'assignation des sièges. Veuillez contacter le support. Détail : ' . $e->getMessage());
+                }
+                // --- Fin Assignation de Siège ---
+
+
+                // --- 8. Créer l'enregistrement de Paiement ---
+                try {
+                    Log::info("Tentative de création de l'enregistrement Payment pour réservation {$reservation->id}.");
                     $payment = Payment::create([
                         'reservation_id' => $reservation->id,
-                        'payment_method' => 'credit_card', // Assure-toi que c'est une valeur valide de ton enum ou string
+                        'payment_method' => 'credit_card', // Ou la méthode appropriée ('stripe_card' si tu as changé l'enum/string)
                         'payment_date' => now(),
-                        'transaction_id' => $session->payment_intent,
+                        'transaction_id' => $session->payment_intent, // Utilise l'ID de l'intention de paiement comme ID unique
                     ]);
 
                     if ($payment) {
                         Log::info("Enregistrement Payment créé avec succès. ID: {$payment->id} pour résa {$reservation->id}.");
-                        // Redirection finale après succès de la création du paiement
-                         Log::info("Redirection vers DASHBOARD pour résa {$reservation->id}.");
-                         return redirect()->route('dashboard')
-                                ->with('success', 'Paiement réussi ! Votre réservation est confirmée.');
                     } else {
-                        Log::error("Payment::create() a retourné null pour résa {$reservation->id}.");
-                        // S'il y a un problème même sans l'erreur de colonne, on redirige ici
-                        return redirect()->route('payments.index', ['reservation' => $reservation->id])->with('error', 'Erreur lors de la création de l\'enregistrement de paiement.');
+                        // Ceci ne devrait pas arriver si 'create' ne lève pas d'exception, mais par sécurité
+                        Log::error("Payment::create() a retourné null (sans exception) pour résa {$reservation->id}.");
+                        throw new \Exception("La création de l'enregistrement de paiement a échoué silencieusement.");
                     }
 
-                } catch (\Illuminate\Database\QueryException $dbException) {
-                    Log::error("ERREUR DB lors de Payment::create() pour résa {$reservation->id}: " . $dbException->getMessage());
-                    return redirect()->route('payments.index', ['reservation' => $reservation->id])->with('error', 'Erreur base de données lors de l\'enregistrement du paiement.');
+                } catch (QueryException $dbException) {
+                    // Erreur spécifique de la base de données (contrainte unique, etc.)
+                    Log::error("ERREUR BASE DE DONNÉES lors de Payment::create() pour résa {$reservation->id}: " . $dbException->getMessage());
+                    // Le paiement Stripe est passé, mais l'enregistrement échoue : situation critique
+                    return redirect()->route('dashboard') // Rediriger vers un endroit sûr
+                           ->with('error', 'Votre paiement a été accepté, mais une erreur technique est survenue lors de son enregistrement. Veuillez contacter le support avec la référence : ' . $reservation->booking_reference);
                 } catch (\Exception $e) {
+                    // Autre erreur lors de la création
                     Log::error("ERREUR GENERIQUE lors de Payment::create() pour résa {$reservation->id}: " . $e->getMessage());
-                    return redirect()->route('payments.index', ['reservation' => $reservation->id])->with('error', 'Erreur inattendue lors de l\'enregistrement du paiement.');
+                     return redirect()->route('dashboard')
+                           ->with('error', 'Votre paiement a été accepté, mais une erreur inattendue est survenue lors de son enregistrement. Contactez le support. Réf: ' . $reservation->booking_reference);
                 }
+                // --- Fin Création Paiement ---
+
+
+                // --- 9. Redirection Finale vers la Page de Confirmation ---
+                // Si on arrive ici, tout s'est bien passé (Stripe OK, Sièges OK, Paiement enregistré OK)
+                Log::info("Redirection vers la page de confirmation pour résa {$reservation->id}.");
+                return redirect()->route('reservation.confirmation', ['reservation' => $reservation->id])
+                       ->with('success', 'Paiement réussi ! Votre réservation est confirmée. Vous pouvez maintenant télécharger vos billets.');
+
 
             } else {
-                // SI LA CONDITION IF ÉCHOUE
+                // Si la vérification Stripe échoue (statut != 'paid' ou metadata incorrecte)
                 Log::warning("Condition IF succès NON REMPLIE pour résa {$reservation->id}. Status: '{$session->payment_status}', Metadata ID: '{$session->metadata->reservation_id}', Expected ID: '{$reservation->id}'");
-                return redirect()->route('payments.index', ['reservation' => $reservation->id])->with('error', 'La confirmation du paiement a échoué (Statut ou ID incorrect).');
+                return redirect()->route('payments.index', ['reservation' => $reservation->id])
+                       ->with('error', 'La confirmation du paiement a échoué. Le statut du paiement n\'est pas correct ou les informations ne correspondent pas.');
             }
 
         } catch (ApiErrorException $e) {
-             Log::error("Erreur API Stripe lors de Session::retrieve() pour session {$stripeSessionId}: " . $e->getMessage());
-            return redirect()->route('payments.index', ['reservation' => $reservationId])->with('error', 'Erreur de communication avec Stripe.');
+            // Erreur lors de la communication avec l'API Stripe
+            Log::error("Erreur API Stripe lors de Session::retrieve() pour session {$stripeSessionId}: " . $e->getMessage());
+            return redirect()->route('payments.index', ['reservation' => $reservationId])
+                   ->with('error', 'Erreur de communication avec le service de paiement Stripe.');
         } catch (\Exception $e) {
-             // L'erreur précédente venait ici car $reservation->save() échouait
-             Log::error("Erreur interne générale dans success() pour résa {$reservationId}: " . $e->getMessage());
-            return redirect()->route('payments.index', ['reservation' => $reservationId])->with('error', 'Une erreur inattendue est survenue lors de la confirmation.');
+            // Autres erreurs inattendues (ex: config, réseau, erreur dans le code avant les catch spécifiques)
+            Log::error("Erreur interne générale dans success() pour résa {$reservationId}: " . $e->getMessage());
+             return redirect()->route('payments.index', ['reservation' => $reservationId])
+                    ->with('error', 'Une erreur inattendue est survenue lors de la confirmation de votre paiement.');
         }
+    }
+
+    /**
+     * Assigne des numéros de siège aux passagers d'une réservation qui n'en ont pas encore.
+     *
+     * @param Reservation $reservation L'objet Reservation (avec flight.plane et passengers pré-chargés)
+     * @throws \Exception Si la capacité n'est pas définie, ou si aucun siège ne peut être trouvé.
+     */
+    protected function assignSeats(Reservation $reservation)
+    {
+        if (!$reservation->flight || !$reservation->flight->plane) {
+            throw new \Exception("Données vol/avion manquantes pour assignation sièges (Résa ID: {$reservation->id}).");
+        }
+
+        $plane = $reservation->flight->plane;
+        $flight_id = $reservation->flight_id;
+        $reservation_class = strtolower($reservation->class);
+
+        // Déterminer la capacité pour la classe
+        $capacity = match ($reservation_class) {
+            'economy' => $plane->economy_class_capacity,
+            'business' => $plane->business_class_capacity,
+            'first' => $plane->first_class_capacity,
+            default => 0,
+        };
+
+        if ($capacity <= 0) {
+            throw new \Exception("Capacité avion non définie/nulle pour classe '{$reservation_class}' (Résa ID: {$reservation->id}).");
+        }
+
+        // Récupérer les sièges déjà assignés pour ce vol et cette classe
+        // Important : On filtre par flight_id ET classe pour éviter les conflits entre classes sur le même vol
+        $assignedSeats = Passenger::whereHas('reservation', function ($query) use ($flight_id, $reservation_class) {
+                                $query->where('flight_id', $flight_id)
+                                      ->where('class', $reservation_class); // Assure qu'on ne compare que les sièges de la même classe
+                            })
+                            ->whereNotNull('seat_number')
+                            ->pluck('seat_number') // ['1A', '1B', '2C']
+                            ->toArray();
+
+        Log::debug("Assignation Sièges - Résa {$reservation->id}, Vol {$flight_id}, Classe {$reservation_class}. Capacité: {$capacity}. Sièges déjà pris: " . implode(', ', $assignedSeats));
+
+        // Sélectionne uniquement les passagers de CETTE réservation qui n'ont PAS de siège
+        $passengersToAssignSeats = $reservation->passengers->whereNull('seat_number');
+
+        if ($passengersToAssignSeats->isEmpty()) {
+            Log::info("Aucun siège à assigner pour la résa {$reservation->id}, tous les passagers ont déjà un siège.");
+            return; // Rien à faire
+        }
+
+        // --- Algorithme Simplifié de Génération de Sièges ---
+        // TODO: Remplacer par une logique basée sur la config réelle de l'avion si possible
+        $maxRows = ceil($capacity / 6); // Estimation basée sur 6 sièges/rangée (A-F)
+        $seatLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+        $availableSeatFoundCount = 0;
+        // --- Fin Algorithme Simplifié ---
+
+        foreach ($passengersToAssignSeats as $passenger) {
+            $seatAssigned = false;
+            // Chercher un siège disponible (logique simplifiée)
+            for ($row = 1; $row <= $maxRows; $row++) {
+                foreach ($seatLetters as $letter) {
+                    $currentSeat = $row . $letter;
+                    // Vérifier si on dépasse la capacité théorique (sécurité)
+                    if (($row - 1) * 6 + array_search($letter, $seatLetters) + 1 > $capacity) {
+                         continue; // Ne pas considérer les sièges au-delà de la capacité
+                    }
+
+                    // Vérifier si le siège est déjà dans la liste des sièges pris
+                    if (!in_array($currentSeat, $assignedSeats)) {
+                        // Siège trouvé ! On l'assigne et on sauvegarde.
+                        $passenger->seat_number = $currentSeat;
+                        if ($passenger->save()) {
+                            $assignedSeats[] = $currentSeat; // Marquer comme pris pour cette requête
+                            $seatAssigned = true;
+                            $availableSeatFoundCount++;
+                            Log::info("Siège {$currentSeat} assigné et sauvegardé pour passager {$passenger->id} (Résa {$reservation->id}).");
+                            break 2; // Sortir des deux boucles (letters et rows) pour passer au passager suivant
+                        } else {
+                            Log::error("ÉCHEC SAUVEGARDE siège {$currentSeat} pour passager {$passenger->id}. Tentative continue...");
+                             // Que faire ici? Si la sauvegarde échoue, le siège n'est pas vraiment pris.
+                             // On pourrait essayer le siège suivant, ou lever une exception.
+                             // Pour l'instant, on continue d'essayer d'autres sièges.
+                        }
+                    }
+                }
+            }
+
+            // Si après avoir parcouru tous les sièges possibles, on n'a rien trouvé pour ce passager
+            if (!$seatAssigned) {
+                 Log::critical("Aucun siège disponible trouvé pour passager {$passenger->id} (Résa {$reservation->id}, Vol {$flight_id}, Classe {$reservation_class}). Capacité: {$capacity}, Nombre déjà assigné: " . count($assignedSeats));
+                 throw new \Exception("Impossible d'assigner un siège au passager {$passenger->firstname} {$passenger->lastname}. Plus de places disponibles ou erreur lors de l'assignation.");
+            }
+        }
+         Log::info("Assignation de sièges terminée pour résa {$reservation->id}. {$availableSeatFoundCount} sièges assignés.");
     }
      /**
      * Gère la redirection après une annulation de paiement.
