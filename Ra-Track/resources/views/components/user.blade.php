@@ -2,12 +2,7 @@
  <div id="users-content" class="content-section hidden">
              <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-semibold">Gestion des Utilisateurs</h3>
-                <button id="open-add-user-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                    Ajouter un Utilisateur
-                </button>
             </div>
-
              <section class="bg-navy-light p-4 rounded-lg shadow-md">
                 <h4 class="text-lg font-semibold mb-4">Liste des Utilisateurs</h4>
                 <div class="overflow-x-auto">
@@ -22,15 +17,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Exemple de ligne -->
+                          @foreach($users as $user)
                              <tr class="border-b border-gray-700 hover:bg-gray-700">
                                 <td class="px-4 py-3 font-medium whitespace-nowrap flex items-center space-x-2">
                                      <img src="https://via.placeholder.com/32/FFFFFF/808080?text=JP" alt="Avatar" class="w-8 h-8 rounded-full">
-                                     <span>John Pilot</span>
+                                     <span>{{ $user->name }}</span>
                                 </td>
-                                <td class="px-4 py-3">john.pilot@example.com</td>
-                                <td class="px-4 py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-purple-600 text-purple-100">Admin</span></td>
-                                <td class="px-4 py-3">2024-01-15</td>
+                                <td class="px-4 py-3">{{ $user->email }}</td>
+                                <td class="px-4 py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-purple-600 text-purple-100">{{ $user->role }}</span></td>
+                                <td class="px-4 py-3">{{ $user->created_at }}</td>
                                 <td class="px-4 py-3 flex space-x-2">
                                     <button class="text-yellow-400 hover:text-yellow-300" title="Modifier">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
@@ -40,7 +35,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            <!-- Ajouter d'autres lignes -->
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
