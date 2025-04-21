@@ -15,6 +15,31 @@ use Illuminate\Support\Facades\Log;
 class ReservationController extends Controller
 {
    
+    public function showConfirmation(Reservation $reservation)
+    {
+        // 1. Vérifier l'autorisation : L'utilisateur connecté doit être le propriétaire de la réservation
+        if (!Auth::check() || $reservation->user_id !== Auth::id()) {
+            // Optionnel : Autoriser un admin si tu as un système de rôles
+            // if (!Auth::user()?->isAdmin()) {
+                Log::warning("Accès non autorisé à la confirmation. User: " . Auth::id() . ", Resa User: {$reservation->user_id}, Resa ID: {$reservation->id}");
+                abort(403, 'Accès non autorisé à cette confirmation de réservation.');
+            // }
+        }
+
+        // 2. Charger les relations nécessaires pour la vue de confirmation
+        //    (Normalement déjà chargées par le contrôleur de paiement avant la redirection,
+        //     mais le recharger ici garantit que les données sont fraîches et disponibles)
+        $reservation->loadMissing([
+            'passengers', // Essentiel pour lister les passagers et liens billets
+            'flight.departureAirport', // Pour afficher les détails du vol
+            'flight.arrivalAirport',   // Pour afficher les détails du vol
+            'user' // Au cas où tu affiches des infos utilisateur sur la confirmation
+        ]);
+
+        // 3. Retourner la vue de confirmation avec les données de la réservation
+        return view('reservation.confirmation', compact('reservation'));
+    }
+
     public function show($id)
     {
         $flight = Flight::with(['departureAirport', 'arrivalAirport'])->findOrFail($id);
