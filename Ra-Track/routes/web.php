@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\TicketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,3 +77,15 @@ Route::get('/checkout/{reservation}', [PaymentController::class, 'checkout'])->n
 
 Route::get('/payment-success/{id}', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment-cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+
+
+
+// Route pour la page de confirmation après paiement
+Route::get('/reservation/{reservation}/confirmation', [ReservationController::class, 'showConfirmation'])
+     ->name('reservation.confirmation')
+     ->middleware('auth'); // Assurer que l'utilisateur est connecté
+
+// Route pour télécharger le ticket d'un passager spécifique
+Route::get('/ticket/{passenger}/download', [TicketController::class, 'downloadTicket'])
+     ->name('ticket.download')
+     ->middleware('auth'); // Assurer que l'utilisateur est connecté
