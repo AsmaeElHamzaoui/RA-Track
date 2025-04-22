@@ -8,36 +8,25 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TicketController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+
+// route home page
 Route::get('/', [HomeController::class, 'showBooking'])->name('home');
 
-Route::get('/about', function () {
-    return view('about');
-});
+// route about page
+Route::get('/about', function () { return view('about');});
 
-Route::get('/services', function () {
-    return view('services');
-});
+// route services page
+Route::get('/services', function () { return view('services');});
 
-Route::get('/register', function () {
-    return view('register');
-});
+// route register page
+Route::get('/register', function () { return view('register');});
 
 // routes authentication
-Route::post('/register', [AuthController::class, 'store'])->name('register'); // version HTML
+Route::post('/register', [AuthController::class, 'store'])->name('register'); 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); // conserve celle-ci uniquement
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); 
 
 //routes dashboard
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
@@ -52,40 +41,36 @@ Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
 Route::get('/payment/{reservation}', [PaymentController::class, 'show'])->name('payment.show');
 
 
-Route::get('/real-timeTracking', function () {
-    return view('real-timeTracking');
-});
-
-Route::get('/payments', function () {
-    return view('payments');
-});
-
-Route::get('/pdfReceipt', function () {
-    return view('pdfReceipt');
-});
-
-
-
+// routes payments
 Route::get('/payments/{reservation}', [PaymentController::class, 'index'])->name('payments.index')->middleware('auth');
 Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 Route::get('/payments/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
 Route::put('/payments/{id}', [PaymentController::class, 'update'])->name('payments.update');
 Route::delete('/payments/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
-
 Route::get('/checkout/{reservation}', [PaymentController::class, 'checkout'])->name('stripe.checkout');
-
 Route::get('/payment-success/{id}', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment-cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
-
-
 
 // Route pour la page de confirmation après paiement
 Route::get('/reservation/{reservation}/confirmation', [ReservationController::class, 'showConfirmation'])
      ->name('reservation.confirmation')
-     ->middleware('auth'); // Assurer que l'utilisateur est connecté
+     ->middleware('auth'); 
 
 // Route pour télécharger le ticket d'un passager spécifique
 Route::get('/ticket/{passenger}/download', [TicketController::class, 'downloadTicket'])
      ->name('ticket.download')
-     ->middleware('auth'); // Assurer que l'utilisateur est connecté
+     ->middleware('auth'); 
+
+
+Route::get('/real-timeTracking', function () {
+    return view('real-timeTracking');
+});
+
+
+
+
+
+
+
+
