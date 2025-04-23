@@ -23,7 +23,7 @@ Route::get('/services', function () { return view('services');});
 Route::get('/register', function () { return view('register');});
 
 // routes authentication
-Route::post('/register', [AuthController::class, 'store'])->name('register'); 
+Route::post('/register', [AuthController::class, 'register'])->name('register'); 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); 
@@ -38,7 +38,6 @@ Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->nam
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation');
 Route::put('/reservation/{id}', [ReservationController::class, 'update']);  
 Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
-Route::get('/payment/{reservation}', [PaymentController::class, 'show'])->name('payment.show');
 
 
 // routes payments
@@ -55,6 +54,11 @@ Route::get('/payment-cancel', [PaymentController::class, 'cancel'])->name('payme
 // Route pour la page de confirmation après paiement
 Route::get('/reservation/{reservation}/confirmation', [ReservationController::class, 'showConfirmation'])
      ->name('reservation.confirmation')
+     ->middleware('auth'); 
+
+// Route pour afficher la page de réservations personnelles
+Route::get('/myreservations', [ReservationController::class, 'showPersonalReservation'])
+     ->name('personal.reservation')
      ->middleware('auth'); 
 
 // Route pour télécharger le ticket d'un passager spécifique
