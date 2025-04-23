@@ -510,73 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(userForm) userForm.addEventListener('submit', (e) => handleFormSubmit(e, userModal, 'Utilisateur'));
 
 
-    // --- Initialisation des Graphiques Chart.js ---
-    let flightStatusChartInstance = null;
-    let monthlyFlightsChartInstance = null;
-
-    function initializeCharts() {
-        const flightStatusCtx = document.getElementById('flightStatusChart')?.getContext('2d');
-        const monthlyFlightsCtx = document.getElementById('monthlyFlightsChart')?.getContext('2d');
-
-        if (flightStatusChartInstance) flightStatusChartInstance.destroy();
-        if (monthlyFlightsChartInstance) monthlyFlightsChartInstance.destroy();
-
-        const flightStatusData = { /* ... données ... */
-             labels: ['En vol', 'Programmé', 'Arrivé', 'Retardé', 'Annulé'],
-             datasets: [{ /* ... dataset ... */
-                label: 'Statut des Vols',
-                data: [247, 150, 800, 8, 2], // Données exemples
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.7)', // Bleu
-                    'rgba(255, 206, 86, 0.7)', // Jaune
-                    'rgba(75, 192, 192, 0.7)', // Vert Cyan
-                    'rgba(255, 99, 132, 0.7)',  // Rouge
-                    'rgba(153, 102, 255, 0.7)' // Violet
-                ],
-                borderColor: [ /* ... borders ... */
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-        const monthlyFlightsData = { /* ... données ... */
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'], // Données exemples
-            datasets: [{ /* ... dataset ... */
-                label: 'Vols par Mois',
-                data: [1100, 1050, 1200, 1150, 1258, 1300], // Données exemples
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-        const chartOptions = { /* ... options ... */
-            maintainAspectRatio: false,
-             plugins: { legend: { labels: { color: '#cbd5e1' } } },
-            scales: {
-                y: { beginAtZero: true, ticks: { color: '#cbd5e1' }, grid: { color: 'rgba(203, 213, 225, 0.2)' } },
-                x: { ticks: { color: '#cbd5e1' }, grid: { color: 'rgba(203, 213, 225, 0.2)' } }
-            }
-        };
-        const pieChartOptions = { /* ... options ... */
-             maintainAspectRatio: false,
-             plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } }
-        };
-
-        if (flightStatusCtx) {
-            flightStatusChartInstance = new Chart(flightStatusCtx, { type: 'doughnut', data: flightStatusData, options: pieChartOptions });
-        } else {
-            console.warn("Canvas 'flightStatusChart' non trouvé.");
-        }
-        if (monthlyFlightsCtx) {
-            monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, { type: 'line', data: monthlyFlightsData, options: chartOptions });
-        } else {
-             console.warn("Canvas 'monthlyFlightsChart' non trouvé.");
-        }
-    }
+   
 
      // Initialiser le dashboard au chargement
      const initialLink = document.querySelector('.sidebar-link.active');
