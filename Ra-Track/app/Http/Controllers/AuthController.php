@@ -20,35 +20,12 @@ class AuthController extends Controller
     return view('login');
 }
 
-    public function register(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'role' => 'in:admin,maintenanceagent,pilot,client',
-        ]);
-
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'role' => $validatedData['role'] ?? 'client',
-        ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user,
-            'token' => $token,
-        ], 201);
-    }
+    
 
     /**
      * Inscription via formulaire HTML (WEB)
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -100,7 +77,7 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
 
-        // ⚠️ Si une réservation est en attente en session (non encore liée à un utilisateur)
+        // Si une réservation est en attente en session (non encore liée à un utilisateur)
         if (session()->has('pending_reservation_id')) {
             $reservationId = session()->pull('pending_reservation_id');
 
@@ -109,16 +86,10 @@ class AuthController extends Controller
                 $reservation->update(['user_id' => $user->id]);
             }
 
-            return redirect()->route('payment.show', ['reservation' => $reservationId]);
+            return redirect()->route('payments.index', ['reservation' => $reservationId]);
         }
 
-        // ✅ Sinon, on regarde s’il a une réservation en base
-        $reservation = Reservation::where('user_id', $user->id)->latest()->first();
-        if ($reservation) {
-            return redirect()->route('reservation.show', ['flight' => $reservation->id]);
-        }
-
-        // ✅ Sinon, direction la page d’accueil
+        // Sinon, direction la page d’accueil
         return redirect()->route('home');
     }
 
