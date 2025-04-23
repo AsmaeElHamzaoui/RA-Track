@@ -46,13 +46,31 @@ class ReservationController extends Controller
         return view('reservation.show', compact('flight'));
     }
 
+    public function showPersonalReservation()
+{
+    // Vérifier que l'utilisateur est connecté
+    if (!Auth::check()) {
+        abort(403, 'Vous devez être connecté pour voir vos réservations.');
+    }
+
+    // Récupérer les réservations de l'utilisateur authentifié avec les relations nécessaires
+    $user = Auth::user();
+
+    $reservations = Reservation::with(['flight.departureAirport', 'flight.arrivalAirport', 'passengers'])
+        ->where('user_id', $user->id)
+        ->orderBy('created_at', 'desc') // Optionnel : pour trier les réservations récentes en premier
+        ->get();
+
+    // Retourner une vue dédiée ou une réponse JSON selon ton besoin
+    return view('personalreservation', compact('reservations'));
+}
+
 
 
     public function index(Request $request)
     {
     
         $reservations = Reservation::with(['user', 'flight', 'passengers'])->get(); // Eager load relationships
-
         return response()->json([
             'status' => 'success',
             'data' => $reservations
@@ -136,7 +154,7 @@ class ReservationController extends Controller
         }
 
 
-        // --- 3. Redirection basée sur l'authentification ---
+        // 3. Redirection basée sur l'authentification ---
         if (!Auth::check()) {
             session(['pending_reservation_id' => $reservation->id]);
         
