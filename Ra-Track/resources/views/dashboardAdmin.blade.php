@@ -172,6 +172,9 @@
         @include('components.plane')
 
 
+        <!-- ==================== Section Reservations ==================== -->
+        @include('components.reservations')
+
         <!-- ==================== Section Utilisateurs ==================== -->
         @include('components.user')
 
