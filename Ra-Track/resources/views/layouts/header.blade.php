@@ -22,6 +22,8 @@
 
                     @auth
                         <li>
+                        <li><a href="/myreservations" class="hover:text-gray-300">Reservations</a></li>
+  
                             <form method="POST" action="/logout">
                                 @csrf
                                 <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600" style="background-color:#FFD476">
