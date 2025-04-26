@@ -335,4 +335,31 @@ class PaymentController extends Controller
         return redirect($redirectRoute)
                ->with('info', 'Le processus de paiement a été annulé. Votre réservation n\'est pas confirmée.');
     }
+
+
+    public function destroy(Payment $payment)
+    {
+        try {
+            $paymentId = $payment->id; // Sauvegarde l'ID pour le log
+            $payment->delete(); // Supprime l'enregistrement de la base de données
+
+            Log::info("Paiement ID {$paymentId} supprimé avec succès par l'utilisateur ID " . (Auth::id() ?? 'Système'));
+
+            // Retourne une réponse JSON de succès
+            return response()->json([
+                'success' => true, // Tu peux utiliser 'success' ou juste 'message'
+                'message' => 'Paiement supprimé avec succès.'
+            ]); // HTTP 200 OK par défaut
+
+        } catch (\Exception $e) {
+            // Log l'erreur pour le débogage
+            Log::error("Erreur lors de la suppression du paiement ID {$payment->id}: " . $e->getMessage());
+
+            // Retourne une réponse JSON d'erreur
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de la suppression du paiement.'
+            ], 500); // HTTP 500 Internal Server Error
+        }
+    }
 }
