@@ -51,11 +51,11 @@ class DashboardController extends Controller
         : 'Aucun';
 
     // Retour de la vue avec toutes les données
-    // return view('dashboardAdmin', compact(
-    //     'planes', 'airports', 'flights', 'users',
-    //     'totalFlights', 'totalPlanes', 'statusDistribution',
-    //     'monthlyFlights', 'activeAirportName', 'reservations','payments'
-    // ));    
+    return view('dashboardAdmin', compact(
+        'planes', 'airports', 'flights', 'users',
+        'totalFlights', 'totalPlanes', 'statusDistribution',
+        'monthlyFlights', 'activeAirportName', 'reservations','payments'
+    ));    
     }
 }
 
