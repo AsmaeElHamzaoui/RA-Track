@@ -37,7 +37,7 @@ Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name(
 Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation');
 Route::put('/reservation/{id}', [ReservationController::class, 'update']);  
-Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
+Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy']);
 
 
 // routes payments

@@ -13,7 +13,7 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null'); // L'utilisateur peut être null
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade'); // L'utilisateur peut être null
             $table->foreignId('flight_id')->constrained('flights')->onDelete('cascade'); // Vol
             $table->enum('class', ['economy', 'business', 'first'])->default('economy'); // Classe choisie
             $table->timestamps();
