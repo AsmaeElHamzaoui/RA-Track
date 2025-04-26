@@ -5,8 +5,8 @@
             <h4 id="aircraft-modal-title" class="text-xl font-semibold">Ajouter un Avion</h4>
             <button class="close-modal text-gray-400 hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                     stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
@@ -58,7 +58,7 @@
                 <div class="md:col-span-2">
                     <label for="aircraft_status" class="block text-sm font-medium text-gray-300 mb-1">Statut</label>
                     <select id="aircraft_status" name="status" class="w-full p-2 rounded bg-navy border border-gray-600" required>
-                         {{-- Ensure these values match exactly what your backend expects/stores --}}
+                        {{-- Ensure these values match exactly what your backend expects/stores --}}
                         <option value="active">Actif</option>
                         <option value="under maintenance">En maintenance</option>
                         <option value="out of service">Retiré du service</option>
@@ -76,104 +76,119 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-   
-  $(document).ready(function() {
-    // Récupération des éléments du DOM
-    const $modal = $('#aircraft-modal');                 // Le modal (popup) contenant le formulaire
-    const $form = $('#aircraft-form');                   // Le formulaire pour ajouter/modifier un avion
-    const $modalTitle = $('#aircraft-modal-title');      // Le titre du modal
-    const $aircraftTableBody = $('#aircraft-table-body'); // Le corps du tableau contenant la liste des avions
+    $(document).ready(function() {
+        // Récupération des éléments du DOM
+        const $modal = $('#aircraft-modal'); // Le modal (popup) contenant le formulaire
+        const $form = $('#aircraft-form'); // Le formulaire pour ajouter/modifier un avion
+        const $modalTitle = $('#aircraft-modal-title'); // Le titre du modal
+        const $aircraftTableBody = $('#aircraft-table-body'); // Le corps du tableau contenant la liste des avions
+        // Modals et boutons
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        // === Fonction pour ouvrir le modal en mode ajout ===
+        function openAddModal() {
+            // Modifier le texte et les couleurs du bouton pour refléter l'ajout
+            $('#save-aircraft-button').text('Enregistrer')
+                .removeClass('bg-yellow-500 hover:bg-yellow-600')
+                .addClass('bg-blue-600 hover:bg-blue-700');
 
-    // === Fonction pour ouvrir le modal en mode ajout ===
-    function openAddModal() {
-        // Modifier le texte et les couleurs du bouton pour refléter l'ajout
-        $('#save-aircraft-button').text('Enregistrer')
-            .removeClass('bg-yellow-500 hover:bg-yellow-600')
-            .addClass('bg-blue-600 hover:bg-blue-700');
+            // Réinitialiser le formulaire et définir les attributs de mode
+            $form[0].reset();
+            $modalTitle.text('Ajouter un Avion');
+            $form.attr('data-mode', 'add').removeAttr('data-plane-id');
 
-        // Réinitialiser le formulaire et définir les attributs de mode
-        $form[0].reset();
-        $modalTitle.text('Ajouter un Avion');
-        $form.attr('data-mode', 'add').removeAttr('data-plane-id');
+            // Afficher le modal
+            $modal.removeClass('hidden').addClass('flex');
+        }
 
-        // Afficher le modal
-        $modal.removeClass('hidden').addClass('flex');
-    }
-
-    // === Fonction pour ouvrir le modal en mode édition ===
-    function openEditModal(planeId) {
-        // Modifier le bouton pour indiquer l'édition
-        $('#save-aircraft-button').text('Modifier')
-            .removeClass('bg-blue-600 hover:bg-blue-700')
-            .addClass('bg-yellow-500 hover:bg-yellow-600');
-
-        // Récupérer les données de l'avion via AJAX
-        $.ajax({
-            url: `/api/planes/${planeId}`,
-            type: 'GET',
-            success: function(plane) {
-                // Remplir les champs du formulaire avec les données existantes
-                $form.find('#aircraft_tail_number').val(plane.registration);
-                $form.find('#aircraft_model').val(plane.model);
-                $form.find('#aircraft_manufacturer').val(plane.manufacturer);
-                $form.find('#aircraft_operator').val(plane.airline_company);
-                $form.find('#economy_capacity').val(plane.economy_class_capacity);
-                $form.find('#business_capacity').val(plane.business_class_capacity);
-                $form.find('#first_capacity').val(plane.first_class_capacity);
-                $form.find('#max_load').val(plane.maximum_load);
-                $form.find('#flight_range').val(plane.flight_range);
-                $form.find('#aircraft_status').val(plane.status);
-
-                // Mettre à jour le titre et les attributs du formulaire
-                $modalTitle.text('Modifier l\'Avion');
-                $form.attr('data-mode', 'edit').attr('data-plane-id', planeId);
-
-                // Afficher le modal
-                $modal.removeClass('hidden').addClass('flex');
-            },
-            error: function(xhr) {
-                // Gérer les erreurs si les données ne peuvent pas être chargées
-                alert(`Erreur : Impossible de charger les données de l'avion. ${xhr.responseJSON?.message || xhr.statusText}`);
+        //  Fermer le modal en clicant dans le bouton Fermer
+        function closeModal(modalElement) {
+            if (modalElement) {
+                modalElement.classList.add('hidden');
+                modalElement.classList.remove('flex');
+            } else {
+                console.error("Tentative de fermeture d'un modal non trouvé.");
             }
+        }
+
+        // Boutons Fermer Modal 
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // MODIFIÉ: Ajout de #airport-modal au sélecteur
+                const modalToClose = button.closest('#flight-modal, #user-modal, #aircraft-modal, #airport-modal');
+                closeModal(modalToClose);
+            });
         });
-    }
 
-    // === Fonction pour fermer le modal ===
-    function closeModal() {
-        $modal.addClass('hidden').removeClass('flex');
-    }
+        // === Fonction pour ouvrir le modal en mode édition ===
+        function openEditModal(planeId) {
+            // Modifier le bouton pour indiquer l'édition
+            $('#save-aircraft-button').text('Modifier')
+                .removeClass('bg-blue-600 hover:bg-blue-700')
+                .addClass('bg-yellow-500 hover:bg-yellow-600');
 
-    // === Fonction pour recharger les avions depuis l'API et mettre à jour le tableau ===
-    function refreshAircraftTable() {
-        $.ajax({
-            url: '/api/planes',
-            type: 'GET',
-            success: function(planes) {
-                $aircraftTableBody.empty(); // Vider le tableau actuel
+            // Récupérer les données de l'avion via AJAX
+            $.ajax({
+                url: `/api/planes/${planeId}`,
+                type: 'GET',
+                success: function(plane) {
+                    // Remplir les champs du formulaire avec les données existantes
+                    $form.find('#aircraft_tail_number').val(plane.registration);
+                    $form.find('#aircraft_model').val(plane.model);
+                    $form.find('#aircraft_manufacturer').val(plane.manufacturer);
+                    $form.find('#aircraft_operator').val(plane.airline_company);
+                    $form.find('#economy_capacity').val(plane.economy_class_capacity);
+                    $form.find('#business_capacity').val(plane.business_class_capacity);
+                    $form.find('#first_capacity').val(plane.first_class_capacity);
+                    $form.find('#max_load').val(plane.maximum_load);
+                    $form.find('#flight_range').val(plane.flight_range);
+                    $form.find('#aircraft_status').val(plane.status);
 
-                // Vérifier s’il y a des avions à afficher
-                if (planes.length > 0) {
-                    planes.forEach(function(plane) {
-                        let statusClass = '';
-                        let statusText = ucfirst(plane.status.replace('_', ' '));
+                    // Mettre à jour le titre et les attributs du formulaire
+                    $modalTitle.text('Modifier l\'Avion');
+                    $form.attr('data-mode', 'edit').attr('data-plane-id', planeId);
 
-                        // Choisir une couleur en fonction du statut de l'avion
-                        switch (plane.status) {
-                            case 'active':
-                                statusClass = 'bg-green-600 text-green-100';
-                                break;
-                            case 'under maintenance':
-                                statusClass = 'bg-yellow-600 text-yellow-100';
-                                break;
-                            case 'out of service':
-                                statusClass = 'bg-red-600 text-red-100';
-                                break;
-                            default:
-                                statusClass = 'bg-gray-600 text-gray-100';
-                        }
+                    // Afficher le modal
+                    $modal.removeClass('hidden').addClass('flex');
+                },
+                error: function(xhr) {
+                    // Gérer les erreurs si les données ne peuvent pas être chargées
+                    alert(`Erreur : Impossible de charger les données de l'avion. ${xhr.responseJSON?.message || xhr.statusText}`);
+                }
+            });
+        }
 
-                        // Ajouter une ligne dans le tableau avec les données de l'avion
-                        $aircraftTableBody.append(`
+
+        // === Fonction pour recharger les avions depuis l'API et mettre à jour le tableau ===
+        function refreshAircraftTable() {
+            $.ajax({
+                url: '/api/planes',
+                type: 'GET',
+                success: function(planes) {
+                    $aircraftTableBody.empty(); // Vider le tableau actuel
+
+                    // Vérifier s’il y a des avions à afficher
+                    if (planes.length > 0) {
+                        planes.forEach(function(plane) {
+                            let statusClass = '';
+                            let statusText = ucfirst(plane.status.replace('_', ' '));
+
+                            // Choisir une couleur en fonction du statut de l'avion
+                            switch (plane.status) {
+                                case 'active':
+                                    statusClass = 'bg-green-600 text-green-100';
+                                    break;
+                                case 'under maintenance':
+                                    statusClass = 'bg-yellow-600 text-yellow-100';
+                                    break;
+                                case 'out of service':
+                                    statusClass = 'bg-red-600 text-red-100';
+                                    break;
+                                default:
+                                    statusClass = 'bg-gray-600 text-gray-100';
+                            }
+
+                            // Ajouter une ligne dans le tableau avec les données de l'avion
+                            $aircraftTableBody.append(`
                             <tr class="border-b border-gray-700 hover:bg-gray-700">
                                 <td class="px-4 py-3">${plane.registration}</td>
                                 <td class="px-4 py-3">${plane.model}</td>
@@ -198,112 +213,110 @@
                                 </td>
                             </tr>
                         `);
-                    });
-                } else {
-                    // Message si aucun avion trouvé
-                    $aircraftTableBody.append('<tr><td colspan="5" class="text-center text-gray-400">Aucun avion trouvé.</td></tr>');
-                }
-            },
-            error: function() {
-                // Gérer les erreurs de récupération
-                alert('Erreur lors du rafraîchissement de la liste des avions.');
-                $aircraftTableBody.html('<tr><td colspan="5" class="text-center text-red-400">Erreur lors du chargement.</td></tr>');
-            }
-        });
-    }
-
-    // === Fonction pour mettre la première lettre en majuscule ===
-    function ucfirst(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    // === Écouteurs d'événements ===
-
-    // Ouvrir le modal pour ajouter un avion
-    $('#open-add-aircraft-modal').on('click', openAddModal);
-
-    // Ouvrir le modal pour modifier un avion 
-    $aircraftTableBody.on('click', '.edit-aircraft-button', function() {
-        openEditModal($(this).data('id'));
-    });
-
-    // Soumission du formulaire (ajout ou modification)
-    $form.on('submit', function(e) {
-        e.preventDefault();
-
-        const mode = $form.attr('data-mode');           // 'add' ou 'edit'
-        const planeId = $form.attr('data-plane-id');    // ID de l'avion (si édition)
-        let url = '/api/planes';                        // URL par défaut
-        let method = 'POST';                            // Méthode HTTP par défaut
-
-        // Modifier l’URL et la méthode si c’est une édition
-        if (mode === 'edit' && planeId) {
-            url = `/api/planes/${planeId}`;
-            method = 'POST'; // Toujours POST, on utilise _method pour faire un PUT
-        }
-
-        // Créer un FormData pour envoyer les données
-        const formData = new FormData(this);
-        if (mode === 'edit') formData.append('_method', 'PUT'); // Simuler un PUT
-
-        // Désactiver le bouton pendant l’enregistrement
-        $('#save-aircraft-button').prop('disabled', true).text('Enregistrement...');
-
-        // Envoi AJAX
-        $.ajax({
-            url: url,
-            type: method,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                alert(response.message || (mode === 'edit' ? 'Avion mis à jour avec succès!' : 'Avion ajouté avec succès!'));
-                closeModal(); // Fermer le modal
-                refreshAircraftTable(); // Recharger la liste
-            },
-            error: function(xhr) {
-                let errorMessage = xhr.responseJSON?.message || 'Une erreur est survenue.';
-                if (xhr.status === 422 && xhr.responseJSON.errors) {
-                    // Afficher les messages d’erreur de validation
-                    errorMessage += '\n' + Object.values(xhr.responseJSON.errors).join('\n');
-                }
-                alert(errorMessage);
-            },
-            complete: function() {
-                // Réactiver le bouton après l’appel AJAX
-                $('#save-aircraft-button').prop('disabled', false).text('Enregistrer');
-            }
-        });
-    });
-
-    // === Suppression d’un avion ===
-    $aircraftTableBody.on('click', '.delete-aircraft-button', function() {
-        const planeId = $(this).data('id');
-
-        // Demande de confirmation
-        if (confirm('Êtes-vous sûr de vouloir supprimer cet avion ?')) {
-            $.ajax({
-                url: `/api/planes/${planeId}`,
-                type: 'POST',
-                data: { _method: 'DELETE' }, // Méthode simulée DELETE
-                success: function(response) {
-                    alert(response.message || 'Avion supprimé avec succès!');
-                    refreshAircraftTable(); // Recharger la liste
+                        });
+                    } else {
+                        // Message si aucun avion trouvé
+                        $aircraftTableBody.append('<tr><td colspan="5" class="text-center text-gray-400">Aucun avion trouvé.</td></tr>');
+                    }
                 },
-                error: function(xhr) {
-                    alert(`Erreur : Impossible de supprimer l'avion. ${xhr.responseJSON?.message || xhr.statusText}`);
+                error: function() {
+                    // Gérer les erreurs de récupération
+                    alert('Erreur lors du rafraîchissement de la liste des avions.');
+                    $aircraftTableBody.html('<tr><td colspan="5" class="text-center text-red-400">Erreur lors du chargement.</td></tr>');
                 }
             });
         }
+
+        // === Fonction pour mettre la première lettre en majuscule ===
+        function ucfirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // === Écouteurs d'événements ===
+
+        // Ouvrir le modal pour ajouter un avion
+        $('#open-add-aircraft-modal').on('click', openAddModal);
+
+        // Ouvrir le modal pour modifier un avion 
+        $aircraftTableBody.on('click', '.edit-aircraft-button', function() {
+            openEditModal($(this).data('id'));
+        });
+
+        // Soumission du formulaire (ajout ou modification)
+        $form.on('submit', function(e) {
+            e.preventDefault();
+
+            const mode = $form.attr('data-mode'); // 'add' ou 'edit'
+            const planeId = $form.attr('data-plane-id'); // ID de l'avion (si édition)
+            let url = '/api/planes'; // URL par défaut
+            let method = 'POST'; // Méthode HTTP par défaut
+
+            // Modifier l’URL et la méthode si c’est une édition
+            if (mode === 'edit' && planeId) {
+                url = `/api/planes/${planeId}`;
+                method = 'POST'; // Toujours POST, on utilise _method pour faire un PUT
+            }
+
+            // Créer un FormData pour envoyer les données
+            const formData = new FormData(this);
+            if (mode === 'edit') formData.append('_method', 'PUT'); // Simuler un PUT
+
+            // Désactiver le bouton pendant l’enregistrement
+            $('#save-aircraft-button').prop('disabled', true).text('Enregistrement...');
+
+            // Envoi AJAX
+            $.ajax({
+                url: url,
+                type: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    alert(response.message || (mode === 'edit' ? 'Avion mis à jour avec succès!' : 'Avion ajouté avec succès!'));
+                    closeModal(); // Fermer le modal
+                    refreshAircraftTable(); // Recharger la liste
+                },
+                error: function(xhr) {
+                    let errorMessage = xhr.responseJSON?.message || 'Une erreur est survenue.';
+                    if (xhr.status === 422 && xhr.responseJSON.errors) {
+                        // Afficher les messages d’erreur de validation
+                        errorMessage += '\n' + Object.values(xhr.responseJSON.errors).join('\n');
+                    }
+                    alert(errorMessage);
+                },
+                complete: function() {
+                    // Réactiver le bouton après l’appel AJAX
+                    $('#save-aircraft-button').prop('disabled', false).text('Enregistrer');
+                }
+            });
+        });
+
+        // === Suppression d’un avion ===
+        $aircraftTableBody.on('click', '.delete-aircraft-button', function() {
+            const planeId = $(this).data('id');
+
+            // Demande de confirmation
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet avion ?')) {
+                $.ajax({
+                    url: `/api/planes/${planeId}`,
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    }, // Méthode simulée DELETE
+                    success: function(response) {
+                        alert(response.message || 'Avion supprimé avec succès!');
+                        refreshAircraftTable(); // Recharger la liste
+                    },
+                    error: function(xhr) {
+                        alert(`Erreur : Impossible de supprimer l'avion. ${xhr.responseJSON?.message || xhr.statusText}`);
+                    }
+                });
+            }
+        });
+
+        // === Charger la liste des avions au chargement initial de la page ===
+
+        refreshAircraftTable();
+
     });
-
-    // === Charger la liste des avions au chargement initial de la page ===
-   
-    refreshAircraftTable();
-
-  });
 </script>
-
-
-
-
