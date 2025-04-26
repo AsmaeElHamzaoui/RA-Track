@@ -51,12 +51,12 @@
             </div>
         </div>
 
-        <!-- <div class="bg-navy-light p-4 rounded-lg shadow-md">
+        <div class="bg-navy-light p-4 rounded-lg shadow-md">
             <h4 class="text-lg font-semibold mb-3">Top 6 Vols les Plus Réservés</h4>
              <div class="h-80">
                 <canvas id="topFlightsChart"></canvas>
             </div>
-        </div> -->
+        </div>
     </section>
 
 </div>
