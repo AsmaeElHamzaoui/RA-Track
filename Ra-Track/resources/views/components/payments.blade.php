@@ -16,16 +16,14 @@
                      </tr>
                  </thead>
                  <tbody>
-                     @foreach($reservations as $reservation)
+                     @foreach($payments as $payment)
                      <tr class="border-b border-gray-700 hover:bg-gray-700">
                          <td class="px-4 py-3 font-medium whitespace-nowrap flex items-center space-x-2">
-                             <span>{{ $reservation->user->name }}</span>
+                             <span>{{ $payment->reservation->user->name }}</span>
                          </td>
-                         <td class="px-4 py-3">{{ $reservation->flight->flight_number }}</td>
-                         <td class="px-4 py-3">{{ $reservation->flight->departureAirport->name }}</td>
-                         <td class="px-4 py-3">{{ $reservation->flight->arrivalAirport->name }}</td>
-                         <td class="px-4 py-3">{{ $reservation->class }}</td>
-                         <td class="px-4 py-3">{{ $reservation->created_at }}</td>
+                         <td class="px-4 py-3">{{ $payment->reservation->flight->flight_number }}</td>
+                         <td class="px-4 py-3">{{ $payment->payment_method }}</td>
+                         <td class="px-4 py-3">{{ $payment->payment_date }}</td>
                          <td class="px-4 py-3 flex space-x-2">
                              <button class="text-yellow-400 hover:text-yellow-300" title="Modifier">
                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
