@@ -242,7 +242,13 @@
              });
         }
 
-        
+        if (topFlightsCtx) {
+            topFlightsChartInstance = new Chart(topFlightsCtx, {
+                type: 'pie', // Type 'doughnut' ou 'pie' pour le cercle
+                data: topFlightsData,
+                options: pieDoughnutOptions // Utilisation des options spécifiques Pie/Doughnut
+            });
+        }
     }
 
     // Exécuter dès que la page est prête
