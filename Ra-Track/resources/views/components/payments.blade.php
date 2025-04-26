@@ -13,6 +13,7 @@
                          <th scope="col" class="px-4 py-3">Vol</th>
                          <th scope="col" class="px-4 py-3">Payment method</th>
                          <th scope="col" class="px-4 py-3">Payment date</th>
+                         <th scope="col" class="px-4 py-3">Action</th>
                      </tr>
                  </thead>
                  <tbody>
