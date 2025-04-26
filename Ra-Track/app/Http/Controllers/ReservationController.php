@@ -207,16 +207,8 @@ class ReservationController extends Controller
    
     public function destroy(Reservation $reservation)
     {
-        // Optionnel : Vérifier si l'utilisateur a le droit de supprimer cette réservation
-        // if (Auth::id() !== $reservation->user_id /* && !Auth::user()->isAdmin() */ ) {
-        //     return response()->json(['status' => 'error', 'message' => 'Action non autorisée.'], 403); // Forbidden
-        // }
-
+        
         try {
-            // Si onDelete('cascade') n'est pas défini pour reservation_id dans la migration passengers,
-            // il faudrait supprimer les passagers manuellement avant :
-            // $reservation->passengers()->delete();
-
             $reservation->delete();
 
             return response()->json([
