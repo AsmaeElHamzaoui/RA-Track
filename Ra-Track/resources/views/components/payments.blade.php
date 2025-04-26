@@ -42,4 +42,40 @@
      </section>
  </div>
 
- 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+ <script>
+    $(document).ready(function() {
+        // Lorsque le bouton de suppression est cliqué
+        $('.delete-payment').on('click', function(e) {
+            e.preventDefault(); // Empêche l'action par défaut du bouton
+
+            // Récupérer l'ID du paiement à supprimer à partir de l'élément cliqué
+            var paymentId = $(this).data('payment-id');
+            
+            // Confirmer la suppression via une boîte de dialogue
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?')) {
+                // Effectuer la requête AJAX pour supprimer le paiement
+                $.ajax({
+                    url: '/payments/' + paymentId, // L'URL de l'API de suppression
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}', // Assurez-vous d'ajouter le token CSRF
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Supprimer la ligne du tableau
+                            $('tr[data-payment-id="' + paymentId + '"]').remove();
+                            alert('Paiement supprimé avec succès.');
+                        } else {
+                            alert('Une erreur est survenue lors de la suppression du paiement.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Une erreur est survenue. Veuillez réessayer.');
+                    }
+                });
+            }
+        });
+    });
+</script>
