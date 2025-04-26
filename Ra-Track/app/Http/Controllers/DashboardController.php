@@ -64,7 +64,17 @@ $reservationData = Reservation::select(
     ->orderBy('month')
     ->pluck('count', 'month');
 
- 
+ // Nombre de paiements par mois
+$paymentData = Payment::select(
+    DB::raw('EXTRACT(MONTH FROM created_at) as month'),
+    DB::raw('COUNT(*) as count')
+)
+->whereYear('created_at', $currentYear)
+->groupBy(DB::raw('EXTRACT(MONTH FROM created_at)'))
+->orderBy('month')
+->pluck('count', 'month');
+
+
     }
 }
 
