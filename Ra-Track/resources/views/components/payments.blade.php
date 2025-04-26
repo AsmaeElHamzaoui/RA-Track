@@ -1,20 +1,18 @@
  <!-- ==================== Section Utilisateurs ==================== -->
  <div id="payments-content" class="content-section hidden">
      <div class="flex justify-between items-center mb-6">
-         <h3 class="text-xl font-semibold">Gestion des réservations</h3>
+         <h3 class="text-xl font-semibold">Gestion des payments</h3>
      </div>
      <section class="bg-navy-light p-4 rounded-lg shadow-md">
-         <h4 class="text-lg font-semibold mb-4">Liste des réservations</h4>
+         <h4 class="text-lg font-semibold mb-4">Liste des payments</h4>
          <div class="overflow-x-auto">
              <table class="w-full text-sm text-left">
                  <thead class="text-xs text-gray-400 uppercase border-b border-gray-700">
                      <tr>
                          <th scope="col" class="px-4 py-3">Nom</th>
                          <th scope="col" class="px-4 py-3">Vol</th>
-                         <th scope="col" class="px-4 py-3">Aéaroport départ</th>
-                         <th scope="col" class="px-4 py-3">Aéaroport d'arrivé</th>
-                         <th scope="col" class="px-4 py-3">Class</th>
-                         <th scope="col" class="px-4 py-3">Temps de réservation</th>
+                         <th scope="col" class="px-4 py-3">Payment method</th>
+                         <th scope="col" class="px-4 py-3">Payment date</th>
                      </tr>
                  </thead>
                  <tbody>
