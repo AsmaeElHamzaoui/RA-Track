@@ -187,6 +187,9 @@
         <!-- ==================== Section Utilisateurs ==================== -->
         @include('components.user')
 
+         <!-- ==================== Section Payments ==================== -->
+         @include('components.payments')
+
         <!-- ==================== Section Statistiques ==================== -->
         @include('components.statistics')
 
