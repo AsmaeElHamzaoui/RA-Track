@@ -89,7 +89,23 @@ $paymentData = Payment::select(
     return $paymentData[$month] ?? 0;
     });
     
-     
+     // 2. Données pour le graphique Cercle (Top 6 Vols les plus réservés)
+    $topFlightsDataRaw = Reservation::select(
+        'flights.flight_number',
+        DB::raw('COUNT(reservations.id) as reservation_count')
+    )
+    ->join('flights', 'reservations.flight_id', '=', 'flights.id')
+    ->groupBy('flights.flight_number')
+    ->orderByDesc('reservation_count')
+    ->limit(6)
+    ->pluck('reservation_count', 'flights.flight_number'); // [' फ्लाइट_नंबर' => गिनती ]
+
+// Séparer les labels et les données pour Chart.js
+$topFlightsLabels = $topFlightsDataRaw->keys();
+$topFlightsCounts = $topFlightsDataRaw->values();
+
+
+
     }
 }
 
