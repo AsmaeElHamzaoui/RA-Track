@@ -15,6 +15,7 @@
                          <th scope="col" class="px-4 py-3">Aéaroport d'arrivé</th>
                          <th scope="col" class="px-4 py-3">Class</th>
                          <th scope="col" class="px-4 py-3">Temps de réservation</th>
+                         <th scope="col" class="px-4 py-3">Action</th>
                      </tr>
                  </thead>
                  <tbody>
