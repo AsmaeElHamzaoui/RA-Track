@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -50,12 +51,20 @@ class DashboardController extends Controller
         ? Airport::find($mostActiveAirport->departure_airport_id)->name 
         : 'Aucun';
 
-    // Retour de la vue avec toutes les données
-    return view('dashboardAdmin', compact(
-        'planes', 'airports', 'flights', 'users',
-        'totalFlights', 'totalPlanes', 'statusDistribution',
-        'monthlyFlights', 'activeAirportName', 'reservations','payments'
-    ));    
+  // Obtenir l'année actuelle
+$currentYear = now()->year;
+
+// Nombre de réservations par mois
+$reservationData = Reservation::select(
+        DB::raw('EXTRACT(MONTH FROM created_at) as month'),
+        DB::raw('COUNT(*) as count')
+    )
+    ->whereYear('created_at', $currentYear)
+    ->groupBy(DB::raw('EXTRACT(MONTH FROM created_at)'))
+    ->orderBy('month')
+    ->pluck('count', 'month');
+
+ 
     }
 }
 
