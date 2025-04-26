@@ -6,6 +6,7 @@ use App\Models\Flight;
 use App\Models\Plane; 
 use App\Models\Airport;
 use App\Models\User;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,7 @@ class DashboardController extends Controller
         $flights = Flight::all(); // Récupère tous les vols
         $planes = Plane::all(); // Récupère tous les avions
         $airports = Airport::all(); // Récupère tous les aéroports
-
-
+        $reservations = Reservation::with(['user', 'flight.departureAirport', 'flight.arrivalAirport'])->get();
 
     // Statistiques supplémentaires
     $totalFlights = $flights->count();
@@ -47,11 +47,12 @@ class DashboardController extends Controller
         : 'Aucun';
 
     // Retour de la vue avec toutes les données
-    return view('dashboardAdmin', compact(
-        'planes', 'airports', 'flights', 'users',
-        'totalFlights', 'totalPlanes', 'statusDistribution',
-        'monthlyFlights', 'activeAirportName'
-    ));    }
+    // return view('dashboardAdmin', compact(
+    //     'planes', 'airports', 'flights', 'users',
+    //     'totalFlights', 'totalPlanes', 'statusDistribution',
+    //     'monthlyFlights', 'activeAirportName', 'reservations'
+    // ));    
+    }
 }
 
 
