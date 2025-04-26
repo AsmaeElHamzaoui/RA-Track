@@ -74,7 +74,22 @@ $paymentData = Payment::select(
 ->orderBy('month')
 ->pluck('count', 'month');
 
-
+   // Créer des labels pour chaque mois
+    $monthLabels = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    
+    // Compléter les données manquantes par 0 (si aucun paiement ou réservation pour certains mois)
+    $reservationData = collect(range(1, 12))->map(function ($month) use ($reservationData) {
+    return $reservationData[$month] ?? 0;
+    });
+    
+    $paymentData = collect(range(1, 12))->map(function ($month) use ($paymentData) {
+    return $paymentData[$month] ?? 0;
+    });
+    
+     
     }
 }
 
