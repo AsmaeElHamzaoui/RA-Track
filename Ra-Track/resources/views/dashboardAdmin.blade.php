@@ -234,9 +234,6 @@
             const contentSections = document.querySelectorAll('.content-section');
             const mainTitle = document.getElementById('main-title');
 
-            // Modals et boutons
-            const closeModalButtons = document.querySelectorAll('.close-modal');
-
             //  Gestion de la navigation par section 
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -303,25 +300,6 @@
                     link.classList.add('active', 'bg-navy-light', 'text-white');
                     link.classList.remove('text-gray-400');
 
-                });
-            });
-
-            //  Fermer le modal en clicant dans le bouton Fermer
-            function closeModal(modalElement) {
-                if (modalElement) {
-                    modalElement.classList.add('hidden');
-                    modalElement.classList.remove('flex');
-                } else {
-                    console.error("Tentative de fermeture d'un modal non trouvé.");
-                }
-            }
-
-            // Boutons Fermer Modal 
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // MODIFIÉ: Ajout de #airport-modal au sélecteur
-                    const modalToClose = button.closest('#flight-modal, #user-modal, #aircraft-modal, #airport-modal');
-                    closeModal(modalToClose);
                 });
             });
 
