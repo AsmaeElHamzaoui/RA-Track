@@ -39,112 +39,27 @@
                         <canvas id="monthlyFlightsChart"></canvas>
                     </div>
                 </div>
-                <!-- Ajouter d'autres graphiques ou stats ici -->
              </section>
+
+
+              <!-- Section pour les Nouveaux Graphiques -->
+    <section class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-navy-light p-4 rounded-lg shadow-md">
+            <h4 class="text-lg font-semibold mb-3">Paiements vs Réservations (6 derniers mois)</h4>
+             <div class="h-80"> <!-- Hauteur légèrement augmentée pour les barres -->
+                <canvas id="monthlyRevenueVsReservationsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- <div class="bg-navy-light p-4 rounded-lg shadow-md">
+            <h4 class="text-lg font-semibold mb-3">Top 6 Vols les Plus Réservés</h4>
+             <div class="h-80">
+                <canvas id="topFlightsChart"></canvas>
+            </div>
+        </div> -->
+    </section>
+
 </div>
 
-<script>
-    let flightStatusChartInstance = null;
-    let monthlyFlightsChartInstance = null;
-
-    function initializeCharts() {
-        const flightStatusCtx = document.getElementById('flightStatusChart')?.getContext('2d');
-        const monthlyFlightsCtx = document.getElementById('monthlyFlightsChart')?.getContext('2d');
-
-        if (flightStatusChartInstance) flightStatusChartInstance.destroy();
-        if (monthlyFlightsChartInstance) monthlyFlightsChartInstance.destroy();
-
-        const statusData = @json($statusDistribution);
-        const monthlyData = @json($monthlyFlights);
-
-        const flightStatusData = {
-            labels: Object.keys(statusData),
-            datasets: [{
-                label: 'Statut des Vols',
-                data: Object.values(statusData),
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.7)',   // Bleu
-                    'rgba(255, 206, 86, 0.7)',   // Jaune
-                    'rgba(255, 99, 132, 0.7)',   // Rouge
-                    'rgba(153, 102, 255, 0.7)',  // Violet
-                    'rgba(75, 192, 192, 0.7)'    // Vert Cyan
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-
-        const monthlyFlightsData = {
-            labels: Object.keys(monthlyData),
-            datasets: [{
-                label: 'Vols par Mois',
-                data: Object.values(monthlyData),
-                fill: false,
-                borderColor: '#FFD700', // Gold
-                backgroundColor: '#FFD700',
-                tension: 0.3
-            }]
-        };
-
-        const chartOptions = {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: '#fff' },
-                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                },
-                x: {
-                    ticks: { color: '#fff' },
-                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                }
-            }
-        };
-
-        const pieChartOptions = {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#fff'
-                    }
-                }
-            }
-        };
-
-        if (flightStatusCtx) {
-            flightStatusChartInstance = new Chart(flightStatusCtx, {
-                type: 'doughnut',
-                data: flightStatusData,
-                options: pieChartOptions
-            });
-        }
-
-        if (monthlyFlightsCtx) {
-            monthlyFlightsChartInstance = new Chart(monthlyFlightsCtx, {
-                type: 'line',
-                data: monthlyFlightsData,
-                options: chartOptions
-            });
-        }
-    }
-
-    // Exécuter dès que la page est prête
-    window.addEventListener('DOMContentLoaded', initializeCharts);
-</script>
 
 
