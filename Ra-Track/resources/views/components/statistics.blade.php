@@ -234,7 +234,15 @@
             });
         }
 
-      
+        if (monthlyRevenueCtx) {
+             monthlyRevenueChartInstance = new Chart(monthlyRevenueCtx, {
+                type: 'bar', // Type 'bar' pour les colonnes
+                data: monthlyRevenueVsReservationsData,
+                options: commonChartOptions // Utilisation des options communes (avec axes)
+             });
+        }
+
+        
     }
 
     // Exécuter dès que la page est prête
