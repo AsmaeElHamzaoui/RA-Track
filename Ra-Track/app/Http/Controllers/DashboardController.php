@@ -104,7 +104,16 @@ $paymentData = Payment::select(
 $topFlightsLabels = $topFlightsDataRaw->keys();
 $topFlightsCounts = $topFlightsDataRaw->values();
 
-
+// Retour de la vue avec toutes les données
+return view('dashboardAdmin', compact(
+    'planes', 'airports', 'flights', 'users', 'reservations', 'payments',
+    'totalFlights', 'totalPlanes', 'statusDistribution', 'monthlyFlights', 'activeAirportName',
+    'monthLabels',          // Labels pour le graphique en colonnes ( ['Jan', 'Feb', ...] )
+    'paymentData',          // Données paiements pour graphique colonnes ( [1200, 1500, ...] )
+    'reservationData',      // Données réservations pour graphique colonnes ( [15, 22, ...] )
+    'topFlightsLabels',     // Labels pour le graphique cercle ( ['AF123', 'LH456', ...] )
+    'topFlightsCounts'      // Données pour le graphique cercle ( [55, 48, ...] )
+)); 
 
     }
 }
