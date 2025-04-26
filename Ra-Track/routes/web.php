@@ -45,8 +45,7 @@ Route::get('/payments/{reservation}', [PaymentController::class, 'index'])->name
 Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 Route::get('/payments/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
-Route::put('/payments/{id}', [PaymentController::class, 'update'])->name('payments.update');
-Route::delete('/payments/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+Route::delete('/payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
 Route::get('/checkout/{reservation}', [PaymentController::class, 'checkout'])->name('stripe.checkout');
 Route::get('/payment-success/{id}', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment-cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
