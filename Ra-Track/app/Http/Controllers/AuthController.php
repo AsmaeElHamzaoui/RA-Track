@@ -68,35 +68,45 @@ class AuthController extends Controller
      * Connexion d’un utilisateur via formulaire HTML (WEB)
      */
     public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
-
-        // Si une réservation est en attente en session (non encore liée à un utilisateur)
-        if (session()->has('pending_reservation_id')) {
-            $reservationId = session()->pull('pending_reservation_id');
-
-            $reservation = Reservation::find($reservationId);
-            if ($reservation && !$reservation->user_id) {
-                $reservation->update(['user_id' => $user->id]);
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+    
+            // Si une réservation est en attente en session
+            if (session()->has('pending_reservation_id')) {
+                $reservationId = session()->pull('pending_reservation_id');
+    
+                $reservation = Reservation::find($reservationId);
+                if ($reservation && !$reservation->user_id) {
+                    $reservation->update(['user_id' => $user->id]);
+                }
+    
+                return redirect()->route('payments.index', ['reservation' => $reservationId]);
             }
-
-            return redirect()->route('payments.index', ['reservation' => $reservationId]);
+    
+            // Redirection selon le rôle de l'utilisateur
+            switch ($user->role) {
+                case 'admin':
+                    return view('adminDashboard');
+                case 'pilot':
+                    return view('piloteDashboard');
+                case 'maintenanceagent':
+                    return view('agentDashboard');
+                default:
+                    return redirect()->route('home');
+            }
         }
-
-        // Sinon, direction la page d’accueil
-        return redirect()->route('home');
+    
+        return back()->withErrors([
+            'email' => 'Identifiants incorrects.',
+        ]);
     }
-
-    return back()->withErrors([
-        'email' => 'Identifiants incorrects.',
-    ]);
-}
+    
 
 
     /**
