@@ -36,8 +36,7 @@ class FlightController extends Controller
             'economy_class_price' => 'required|numeric|min:0',
             'business_class_price' => 'required|numeric|min:0',
             'first_class_price' => 'required|numeric|min:0',
-            'pilot_id' => 'required|exists:users,id,role,pilot', // Validation mise à jour
-
+            'pilot_id' => 'required|exists:users,id,role,pilot', 
         ]);
     
     
