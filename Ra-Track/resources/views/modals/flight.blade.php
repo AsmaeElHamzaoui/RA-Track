@@ -4,7 +4,9 @@
         <div class="flex justify-between items-center mb-4">
             <h4 id="flight-modal-title" class="text-xl font-semibold">Ajouter un Vol</h4>
             <button class="close-modal text-gray-400 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
         <form id="flight-form">
@@ -18,7 +20,7 @@
                     <select id="plane_id" name="plane_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                         <!-- Boucler sur les avions et remplir le select -->
                         @foreach ($planes as $plane)
-                            <option value="{{ $plane->id }}">{{ $plane->registration }}</option>
+                        <option value="{{ $plane->id }}">{{ $plane->registration }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -27,7 +29,7 @@
                     <select id="departure_airport_id" name="departure_airport_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                         <!-- Boucler sur les aéroports et remplir le select -->
                         @foreach ($airports as $airport)
-                            <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -36,7 +38,7 @@
                     <select id="arrival_airport_id" name="arrival_airport_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                         <!-- Boucler sur les aéroports et remplir le select -->
                         @foreach ($airports as $airport)
-                            <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -70,7 +72,18 @@
                     <label for="first_class_price" class="block text-sm font-medium text-gray-300 mb-1">Prix Première Classe</label>
                     <input type="number" id="first_class_price" name="first_class_price" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                 </div>
+                <div>
+                    <label for="pilot_id" class="block text-sm font-medium text-gray-300 mb-1">Pilote</label>
+                    <select id="pilot_id" name="pilot_id" class="w-full p-2 rounded bg-navy border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                        <!-- Boucle sur les pilotes -->
+                        @foreach ($pilots as $pilot)
+                        <option value="{{ $pilot->id }}">{{ $pilot->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
+
             <div class="flex justify-end space-x-3 mt-6">
                 <button type="button" class="close-modal px-4 py-2 rounded bg-gray-600 hover:bg-gray-700 text-white">Annuler</button>
                 <button type="submit" class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white">Enregistrer</button>
@@ -83,118 +96,118 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    // --- Configuration et Sélection des éléments du DOM pour les Vols ---
-    const $flightModal = $('#flight-modal');           // Le modal (popup) contenant le formulaire de vol
-    const $flightForm = $('#flight-form');             // Le formulaire pour ajouter/modifier un vol
-    const $flightModalTitle = $('#flight-modal-title'); // Le titre du modal de vol
-    const $flightTableBody = $('#flight-table-body');   // Le corps du tableau contenant la liste des vols
-    // Récupérer le bouton Enregistrer/Modifier DANS le modal de vol
-    const $saveFlightButton = $flightForm.find('button[type="submit"]'); // Plus robuste que de supposer un ID spécifique
+    $(document).ready(function() {
+        // --- Configuration et Sélection des éléments du DOM pour les Vols ---
+        const $flightModal = $('#flight-modal'); // Le modal (popup) contenant le formulaire de vol
+        const $flightForm = $('#flight-form'); // Le formulaire pour ajouter/modifier un vol
+        const $flightModalTitle = $('#flight-modal-title'); // Le titre du modal de vol
+        const $flightTableBody = $('#flight-table-body'); // Le corps du tableau contenant la liste des vols
+        // Récupérer le bouton Enregistrer/Modifier DANS le modal de vol
+        const $saveFlightButton = $flightForm.find('button[type="submit"]'); // Plus robuste que de supposer un ID spécifique
 
-    // === Fonction pour ouvrir le modal en mode ajout de Vol ===
-    function openAddFlightModal() {
-        // Modifier le texte et les couleurs du bouton pour refléter l'ajout
-        $saveFlightButton.text('Enregistrer')
-            .removeClass('bg-yellow-500 hover:bg-yellow-600') // Supposer des classes similaires pour Modifier
-            .addClass('bg-blue-600 hover:bg-blue-700');
+        // === Fonction pour ouvrir le modal en mode ajout de Vol ===
+        function openAddFlightModal() {
+            // Modifier le texte et les couleurs du bouton pour refléter l'ajout
+            $saveFlightButton.text('Enregistrer')
+                .removeClass('bg-yellow-500 hover:bg-yellow-600') // Supposer des classes similaires pour Modifier
+                .addClass('bg-blue-600 hover:bg-blue-700');
 
-        // Réinitialiser le formulaire et définir les attributs de mode
-        $flightForm[0].reset();
-        $flightModalTitle.text('Ajouter un Vol');
-        $flightForm.attr('data-mode', 'add').removeAttr('data-flight-id');
+            // Réinitialiser le formulaire et définir les attributs de mode
+            $flightForm[0].reset();
+            $flightModalTitle.text('Ajouter un Vol');
+            $flightForm.attr('data-mode', 'add').removeAttr('data-flight-id');
 
-        // Afficher le modal
-        $flightModal.removeClass('hidden').addClass('flex');
-    }
+            // Afficher le modal
+            $flightModal.removeClass('hidden').addClass('flex');
+        }
 
-    // === Fonction pour ouvrir le modal en mode édition de Vol ===
-    function openEditFlightModal(flightId) {
-        // Modifier le bouton pour indiquer l'édition
-        $saveFlightButton.text('Modifier')
-            .removeClass('bg-blue-600 hover:bg-blue-700')
-            .addClass('bg-yellow-500 hover:bg-yellow-600'); // Supposer des classes similaires
+        // === Fonction pour ouvrir le modal en mode édition de Vol ===
+        function openEditFlightModal(flightId) {
+            // Modifier le bouton pour indiquer l'édition
+            $saveFlightButton.text('Modifier')
+                .removeClass('bg-blue-600 hover:bg-blue-700')
+                .addClass('bg-yellow-500 hover:bg-yellow-600'); // Supposer des classes similaires
 
-        // Récupérer les données du vol via AJAX
-        $.ajax({
-            url: `/api/flights/${flightId}`, // URL API pour un vol spécifique
-            type: 'GET',
-            success: function(flight) {
-                // Remplir les champs du formulaire avec les données existantes
-                // Attention au format des dates/heures pour datetime-local
-                const departureTime = flight.departure_time ? flight.departure_time.replace(' ', 'T').substring(0, 16) : '';
-                const arrivalTime = flight.arrival_time ? flight.arrival_time.replace(' ', 'T').substring(0, 16) : '';
+            // Récupérer les données du vol via AJAX
+            $.ajax({
+                url: `/api/flights/${flightId}`, // URL API pour un vol spécifique
+                type: 'GET',
+                success: function(flight) {
+                    // Remplir les champs du formulaire avec les données existantes
+                    // Attention au format des dates/heures pour datetime-local
+                    const departureTime = flight.departure_time ? flight.departure_time.replace(' ', 'T').substring(0, 16) : '';
+                    const arrivalTime = flight.arrival_time ? flight.arrival_time.replace(' ', 'T').substring(0, 16) : '';
 
-                $flightForm.find('#flight_number').val(flight.flight_number);
-                $flightForm.find('#plane_id').val(flight.plane_id); // Assurez-vous que l'ID de l'avion est bien passé
-                $flightForm.find('#departure_airport_id').val(flight.departure_airport_id); // ID aéroport départ
-                $flightForm.find('#arrival_airport_id').val(flight.arrival_airport_id);     // ID aéroport arrivée
-                $flightForm.find('#departure_time').val(departureTime);
-                $flightForm.find('#arrival_time').val(arrivalTime);
-                $flightForm.find('#status').val(flight.status);
-                $flightForm.find('#economy_class_price').val(flight.economy_class_price);
-                $flightForm.find('#business_class_price').val(flight.business_class_price);
-                $flightForm.find('#first_class_price').val(flight.first_class_price);
+                    $flightForm.find('#flight_number').val(flight.flight_number);
+                    $flightForm.find('#plane_id').val(flight.plane_id); // Assurez-vous que l'ID de l'avion est bien passé
+                    $flightForm.find('#departure_airport_id').val(flight.departure_airport_id); // ID aéroport départ
+                    $flightForm.find('#arrival_airport_id').val(flight.arrival_airport_id); // ID aéroport arrivée
+                    $flightForm.find('#departure_time').val(departureTime);
+                    $flightForm.find('#arrival_time').val(arrivalTime);
+                    $flightForm.find('#status').val(flight.status);
+                    $flightForm.find('#economy_class_price').val(flight.economy_class_price);
+                    $flightForm.find('#business_class_price').val(flight.business_class_price);
+                    $flightForm.find('#first_class_price').val(flight.first_class_price);
 
-                // Mettre à jour le titre et les attributs du formulaire
-                $flightModalTitle.text('Modifier le Vol');
-                $flightForm.attr('data-mode', 'edit').attr('data-flight-id', flightId);
+                    // Mettre à jour le titre et les attributs du formulaire
+                    $flightModalTitle.text('Modifier le Vol');
+                    $flightForm.attr('data-mode', 'edit').attr('data-flight-id', flightId);
 
-                // Afficher le modal
-                $flightModal.removeClass('hidden').addClass('flex');
-            },
-            error: function(xhr) {
-                // Gérer les erreurs si les données ne peuvent pas être chargées
-                alert(`Erreur : Impossible de charger les données du vol. ${xhr.responseJSON?.message || xhr.statusText}`);
-            }
-        });
-    }
+                    // Afficher le modal
+                    $flightModal.removeClass('hidden').addClass('flex');
+                },
+                error: function(xhr) {
+                    // Gérer les erreurs si les données ne peuvent pas être chargées
+                    alert(`Erreur : Impossible de charger les données du vol. ${xhr.responseJSON?.message || xhr.statusText}`);
+                }
+            });
+        }
 
-    // === Fonction pour fermer le modal de Vol ===
-    function closeFlightModal() {
-        $flightModal.addClass('hidden').removeClass('flex');
-    }
+        // === Fonction pour fermer le modal de Vol ===
+        function closeFlightModal() {
+            $flightModal.addClass('hidden').removeClass('flex');
+        }
 
-    // === Fonction pour recharger les vols depuis l'API et mettre à jour le tableau ===
-    function refreshFlightTable() {
-        $.ajax({
-            url: '/api/flights', // URL API pour la liste des vols
-            type: 'GET',
-            success: function(flights) {
-                $flightTableBody.empty(); // Vider le tableau actuel
+        // === Fonction pour recharger les vols depuis l'API et mettre à jour le tableau ===
+        function refreshFlightTable() {
+            $.ajax({
+                url: '/api/flights', // URL API pour la liste des vols
+                type: 'GET',
+                success: function(flights) {
+                    $flightTableBody.empty(); // Vider le tableau actuel
 
-                // Vérifier s’il y a des vols à afficher
-                if (flights.length > 0) {
-                    flights.forEach(function(flight) {
-                        let statusClass = '';
-                        // Adapter la fonction ucfirst si nécessaire ou utiliser directement les valeurs
-                        let statusText = flight.status ? flight.status.replace('_', ' ') : 'N/A';
-                        statusText = statusText.charAt(0).toUpperCase() + statusText.slice(1); // Simple ucfirst
+                    // Vérifier s’il y a des vols à afficher
+                    if (flights.length > 0) {
+                        flights.forEach(function(flight) {
+                            let statusClass = '';
+                            // Adapter la fonction ucfirst si nécessaire ou utiliser directement les valeurs
+                            let statusText = flight.status ? flight.status.replace('_', ' ') : 'N/A';
+                            statusText = statusText.charAt(0).toUpperCase() + statusText.slice(1); // Simple ucfirst
 
-                        // Choisir une couleur en fonction du statut du vol (adaptez selon vos besoins)
-                        switch (flight.status) {
-                            case 'scheduled':
-                                statusClass = 'bg-blue-600 text-blue-100';
-                                break;
-                            case 'in_progress':
-                                statusClass = 'bg-teal-600 text-teal-100';
-                                break;
-                            case 'completed':
-                                statusClass = 'bg-green-600 text-green-100';
-                                break;
-                            case 'delayed':
-                                statusClass = 'bg-yellow-600 text-yellow-100';
-                                break;
-                            case 'cancelled':
-                                statusClass = 'bg-red-600 text-red-100';
-                                break;
-                            default:
-                                statusClass = 'bg-gray-600 text-gray-100';
-                        }
+                            // Choisir une couleur en fonction du statut du vol (adaptez selon vos besoins)
+                            switch (flight.status) {
+                                case 'scheduled':
+                                    statusClass = 'bg-blue-600 text-blue-100';
+                                    break;
+                                case 'in_progress':
+                                    statusClass = 'bg-teal-600 text-teal-100';
+                                    break;
+                                case 'completed':
+                                    statusClass = 'bg-green-600 text-green-100';
+                                    break;
+                                case 'delayed':
+                                    statusClass = 'bg-yellow-600 text-yellow-100';
+                                    break;
+                                case 'cancelled':
+                                    statusClass = 'bg-red-600 text-red-100';
+                                    break;
+                                default:
+                                    statusClass = 'bg-gray-600 text-gray-100';
+                            }
 
-                        // Ajouter une ligne dans le tableau avec les données du vol
-                        // Adaptez les colonnes affichées selon vos besoins
-                        $flightTableBody.append(`
+                            // Ajouter une ligne dans le tableau avec les données du vol
+                            // Adaptez les colonnes affichées selon vos besoins
+                            $flightTableBody.append(`
                             <tr class="border-b border-gray-700 hover:bg-gray-700">
                                 <td class="px-4 py-3">${flight.flight_number}</td>
                                 <td class="px-4 py-3">${flight.departure_airport?.iata_code || 'N/A'} -> ${flight.arrival_airport?.iata_code || 'N/A'}</td> {/* Assurez-vous que les relations sont chargées */}
@@ -218,122 +231,122 @@ $(document).ready(function() {
                                 </td>
                             </tr>
                         `);
-                    });
-                } else {
-                    // Message si aucun vol trouvé
-                    $flightTableBody.append('<tr><td colspan="6" class="text-center py-4 text-gray-400">Aucun vol trouvé.</td></tr>'); // Ajustez colspan
-                }
-            },
-            error: function() {
-                // Gérer les erreurs de récupération
-                alert('Erreur lors du rafraîchissement de la liste des vols.');
-                $flightTableBody.html('<tr><td colspan="6" class="text-center py-4 text-red-400">Erreur lors du chargement.</td></tr>'); // Ajustez colspan
-            }
-        });
-    }
-
-    // === Écouteurs d'événements ===
-
-    // Ouvrir le modal pour ajouter un vol
-    $('#open-add-flight-modal').on('click', openAddFlightModal); // Assurez-vous que ce bouton existe
-
-    // Fermer le modal (bouton 'X' et bouton 'Annuler')
-    $flightModal.find('.close-modal').on('click', closeFlightModal);
-
-    // Ouvrir le modal pour modifier un vol (via délégation d'événement sur le corps du tableau)
-    $flightTableBody.on('click', '.edit-flight-button', function() {
-        openEditFlightModal($(this).data('id'));
-    });
-
-    // Soumission du formulaire (ajout ou modification de vol)
-    $flightForm.on('submit', function(e) {
-        e.preventDefault();
-
-        const mode = $flightForm.attr('data-mode');           // 'add' ou 'edit'
-        const flightId = $flightForm.attr('data-flight-id');  // ID du vol (si édition)
-        let url = '/api/flights';                             // URL par défaut pour l'ajout
-        let method = 'POST';                                  // Méthode HTTP par défaut
-
-        // Modifier l’URL et la méthode si c’est une édition
-        if (mode === 'edit' && flightId) {
-            url = `/api/flights/${flightId}`;
-            method = 'POST'; // Toujours POST, utiliser _method pour simuler PUT/PATCH
-        }
-
-        // Créer un FormData pour envoyer les données (gère aussi les fichiers si besoin)
-        const formData = new FormData(this);
-        if (mode === 'edit') {
-            formData.append('_method', 'PUT'); // Simuler une requête PUT pour la mise à jour
-        }
-
-        // Désactiver le bouton pendant l’enregistrement
-        $saveFlightButton.prop('disabled', true).text(mode === 'edit' ? 'Modification...' : 'Enregistrement...');
-
-        // Envoi AJAX
-        $.ajax({
-            url: url,
-            type: method,
-            data: formData,
-            processData: false, // Nécessaire pour FormData
-            contentType: false, // Nécessaire pour FormData
-            headers: { // Important pour Laravel avec AJAX / FormData
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Assurez-vous d'avoir la meta tag CSRF dans votre <head>
-            },
-            success: function(response) {
-                alert(response.message || (mode === 'edit' ? 'Vol mis à jour avec succès!' : 'Vol ajouté avec succès!'));
-                closeFlightModal();      // Fermer le modal
-                refreshFlightTable();    // Recharger la liste des vols
-            },
-            error: function(xhr) {
-                let errorMessage = 'Une erreur est survenue.';
-                 if (xhr.responseJSON) {
-                    errorMessage = xhr.responseJSON.message || errorMessage;
-                    if (xhr.status === 422 && xhr.responseJSON.errors) {
-                        // Afficher les messages d’erreur de validation plus en détail
-                        let errors = Object.values(xhr.responseJSON.errors).map(err => `- ${err.join('\n  ')}`).join('\n');
-                        errorMessage += '\n\nErreurs de validation:\n' + errors;
+                        });
+                    } else {
+                        // Message si aucun vol trouvé
+                        $flightTableBody.append('<tr><td colspan="6" class="text-center py-4 text-gray-400">Aucun vol trouvé.</td></tr>'); // Ajustez colspan
                     }
-                } else {
-                    errorMessage = `Erreur ${xhr.status}: ${xhr.statusText}`;
-                }
-                alert(errorMessage);
-            },
-            complete: function() {
-                // Réactiver le bouton après l’appel AJAX et restaurer le texte initial
-                const buttonText = (mode === 'edit' ? 'Modifier' : 'Enregistrer');
-                $saveFlightButton.prop('disabled', false).text(buttonText);
-            }
-        });
-    });
-
-    // === Suppression d’un vol (via délégation d'événement sur le corps du tableau) ===
-    $flightTableBody.on('click', '.delete-flight-button', function() {
-        const flightId = $(this).data('id');
-
-        // Demande de confirmation
-        if (confirm('Êtes-vous sûr de vouloir supprimer ce vol ?')) {
-            $.ajax({
-                url: `/api/flights/${flightId}`,
-                type: 'POST', // Utiliser POST pour envoyer _method=DELETE
-                data: {
-                    _method: 'DELETE' // Méthode simulée DELETE
                 },
-                 headers: { // CSRF Token nécessaire pour les requêtes POST/PUT/DELETE
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 },
-                success: function(response) {
-                    alert(response.message || 'Vol supprimé avec succès!');
-                    refreshFlightTable(); // Recharger la liste des vols
-                },
-                error: function(xhr) {
-                    alert(`Erreur : Impossible de supprimer le vol. ${xhr.responseJSON?.message || xhr.statusText}`);
+                error: function() {
+                    // Gérer les erreurs de récupération
+                    alert('Erreur lors du rafraîchissement de la liste des vols.');
+                    $flightTableBody.html('<tr><td colspan="6" class="text-center py-4 text-red-400">Erreur lors du chargement.</td></tr>'); // Ajustez colspan
                 }
             });
         }
+
+        // === Écouteurs d'événements ===
+
+        // Ouvrir le modal pour ajouter un vol
+        $('#open-add-flight-modal').on('click', openAddFlightModal); // Assurez-vous que ce bouton existe
+
+        // Fermer le modal (bouton 'X' et bouton 'Annuler')
+        $flightModal.find('.close-modal').on('click', closeFlightModal);
+
+        // Ouvrir le modal pour modifier un vol (via délégation d'événement sur le corps du tableau)
+        $flightTableBody.on('click', '.edit-flight-button', function() {
+            openEditFlightModal($(this).data('id'));
+        });
+
+        // Soumission du formulaire (ajout ou modification de vol)
+        $flightForm.on('submit', function(e) {
+            e.preventDefault();
+
+            const mode = $flightForm.attr('data-mode'); // 'add' ou 'edit'
+            const flightId = $flightForm.attr('data-flight-id'); // ID du vol (si édition)
+            let url = '/api/flights'; // URL par défaut pour l'ajout
+            let method = 'POST'; // Méthode HTTP par défaut
+
+            // Modifier l’URL et la méthode si c’est une édition
+            if (mode === 'edit' && flightId) {
+                url = `/api/flights/${flightId}`;
+                method = 'POST'; // Toujours POST, utiliser _method pour simuler PUT/PATCH
+            }
+
+            // Créer un FormData pour envoyer les données (gère aussi les fichiers si besoin)
+            const formData = new FormData(this);
+            if (mode === 'edit') {
+                formData.append('_method', 'PUT'); // Simuler une requête PUT pour la mise à jour
+            }
+
+            // Désactiver le bouton pendant l’enregistrement
+            $saveFlightButton.prop('disabled', true).text(mode === 'edit' ? 'Modification...' : 'Enregistrement...');
+
+            // Envoi AJAX
+            $.ajax({
+                url: url,
+                type: method,
+                data: formData,
+                processData: false, // Nécessaire pour FormData
+                contentType: false, // Nécessaire pour FormData
+                headers: { // Important pour Laravel avec AJAX / FormData
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Assurez-vous d'avoir la meta tag CSRF dans votre <head>
+                },
+                success: function(response) {
+                    alert(response.message || (mode === 'edit' ? 'Vol mis à jour avec succès!' : 'Vol ajouté avec succès!'));
+                    closeFlightModal(); // Fermer le modal
+                    refreshFlightTable(); // Recharger la liste des vols
+                },
+                error: function(xhr) {
+                    let errorMessage = 'Une erreur est survenue.';
+                    if (xhr.responseJSON) {
+                        errorMessage = xhr.responseJSON.message || errorMessage;
+                        if (xhr.status === 422 && xhr.responseJSON.errors) {
+                            // Afficher les messages d’erreur de validation plus en détail
+                            let errors = Object.values(xhr.responseJSON.errors).map(err => `- ${err.join('\n  ')}`).join('\n');
+                            errorMessage += '\n\nErreurs de validation:\n' + errors;
+                        }
+                    } else {
+                        errorMessage = `Erreur ${xhr.status}: ${xhr.statusText}`;
+                    }
+                    alert(errorMessage);
+                },
+                complete: function() {
+                    // Réactiver le bouton après l’appel AJAX et restaurer le texte initial
+                    const buttonText = (mode === 'edit' ? 'Modifier' : 'Enregistrer');
+                    $saveFlightButton.prop('disabled', false).text(buttonText);
+                }
+            });
+        });
+
+        // === Suppression d’un vol (via délégation d'événement sur le corps du tableau) ===
+        $flightTableBody.on('click', '.delete-flight-button', function() {
+            const flightId = $(this).data('id');
+
+            // Demande de confirmation
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce vol ?')) {
+                $.ajax({
+                    url: `/api/flights/${flightId}`,
+                    type: 'POST', // Utiliser POST pour envoyer _method=DELETE
+                    data: {
+                        _method: 'DELETE' // Méthode simulée DELETE
+                    },
+                    headers: { // CSRF Token nécessaire pour les requêtes POST/PUT/DELETE
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        alert(response.message || 'Vol supprimé avec succès!');
+                        refreshFlightTable(); // Recharger la liste des vols
+                    },
+                    error: function(xhr) {
+                        alert(`Erreur : Impossible de supprimer le vol. ${xhr.responseJSON?.message || xhr.statusText}`);
+                    }
+                });
+            }
+        });
+
+        // === Charger la liste des vols au chargement initial de la page ===
+        refreshFlightTable();
+
     });
-
-    // === Charger la liste des vols au chargement initial de la page ===
-    refreshFlightTable();
-
-});
 </script>
