@@ -20,6 +20,7 @@ class Flight extends Model
         'economy_class_price',     // Prix classe économique
         'business_class_price',    // Prix classe business
         'first_class_price',       // Prix classe première
+        'pilot_id', 
     ];
 
      /**
@@ -48,5 +49,14 @@ class Flight extends Model
     {
         return $this->belongsTo(Airport::class, 'arrival_airport_id');
     }
+    
+    /**
+     * Relation N:1 avec l'entité User (Pilote du vol)
+     * Un vol est affecté à un pilote.
+     */
+    // public function pilot()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id')->where('role', 'pilot');
+    // }
     
 }
