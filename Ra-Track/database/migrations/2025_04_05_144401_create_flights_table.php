@@ -19,6 +19,7 @@ class CreateFlightsTable extends Migration
             $table->float('economy_class_price'); // Economy class price
             $table->float('business_class_price'); // Business class price
             $table->float('first_class_price'); // First class price
+            $table->foreignId('pilot_id')->constrained('users')->onDelete('cascade'); // Le pilote assigné au vol
             $table->timestamps();
         });
     }
