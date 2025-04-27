@@ -29,7 +29,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); 
 
 //routes dashboard
-Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
+Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboardAdmin');
 Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name('booking');
 
 
