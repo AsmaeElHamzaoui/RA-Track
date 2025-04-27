@@ -54,9 +54,9 @@ class Flight extends Model
      * Relation N:1 avec l'entité User (Pilote du vol)
      * Un vol est affecté à un pilote.
      */
-    // public function pilot()
-    // {
-    //     return $this->belongsTo(User::class, 'user_id')->where('role', 'pilot');
-    // }
+    public function pilot()
+    {
+        return $this->belongsTo(User::class, 'user_id')->where('role', 'pilot');
+    }
     
 }
