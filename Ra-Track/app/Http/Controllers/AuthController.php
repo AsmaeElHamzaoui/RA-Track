@@ -52,7 +52,7 @@ class AuthController extends Controller
                 $reservation->update(['user_id' => $user->id]);
             }
 
-            return redirect()->route('payment.show', ['reservation' => $reservationId]);
+            return redirect()->route('payments.index', ['reservation' => $reservationId]);
         }
 
         // Redirection selon les réservations
