@@ -26,6 +26,9 @@ class DashboardController extends Controller
             'reservation.user', // Charge l'utilisateur via la réservation
             'reservation.flight'  // Charge le vol via la réservation
         ])->get();
+        $pilots = User::where('role', 'pilot')->get(); 
+
+
     // Statistiques supplémentaires
     $totalFlights = $flights->count();
     $totalPlanes = $planes->count();
@@ -112,7 +115,8 @@ return view('dashboardAdmin', compact(
     'paymentData',          // Données paiements pour graphique colonnes ( [1200, 1500, ...] )
     'reservationData',      // Données réservations pour graphique colonnes ( [15, 22, ...] )
     'topFlightsLabels',     // Labels pour le graphique cercle ( ['AF123', 'LH456', ...] )
-    'topFlightsCounts'      // Données pour le graphique cercle ( [55, 48, ...] )
+    'topFlightsCounts' ,      // Données pour le graphique cercle ( [55, 48, ...] )
+    'pilots'
 )); 
 
     }

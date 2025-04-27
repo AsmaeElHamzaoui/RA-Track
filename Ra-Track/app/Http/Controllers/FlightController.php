@@ -15,7 +15,7 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->orderBy('id', 'asc')->get();
+        $flights = Flight::with(['plane', 'departureAirport', 'arrivalAirport', 'pilot'])->orderBy('id', 'asc')->get();
         return response()->json($flights);
     }
 
@@ -36,6 +36,8 @@ class FlightController extends Controller
             'economy_class_price' => 'required|numeric|min:0',
             'business_class_price' => 'required|numeric|min:0',
             'first_class_price' => 'required|numeric|min:0',
+            'pilot_id' => 'required|exists:users,id,role,pilot', // Validation mise à jour
+
         ]);
     
     
@@ -51,7 +53,7 @@ class FlightController extends Controller
      */
     public function show($id)
     {
-        $flight = Flight::with(['plane', 'departureAirport', 'arrivalAirport'])->findOrFail($id);
+        $flight = Flight::with(['plane', 'departureAirport', 'arrivalAirport', 'pilot'])->findOrFail($id);
         return view('detailsFlight', ['flight' => $flight]);
     }
   
@@ -74,6 +76,8 @@ class FlightController extends Controller
             'economy_class_price' => 'required|numeric|min:0',
             'business_class_price' => 'required|numeric|min:0',
             'first_class_price' => 'required|numeric|min:0',
+            'pilot_id' => 'required|exists:users,id,role,pilot', 
+
         ]);
         
 
