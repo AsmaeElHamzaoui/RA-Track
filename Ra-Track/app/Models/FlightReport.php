@@ -21,5 +21,13 @@ class FlightReport extends Model
         'report_path',
     ];
 
-   
+    /**
+     * Get the flight that owns the report.
+     * Defines the inverse of the one-to-one relationship.
+     */
+    public function flight(): BelongsTo
+    {
+        // A FlightReport belongs to one Flight
+        return $this->belongsTo(Flight::class);
+    }
 }
