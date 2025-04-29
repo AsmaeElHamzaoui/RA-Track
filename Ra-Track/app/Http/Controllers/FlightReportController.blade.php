@@ -87,6 +87,43 @@ class FlightReportController extends Controller
         return view('flight_reports.edit', compact('report', 'flightsREs'));
     }
 
+    /**
+     * Met à jour un rapport existant.
+     */
+    public function update(Request $request, $id)
+    {
+        $report = FlightReport::findOrFail($id);
+        if ($report->flight->pilot_id !== Auth::id()) {
+            abort(403);
+        }
     
+        $request->validate([
+            'flight_id' => 'required|exists:flights,id',
+            'comment' => 'required|string',
+            'reportFile' => 'nullable|file|mimes:pdf|max:2048',
+        ]);
+    
+        if ($request->hasFile('reportFile')) {
+            Storage::disk('public')->delete($report->report_path);
+            $report->report_path = $request->file('reportFile')->store('reports', 'public');
+        }
+    
+        $report->update([
+            'flight_id' => $request->flight_id,
+            'comment' => $request->comment,
+            'report_path' => $report->report_path,
+        ]);
+    
+        $report->load('flight');
+    
+        return response()->json([
+            'message' => 'Rapport mis à jour avec succès.',
+            'report' => $report
+        ]);
+    }
+    
+
+  
+
     
 }
