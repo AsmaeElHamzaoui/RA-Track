@@ -8,7 +8,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TicketController;
-
+use App\Http\Controllers\DashboardPilotController;
+use App\Http\Controllers\FlightReportController;
 
 // route home page
 Route::get('/', [HomeController::class, 'showBooking'])->name('home');
@@ -28,10 +29,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); 
 
-//routes dashboard
+//routes dashboard admin
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboardAdmin');
 Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name('booking');
 
+// routes dashboard pilot
+Route::get('/dashboardPilot', [DashboardPilotController::class, 'showDashboard'])->name('dashboardPilot');
 
 //routes reservations
 Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
@@ -72,6 +75,14 @@ Route::get('/real-timeTracking', function () {
 
 
 
+
+
+// routes flight reports 
+Route::get('/flight-reports', [FlightReportController::class, 'index'])->name('flight-reports.index');
+Route::post('/flight-reports', [FlightReportController::class, 'store'])->name('flight-reports.store');
+Route::get('/flight-reports/{id}', [FlightReportController::class, 'show'])->name('flight-reports.show');
+Route::put('/flight-reports/{id}', [FlightReportController::class, 'update'])->name('flight-reports.update');
+Route::delete('/flight-reports/{id}', [FlightReportController::class, 'destroy'])->name('flight-reports.destroy');
 
 
 
