@@ -59,4 +59,13 @@ class Flight extends Model
         return $this->belongsTo(User::class, 'user_id')->where('role', 'pilot');
     }
     
+      /**
+     * Get the report associated with the flight.
+     * Defines the one-to-one relationship.
+     */
+    public function report()
+    {
+        // A Flight has one FlightReport
+        return $this->hasOne(FlightReport::class);
+    }
 }
