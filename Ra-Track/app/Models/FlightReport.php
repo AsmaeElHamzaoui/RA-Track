@@ -9,5 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class FlightReport extends Model
 {
     use HasFactory;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'flight_id',
+        'comment',
+        'report_path',
+    ];
 
+   
 }
