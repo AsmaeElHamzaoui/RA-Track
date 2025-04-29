@@ -58,6 +58,35 @@ class FlightReportController extends Controller
         ]);
     }
     
+/**
+     * Affiche un rapport précis.
+     */
+    public function show($id)
+    {
+        $report = FlightReport::findOrFail($id);
 
+        // Vérifie que le pilote est bien celui qui a créé le vol
+        if ($report->flight->pilot_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('flight_reports.show', compact('report'));
+    }
+
+    /**
+     * Affiche le formulaire d'édition.
+     */
+    public function edit($id)
+    {
+        $report = FlightReport::findOrFail($id);
+        if ($report->flight->pilot_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $flightsREs = Flight::where('pilot_id', Auth::id())->get();
+        return view('flight_reports.edit', compact('report', 'flightsREs'));
+    }
+
+    
     
 }
