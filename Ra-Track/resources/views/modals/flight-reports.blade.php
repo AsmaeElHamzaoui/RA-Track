@@ -33,7 +33,97 @@
  </form>
  <div id="reports-list" class="space-y-4 mt-4">
 </div>
+<script>
+$(document).ready(function () {
+    // Configuration CSRF pour Laravel
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    // 🔁 Fonction pour recharger les rapports
+    function loadReports() {
+        $.get('/flight-reports', function (data) {
+            $('#reports-list').html('');
+            data.reports.forEach(report => {
+                $('#reports-list').append(`
+                    <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+                        <div>
+                            <p><strong>Vol:</strong> ${report.flight_number}</p>
+                            <p><strong>Commentaire:</strong> ${report.comment}</p>
+                            <p><a href="/storage/${report.report_path}" target="_blank" class="text-blue-600 underline">Voir PDF</a></p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="edit-btn bg-yellow-400 px-3 py-1 rounded text-white" data-id="${report.id}">Modifier</button>
+                            <button class="delete-btn bg-red-500 px-3 py-1 rounded text-white" data-id="${report.id}">Supprimer</button>
+                        </div>
+                    </div>
+                `);
+            });
+        });
+    }
+
+    // 🟢 Soumission du formulaire d'ajout
+    $('#add-report-form').on('submit', function (e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+
+        $.ajax({
+            url: '/flight-reports',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                alert('Rapport ajouté !');
+                $('#add-report-form')[0].reset();
+                $('#modal-id').hide(); // adapte à ton ID de modal
+                loadReports();
+            },
+            error: function (xhr) {
+                alert('Erreur lors de l’ajout');
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    // 🔴 Suppression d’un rapport
+    $(document).on('click', '.delete-btn', function () {
+        if (!confirm('Voulez-vous vraiment supprimer ce rapport ?')) return;
+
+        const id = $(this).data('id');
+        $.ajax({
+            url: `/flight-reports/${id}`,
+            type: 'DELETE',
+            success: function () {
+                alert('Rapport supprimé !');
+                loadReports();
+            },
+            error: function (xhr) {
+                alert('Erreur lors de la suppression');
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    // ✏️ Chargement des données pour modification
+    $(document).on('click', '.edit-btn', function () {
+        const id = $(this).data('id');
+        $.get(`/flight-reports/${id}`, function (data) {
+            $('#flight-select').val(data.flight_id);
+            $('#report-comment').val(data.comment);
+            $('#add-report-form').attr('action', `/flight-reports/${id}`);
+            $('#add-report-form').attr('method', 'POST');
+            $('#add-report-form').append('<input type="hidden" name="_method" value="PUT">');
+            $('#modal-id').show(); // adapte à ton ID modal
+        });
+    });
+
+    // 🌀 Initialisation
+    loadReports();
+});
+</script>
 
 
 
