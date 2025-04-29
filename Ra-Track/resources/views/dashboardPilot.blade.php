@@ -227,5 +227,65 @@
 
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const addReportBtn = document.getElementById('add-report-btn');
+            const modal = document.getElementById('add-report-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const cancelModalBtn = document.getElementById('cancel-modal-btn');
+            const addReportForm = document.getElementById('add-report-form');
+            const flightSelect = document.getElementById('flight-select');
+            const reportsTableBody = document.getElementById('reports-table-body');
+
+            // --- Sidebar Navigation ---
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    // Deactivate all links and hide all sections
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.add('hidden'));
+
+                    // Activate clicked link and show target section
+                    link.classList.add('active');
+                    const targetId = link.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // --- Modal Control ---
+            function openModal() {
+                // Optional: Populate flight select dynamically if needed here
+                // For now, using hardcoded options in HTML
+                modal.classList.remove('hidden');
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                addReportForm.reset(); // Clear form on close
+            }
+
+            if (addReportBtn) addReportBtn.addEventListener('click', openModal);
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+            if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeModal);
+
+            // Close modal if clicking outside the modal content
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // --- Initial State ---
+            // Ensure the default active link and section are shown
+            document.getElementById('nav-assigned-flights').click(); // Simulate click on initial load
+
+        });
+    </script>
 </body>
 </html>
