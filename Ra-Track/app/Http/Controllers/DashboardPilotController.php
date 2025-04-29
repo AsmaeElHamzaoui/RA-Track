@@ -21,7 +21,8 @@ class DashboardPilotController extends Controller
        $flightsREs = Flight::where('pilot_id', $pilotId)
        ->get(['id', 'flight_number']);
 
-        return view('dashboardPilot', compact('flightsREs')); 
+       
+       return view('dashboardPilot', compact('flightsREs')); 
 
     }
 }
