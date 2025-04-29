@@ -31,6 +31,33 @@ class FlightReportController extends Controller
         return view('flight_reports.create', compact('flightsREs'));
     }
 
- 
+       /**
+     * Enregistre un nouveau rapport de vol.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'flight_id' => 'required|exists:flights,id',
+            'comment' => 'required|string',
+            'reportFile' => 'required|file|mimes:pdf|max:2048',
+        ]);
+    
+        $filePath = $request->file('reportFile')->store('reports', 'public');
+    
+        $report = FlightReport::create([
+            'flight_id' => $request->flight_id,
+            'comment' => $request->comment,
+            'report_path' => $filePath,
+        ]);
+    
+        $report->load('flight');
+    
+        return response()->json([
+            'message' => 'Rapport ajouté avec succès.',
+            'report' => $report
+        ]);
+    }
+    
 
+    
 }
