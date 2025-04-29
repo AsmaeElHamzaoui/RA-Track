@@ -122,6 +122,21 @@ class FlightReportController extends Controller
         ]);
     }
     
+      /**
+     * Supprime un rapport.
+     */
+   public function destroy($id)
+   {
+       $report = FlightReport::findOrFail($id);
+       if ($report->flight->pilot_id !== Auth::id()) {
+           abort(403);
+       }
+   
+       Storage::disk('public')->delete($report->report_path);
+       $report->delete();
+   
+       return response()->json(['message' => 'Rapport supprimé avec succès.']);
+   }
 
   
 
