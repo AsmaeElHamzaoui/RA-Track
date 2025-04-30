@@ -16,9 +16,16 @@ class DashboardPilotController extends Controller
 
     {
         $pilotId = Auth::id(); // ou Auth::user()->id
-        // récupèration des vols assignés au pilote connecté
-        $flights = Flight::where('pilot_id', $pilotId)
-            ->get(['id', 'flight_number']);
+
+        // Récupération des vols assignés au pilote avec toutes les informations nécessaires
+        $flights = Flight::with(['departureAirport', 'arrivalAirport'])
+        ->where('pilot_id', $pilotId)
+        ->where('departure_time', '>=', now()->format('Y-m-d H:i:s')) // Format compatible avec votre DB
+        ->orderBy('departure_time')
+        ->get()
+        ->map(function ($flight) {
+          
+        });
 
         // Récupérer les rapports dont le vol appartient au pilote connecté
         $reports = FlightReport::whereHas('flight', function ($query) use ($pilotId) {
