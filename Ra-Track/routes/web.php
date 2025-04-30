@@ -74,9 +74,6 @@ Route::get('/real-timeTracking', function () {
 });
 
 
-
-
-
 // routes flight reports 
 Route::get('/flight-reports', [FlightReportController::class, 'index'])->name('flight-reports.index');
 Route::post('/flight-reports', [FlightReportController::class, 'store'])->name('flight-reports.store');
@@ -88,3 +85,4 @@ Route::delete('/flight-reports/{id}', [FlightReportController::class, 'destroy']
 
 
 
+    
