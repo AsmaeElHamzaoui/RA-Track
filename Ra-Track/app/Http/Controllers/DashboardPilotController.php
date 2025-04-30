@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\FlightReport; 
+
 
 class DashboardPilotController extends Controller
 {
@@ -18,11 +20,12 @@ class DashboardPilotController extends Controller
         $pilotId = Auth::id(); // ou Auth::user()->id
 
        // récupèration des vols assignés au pilote connecté
-       $flightsREs = Flight::where('pilot_id', $pilotId)
+       $flights = Flight::where('pilot_id', $pilotId)
        ->get(['id', 'flight_number']);
 
-       
-       return view('dashboardPilot', compact('flightsREs')); 
+       $reports = FlightReport::with('flight')->latest()->get();
+ 
+       return view('dashboardPilot', compact('flights', 'reports')); 
 
     }
 }
