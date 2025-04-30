@@ -277,86 +277,8 @@
              }
 
 
-            // --- LOGIQUE POUR LE CALENDRIER (Exemple avec FullCalendar - À DÉCOMMENTER ET ADAPTER) ---
             
-            const calendarEl = document.getElementById('maintenance-calendar');
-            if (calendarEl) { // Vérifie si l'élément existe
-                 // Assurez-vous que la bibliothèque FullCalendar est chargée avant cette partie
-                 if (typeof FullCalendar !== 'undefined') {
-                    const calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth', // Vue par mois par défaut
-                        headerToolbar: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,listWeek' // Options de vues
-                        },
-                        events: [
-                            // Ici, vous chargeriez dynamiquement les événements de maintenance
-                            // depuis votre backend/base de données.
-                            // Format Exemple:
-                            {
-                                title: 'Check C - F-GHTY',
-                                start: '2024-03-10',
-                                end: '2024-03-26', // FullCalendar gère la fin exclusive, donc +1 jour si besoin
-                                color: '#facc15', // Jaune (exemple)
-                                extendedProps: {
-                                    aircraft: 'F-GHTY',
-                                    type: 'Check C'
-                                }
-                            },
-                            {
-                                title: 'Réparation Moteur - F-ABCD',
-                                start: '2024-03-18',
-                                end: '2024-03-23',
-                                color: '#fb923c' // Orange (exemple)
-                            }
-                            // ... autres événements
-                        ],
-                        // Options supplémentaires: dateClick, eventClick, etc.
-                        // eventDidMount: function(info) {
-                        //    // Vous pouvez ajouter des tooltips ou autre ici
-                        //    console.log(info.event.title);
-                        // },
-                        locale: 'fr' // Si vous avez chargé le paquet de langue FR
-                    });
-                    calendar.render();
-
-                    // Écouteur pour le formulaire de planification
-                    const planForm = document.getElementById('plan-maintenance-form');
-                    if(planForm) {
-                        planForm.addEventListener('submit', (e) => {
-                            e.preventDefault();
-                            // Récupérer les données du formulaire
-                            const formData = new FormData(planForm);
-                            const aircraftSelect = document.getElementById('aircraft-select');
-                            const aircraftText = aircraftSelect.options[aircraftSelect.selectedIndex].text; // Pour le titre
-                            const startDate = formData.get('start_date');
-                            const endDate = formData.get('end_date');
-                            const type = formData.get('maintenance_type');
-
-                            // TODO: Envoyer les données au serveur (via fetch/AJAX) pour enregistrer
-
-                            // Ajouter l'événement au calendrier (après succès de la sauvegarde serveur)
-                            if (startDate && endDate && type) {
-                                calendar.addEvent({
-                                    title: `${type} - ${aircraftText.split(' ')[0]}`, // Prend le N° Immat.
-                                    start: startDate,
-                                    end: endDate ? endDate + 'T23:59:59' : null, // Ou calculer fin si durée est utilisée
-                                    allDay: true // Supposons que ce sont des événements sur la journée entière
-                                });
-                                planForm.reset(); // Vider le formulaire
-                                alert('Maintenance planifiée !'); // Message simple
-                            } else {
-                                alert('Veuillez remplir tous les champs requis.');
-                            }
-                        });
-                    }
-                } else {
-                     console.error("FullCalendar n'est pas chargé.");
-                     calendarEl.innerHTML = "<p class='text-center text-red-500'>Erreur: La bibliothèque FullCalendar n'a pas pu être chargée.</p>";
-                }
-
-            } // Fin if(calendarEl)
+           
             
 
         });
