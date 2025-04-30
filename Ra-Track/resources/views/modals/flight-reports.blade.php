@@ -95,6 +95,42 @@
         $('#add-report-modal').addClass('hidden');
     });
      
+    // Soumission du formulaire (AJAX)
+    $('#formAddReport').on('submit', function(e) {
+        e.preventDefault();
+        
+        let form = $(this)[0];
+        let formData = new FormData(form);
+        let url = form.action;
+        let method = $('#form-method').val();
+        
+        $.ajax({
+            url: url,
+            type: method === 'PUT' ? 'POST' : 'POST', // Laravel nécessite POST avec _method=PUT
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                alert(response.message);
+                $('#add-report-modal').addClass('hidden');
+                location.reload(); // Rafraîchir la page pour voir les changements
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                let errorMessages = [];
+                
+                for (let field in errors) {
+                    errorMessages.push(errors[field][0]);
+                }
+                
+                alert("Error: " + errorMessages.join("\n"));
+            }
+        });
+    });
+
     
     
   });
