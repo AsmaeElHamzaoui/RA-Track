@@ -15,10 +15,7 @@ class DashboardPilotController extends Controller
     public function showDashboard()
 
     {
-       
-     
-        $pilotId = Auth::id(); // ou Auth::user()->id
-
+       $pilotId = Auth::id(); // ou Auth::user()->id
        // récupèration des vols assignés au pilote connecté
        $flights = Flight::where('pilot_id', $pilotId)
        ->get(['id', 'flight_number']);
