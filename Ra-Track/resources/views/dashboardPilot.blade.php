@@ -173,7 +173,94 @@
                     </div>
                 </section>
 
-               
+                <!-- Flight Reports Section -->
+                <section id="flight-reports-section" class="content-section hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-800">Flight Reports</h2>
+                        <button id="add-report-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                            <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Add Report
+                        </button>
+                    </div>
+
+                    {{-- Dans la section "Flight Reports" --}}
+                    <div class="bg-white shadow rounded-lg overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Flight</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Submitted</th>
+                                    {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th> --}} {{-- Status n'est pas dans le modèle/migration --}}
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Report File</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comment</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="reports-table-body">
+                                @forelse ($reports as $report)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{-- Assurez-vous que la relation 'flight' est chargée --}}
+                                        {{ $report->flight->flight_number ?? 'N/A' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $report->created_at->format('M d, Y') }}
+                                    </td>
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap">
+                                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                    </td> --}}
+                                    <td class="px-6 py-4">
+                                        <a href="/storage/{{ $report->report_path }}" target="_blank" class="text-blue-600 hover:text-blue-800">Voir PDF</a>
+                                    </td>
+                                    <td class="px-6 py-4">{{ $report->comment }}</td>
+                                    <td class="px-6 py-4">
+                                        <button class="edit-report-btn bg-yellow-500 text-white px-2 py-1 rounded"
+                                            data-id="{{ $report->id }}"
+                                            data-flight-id="{{ $report->flight_id }}"
+                                            data-comment="{{ $report->comment }}"
+                                            data-file-name="{{ basename($report->report_path) }}">
+                                            Modifier
+                                        </button>
+                                        <button class="delete-report-btn bg-red-500 text-white px-2 py-1 rounded" data-id="{{ $report->id }}">Supprimer</button>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        No flight reports submitted yet.
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {{-- Affichage des messages de succès/erreur --}}
+                    
+                    @if (session('success'))
+                        <div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded relative" role="alert">
+                            <span class="block sm:inline">{{ session('success') }}</span>
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
+                            <strong class="font-bold">Oops!</strong>
+                            <span class="block sm:inline">There were some problems with your input.</span>
+                            <ul class="list-disc pl-5 mt-2">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </section>
 
             </div> <!-- End Content Area -->
         </main> <!-- End Main Content -->
