@@ -61,6 +61,35 @@
         $('#add-report-modal').removeClass('hidden');
     });
 
+    // Ouvrir le modal pour modification
+    $(document).on('click', '.edit-report-btn', function() {
+        const reportId = $(this).data('id');
+        const flightId = $(this).data('flight-id');
+        const comment = $(this).data('comment');
+        const fileName = $(this).data('file-name');
+
+        // Préremplir le formulaire
+        $('#flight-select').val(flightId);
+        $('#report-comment').val(comment);
+        
+        // Mettre à jour l'action et la méthode du formulaire
+        $('#formAddReport').attr('action', '/flight-reports/' + reportId);
+        $('#form-method').val('PUT');
+        $('#submit-btn').text('Update Report');
+        $('#modal-title').text('Edit Flight Report');
+        
+        // Afficher le fichier actuel
+        if (fileName) {
+            $('#current-file').removeClass('hidden');
+            $('#current-file-name').text(fileName);
+            $('#report-file').prop('required', false);
+            $('#file-help-text').hide();
+        }
+        
+        // Ouvrir le modal
+        $('#add-report-modal').removeClass('hidden');
+    });
+
     
   });
 </script>
