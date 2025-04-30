@@ -40,5 +40,20 @@
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Gestion du modal
+    function resetForm() {
+        $('#formAddReport')[0].reset();
+        $('#formAddReport').attr('action', '{{ route("flight-reports.store") }}');
+        $('#form-method').val('POST');
+        $('#submit-btn').text('Save Report');
+        $('#modal-title').text('Add Flight Report');
+        $('#current-file').addClass('hidden');
+        $('#report-file').prop('required', true);
+        $('#file-help-text').show();
+    }
 
+  });
+</script>
  
