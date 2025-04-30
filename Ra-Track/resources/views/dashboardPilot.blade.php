@@ -93,16 +93,28 @@
                 <section id="assigned-flights-section" class="content-section">
                     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Assigned Flights</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Flight Card 1 -->
+                        @forelse ($flights as $flight)
                         <div class="bg-white p-6 rounded-lg shadow">
                             <div class="flex justify-between items-start mb-4">
-                                <span class="font-semibold text-blue-600">Flight AF1234</span>
-                                <span class="text-xs font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">Upcoming</span>
+                                <span class="font-semibold text-blue-600">Flight {{ $flight->flight_number }}</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full 
+                                        @if($flight->status == 'scheduled') bg-blue-100 text-blue-700
+                                        @elseif($flight->status == 'in_progress') bg-yellow-100 text-yellow-700
+                                        @elseif($flight->status == 'completed') bg-green-100 text-green-700
+                                        @elseif($flight->status == 'cancelled') bg-red-100 text-red-700
+                                        @elseif($flight->status == 'delayed') bg-orange-100 text-orange-700
+                                        @endif">
+                                    {{ ucfirst(str_replace('_', ' ', $flight->status)) }}
+                                </span>
                             </div>
                             <div class="flex items-center justify-between mb-4">
                                 <div>
-                                    <div class="text-gray-500 text-sm">Paris (CDG)</div>
-                                    <div class="text-xl font-bold text-gray-800">09:00</div>
+                                    <div class="text-gray-500 text-sm">
+                                        {{ $flight->departureAirport->name }} ({{ $flight->departureAirport->code }})
+                                    </div>
+                                    <div class="text-xl font-bold text-gray-800">
+                                        {{ $flight->departure_time->format('H:i') }}
+                                    </div>
                                 </div>
                                 <div class="flex items-center text-gray-400">
                                     <span class="border-t border-gray-300 flex-grow mx-2"></span>
@@ -112,8 +124,12 @@
                                     <span class="border-t border-gray-300 flex-grow mx-2"></span>
                                 </div>
                                 <div>
-                                    <div class="text-gray-500 text-sm text-right">New York (JFK)</div>
-                                    <div class="text-xl font-bold text-gray-800 text-right">15:30</div>
+                                    <div class="text-gray-500 text-sm text-right">
+                                        {{ $flight->arrivalAirport->name }} ({{ $flight->arrivalAirport->code }})
+                                    </div>
+                                    <div class="text-xl font-bold text-gray-800 text-right">
+                                        {{ $flight->arrival_time->format('H:i') }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-sm text-gray-600 space-y-1">
@@ -121,55 +137,23 @@
                                     <svg class="icon-inline text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                                     </svg>
-                                    April 28, 2025
+                                    {{ $flight->departure_time->format('M d, Y') }}
                                 </div>
                                 <div class="flex items-center">
                                     <svg class="icon-inline text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
-                                    Duration: 8h 30m
+                                    Duration: {{ $flight->arrival_time->diff($flight->departure_time)->format('%hh %im') }}
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Flight Card 2 -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="font-semibold text-blue-600">Flight AF5678</span>
-                                <span class="text-xs font-medium bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Tomorrow</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div>
-                                    <div class="text-gray-500 text-sm">London (LHR)</div>
-                                    <div class="text-xl font-bold text-gray-800">14:00</div>
-                                </div>
-                                <div class="flex items-center text-gray-400">
-                                    <span class="border-t border-gray-300 flex-grow mx-2"></span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-1">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                                    </svg>
-                                    <span class="border-t border-gray-300 flex-grow mx-2"></span>
-                                </div>
-                                <div>
-                                    <div class="text-gray-500 text-sm text-right">Dubai (DXB)</div>
-                                    <div class="text-xl font-bold text-gray-800 text-right">00:30</div>
-                                </div>
-                            </div>
-                            <div class="text-sm text-gray-600 space-y-1">
-                                <div class="flex items-center">
-                                    <svg class="icon-inline text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                                    </svg>
-                                    April 29, 2025
-                                </div>
-                                <div class="flex items-center">
-                                    <svg class="icon-inline text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-                                    Duration: 6h 30m
-                                </div>
+                        @empty
+                        <div class="col-span-2">
+                            <div class="bg-white p-6 rounded-lg shadow text-center">
+                                <p class="text-gray-600">No assigned flights found.</p>
                             </div>
                         </div>
+                        @endforelse
                     </div>
                 </section>
 
@@ -238,27 +222,27 @@
                     </div>
 
                     {{-- Affichage des messages de succès/erreur --}}
-                    
+
                     @if (session('success'))
-                        <div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded relative" role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
+                    <div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                    </div>
                     @endif
                     @if (session('error'))
-                        <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
-                            <span class="block sm:inline">{{ session('error') }}</span>
-                        </div>
+                    <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ session('error') }}</span>
+                    </div>
                     @endif
                     @if ($errors->any())
-                        <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
-                            <strong class="font-bold">Oops!</strong>
-                            <span class="block sm:inline">There were some problems with your input.</span>
-                            <ul class="list-disc pl-5 mt-2">
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
+                        <strong class="font-bold">Oops!</strong>
+                        <span class="block sm:inline">There were some problems with your input.</span>
+                        <ul class="list-disc pl-5 mt-2">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     @endif
                 </section>
 
