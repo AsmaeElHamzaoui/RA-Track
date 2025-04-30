@@ -131,7 +131,27 @@
         });
     });
 
-    
+    // Gestion de la suppression
+    $(document).on('click', '.delete-report-btn', function() {
+        if (confirm("Are you sure you want to delete this report?")) {
+            let reportId = $(this).data('id');
+            
+            $.ajax({
+                url: '/flight-reports/' + reportId,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function() {
+                    alert("Error deleting report.");
+                }
+            });
+        }
+    });
     
   });
 </script>
