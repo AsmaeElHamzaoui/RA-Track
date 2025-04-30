@@ -53,7 +53,15 @@
         $('#report-file').prop('required', true);
         $('#file-help-text').show();
     }
+    
+    
+    // Ouvrir le modal pour ajout
+    $('#add-report-btn').click(function() {
+        resetForm();
+        $('#add-report-modal').removeClass('hidden');
+    });
 
+    
   });
 </script>
  
