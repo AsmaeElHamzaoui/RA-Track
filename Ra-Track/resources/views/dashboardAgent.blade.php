@@ -100,7 +100,79 @@
 
             <!-- Zone de Contenu -->
             <div class="flex-1 overflow-y-auto p-6">
+                <!-- Section 1: Avions en Maintenance -->
+                <section id="current-maintenance-section" class="content-section">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Avions Actuellement en Maintenance</h2>
+                    <div class="bg-white shadow rounded-lg overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avion (N° Immat.)</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modèle</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type Maintenance</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Début</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fin Prévue</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <!-- Ligne Exemple 1 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">F-GHTY</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Boeing 737-800</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Check C</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-25</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                          En cours
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!-- Ligne Exemple 2 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">F-ABCD</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Airbus A320neo</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Réparation Moteur</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-22</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                          En cours
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!-- Ligne Exemple 3 - Maintenance terminée -->
+                                <!-- Vous pourriez vouloir filtrer ceux-ci ou les afficher différemment -->
+                                <!--
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">F-WXYZ</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">ATR 72-600</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Check A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-16</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                          Terminé
+                                        </span>
+                                    </td>
+                                </tr>
+                                -->
+                                <!-- Ajouter plus de lignes si nécessaire -->
+                                <!-- Ligne si aucun avion en maintenance -->
+                                <!--
+                                <tr>
+                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        Aucun avion actuellement en maintenance.
+                                    </td>
+                                </tr>
+                                -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
+               
               
 
             </div> <!-- Fin Zone de Contenu -->
