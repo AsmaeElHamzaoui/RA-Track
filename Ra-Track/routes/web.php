@@ -69,9 +69,6 @@ Route::get('/ticket/{passenger}/download', [TicketController::class, 'downloadTi
      ->middleware('auth'); 
 
 
-Route::get('/real-timeTracking', function () {
-    return view('real-timeTracking');
-});
 
 
 // routes flight reports 
@@ -83,6 +80,14 @@ Route::delete('/flight-reports/{id}', [FlightReportController::class, 'destroy']
 
 
 
+Route::get('/real-timeTracking', function () {
+     return view('real-timeTracking');
+ });
+
+ 
+Route::get('/coco', function () {
+     return view('dashboardAgent');
+ });
 
 
     
