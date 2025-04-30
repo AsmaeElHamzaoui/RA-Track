@@ -24,7 +24,10 @@ class DashboardPilotController extends Controller
         ->orderBy('departure_time')
         ->get()
         ->map(function ($flight) {
-          
+            // Convertir les strings en objets Carbon
+            $flight->departure_time = \Carbon\Carbon::parse($flight->departure_time);
+            $flight->arrival_time = \Carbon\Carbon::parse($flight->arrival_time);
+            return $flight;
         });
 
         // Récupérer les rapports dont le vol appartient au pilote connecté
