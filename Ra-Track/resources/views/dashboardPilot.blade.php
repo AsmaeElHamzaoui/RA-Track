@@ -61,11 +61,6 @@
                     Flight Reports
                 </a>
             </nav>
-
-            <!-- Footer (Optional) -->
-            <div class="p-4 border-t">
-                {/* <!-- Can add user info or logout here --> */}
-            </div>
         </aside>
 
         <!-- Main Content -->
@@ -73,7 +68,6 @@
             <!-- Top Header Bar -->
             <header class="bg-white shadow-sm p-4 flex justify-between items-center">
                 <div>
-                    {/* <!-- Placeholder for potential breadcrumbs or search --> */}
                 </div>
                 <div class="flex items-center space-x-4">
                     <button class="relative text-gray-600 hover:text-gray-800">
@@ -247,7 +241,8 @@
                 </section>
 
             </div> <!-- End Content Area -->
-        </main> <!-- End Main Content -->
+        </main> 
+        <!-- End Main Content -->
 
     </div>
 
@@ -267,8 +262,6 @@
             @include('modals.flight-reports')
         </div>
     </div>
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -330,6 +323,7 @@
 
         });
     </script>
+
 </body>
 
 </html>
