@@ -10,7 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\DashboardPilotController;
 use App\Http\Controllers\FlightReportController;
-
+use App\Http\Controllers\DashboardAgentController;
 // route home page
 Route::get('/', [HomeController::class, 'showBooking'])->name('home');
 
@@ -35,6 +35,9 @@ Route::get('/bookingAirplane', [BookingController::class, 'showBooking'])->name(
 
 // routes dashboard pilot
 Route::get('/dashboardPilot', [DashboardPilotController::class, 'showDashboard'])->name('dashboardPilot');
+
+// routes dashboard agent
+Route::get('/dashboardAgent', [DashboardAgentController::class, 'showDashboard'])->name('dashboardAgent');
 
 //routes reservations
 Route::get('/reservation/{flight}', [ReservationController::class, 'show'])->name('reservation.show');
