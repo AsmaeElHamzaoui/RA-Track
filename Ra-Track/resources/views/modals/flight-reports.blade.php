@@ -90,6 +90,12 @@
         $('#add-report-modal').removeClass('hidden');
     });
 
+    // Fermer le modal
+    $('#close-modal-btn, #cancel-modal-btn').click(function() {
+        $('#add-report-modal').addClass('hidden');
+    });
+     
+    
     
   });
 </script>
