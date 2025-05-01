@@ -66,4 +66,10 @@ class User extends Authenticatable
     return $this->hasMany(Reservation::class, 'user_id');
 }
 
+
+public function maintenances()
+{
+    return $this->hasMany(Maintenance::class, 'aircraft_id');
+}
+
 }

@@ -15,4 +15,11 @@ class Maintenance extends Model
         'start_date',
         'end_date',
     ];
+
+    public function aircraft()
+    {
+        return $this->belongsTo(Plane::class, 'aircraft_id');
+    }
+    
+
 }
