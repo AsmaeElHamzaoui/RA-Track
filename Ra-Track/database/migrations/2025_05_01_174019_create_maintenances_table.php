@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('aircraft_id')->constrained('planes')->onDelete('cascade');
+            $table->string('maintenance_type');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
