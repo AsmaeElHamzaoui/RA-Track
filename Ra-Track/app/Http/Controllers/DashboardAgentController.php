@@ -16,6 +16,7 @@ class DashboardAgentController extends Controller
     public function showDashboard()
 
     {
+        $planes = Plane::where('status', 'under maintenance')->get();
 
     }
 }
