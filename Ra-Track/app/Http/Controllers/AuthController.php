@@ -96,7 +96,7 @@ class AuthController extends Controller
                 case 'pilot':
                     return redirect()->route('dashboardPilot');
                 case 'maintenanceagent':
-                    return view('agentDashboard');
+                    return redirect()->route('dashboardAgent');
                 default:
                     return redirect()->route('home');
             }
