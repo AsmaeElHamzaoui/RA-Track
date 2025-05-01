@@ -100,6 +100,7 @@
 
             <!-- Zone de Contenu -->
             <div class="flex-1 overflow-y-auto p-6">
+
                 <!-- Section 1: Avions en Maintenance -->
                 <section id="current-maintenance-section" class="content-section">
                     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Avions Actuellement en Maintenance</h2>
@@ -129,44 +130,6 @@
                                         </span>
                                     </td>
                                 </tr>
-                                <!-- Ligne Exemple 2 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">F-ABCD</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Airbus A320neo</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Réparation Moteur</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-18</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-22</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                          En cours
-                                        </span>
-                                    </td>
-                                </tr>
-                                <!-- Ligne Exemple 3 - Maintenance terminée -->
-                                <!-- Vous pourriez vouloir filtrer ceux-ci ou les afficher différemment -->
-                                <!--
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">F-WXYZ</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">ATR 72-600</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Check A</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-15</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-03-16</td>
-                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                          Terminé
-                                        </span>
-                                    </td>
-                                </tr>
-                                -->
-                                <!-- Ajouter plus de lignes si nécessaire -->
-                                <!-- Ligne si aucun avion en maintenance -->
-                                <!--
-                                <tr>
-                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                        Aucun avion actuellement en maintenance.
-                                    </td>
-                                </tr>
-                                -->
                             </tbody>
                         </table>
                     </div>
