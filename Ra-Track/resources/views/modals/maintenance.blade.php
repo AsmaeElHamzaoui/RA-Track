@@ -1,4 +1,3 @@
- <!-- Section 2: Planification de Maintenance -->
  <section id="maintenance-planning-section" class="content-section hidden">
      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Planifier une Maintenance</h2>
 

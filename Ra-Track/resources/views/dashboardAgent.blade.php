@@ -4,16 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Supposons que vous utilisiez Laravel, sinon retirez cette ligne -->
-    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Maintenance Dashboard</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Heroicons CDN (for icons) -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2.1.1/24/outline/esm/index.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/heroicons@2.1.1/24/outline/cjs/index.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css' rel='stylesheet' /> -->
 
     <style>
         /* Style simple pour le lien actif de la barre latérale */
@@ -132,13 +128,13 @@
                     </div>
                 </section>
 
-               
+                <!-- Section 2: Planification de Maintenance -->
+                 @include('modals.maintenance')
               
 
             </div> 
             <!-- Fin Zone de Contenu -->
         </main>
-        <!-- Fin Contenu Principal -->
 
     </div>
 
@@ -181,7 +177,6 @@
 
 
             // --- LOGIQUE POUR LE CALENDRIER  ---
-            
             const calendarEl = document.getElementById('maintenance-calendar');
             if (calendarEl) { // Vérifie si l'élément existe
                  // Assurez-vous que la bibliothèque FullCalendar est chargée avant cette partie
@@ -267,5 +262,4 @@
     </script>
 
 </body>
-
 </html>
