@@ -65,5 +65,11 @@ class MaintenanceController extends Controller
         return redirect()->route('maintenances.index')->with('success', 'Maintenance mise à jour avec succès.');
     }
 
-  
+    // Supprimer une maintenance
+    public function destroy(Maintenance $maintenance)
+    {
+        $maintenance->delete();
+
+        return redirect()->route('maintenances.index')->with('success', 'Maintenance supprimée.');
+    }
 }
