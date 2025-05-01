@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use App\Models\FlightReport;
 
 
-class DashboardPilotController extends Controller
+class DashboardAgentController extends Controller
 {
     public function showDashboard()
 
