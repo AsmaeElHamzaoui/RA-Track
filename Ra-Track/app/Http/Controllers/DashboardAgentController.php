@@ -18,5 +18,6 @@ class DashboardAgentController extends Controller
     {
         $planes = Plane::where('status', 'under maintenance')->get();
 
+        return view('dashboardAgent', compact('planes'));
     }
 }
