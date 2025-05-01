@@ -37,5 +37,11 @@ class MaintenanceController extends Controller
         return redirect()->route('maintenances.index')->with('success', 'Maintenance planifiée avec succès.');
     }
 
+    // Afficher les détails d'une maintenance
+    public function show(Maintenance $maintenance)
+    {
+        return view('maintenances.show', compact('maintenance'));
+    }
+
     
 }
