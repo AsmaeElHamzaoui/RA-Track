@@ -11,6 +11,8 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\DashboardPilotController;
 use App\Http\Controllers\FlightReportController;
 use App\Http\Controllers\DashboardAgentController;
+use App\Http\Controllers\MaintenanceController;
+
 // route home page
 Route::get('/', [HomeController::class, 'showBooking'])->name('home');
 
