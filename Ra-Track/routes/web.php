@@ -73,9 +73,6 @@ Route::get('/ticket/{passenger}/download', [TicketController::class, 'downloadTi
      ->name('ticket.download')
      ->middleware('auth'); 
 
-
-
-
 // routes flight reports 
 Route::get('/flight-reports', [FlightReportController::class, 'index'])->name('flight-reports.index');
 Route::post('/flight-reports', [FlightReportController::class, 'store'])->name('flight-reports.store');
@@ -83,6 +80,12 @@ Route::get('/flight-reports/{id}', [FlightReportController::class, 'show'])->nam
 Route::put('/flight-reports/{id}', [FlightReportController::class, 'update'])->name('flight-reports.update');
 Route::delete('/flight-reports/{id}', [FlightReportController::class, 'destroy'])->name('flight-reports.destroy');
 
+// routes maintenance
+Route::get('/maintenances', [MaintenanceController::class, 'index'])->name('maintenances.index');
+Route::post('/maintenances', [MaintenanceController::class, 'store'])->name('maintenances.store');
+Route::get('/maintenances/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenances.show');
+Route::put('/maintenances/{maintenance}', [MaintenanceController::class, 'update'])->name('maintenances.update');
+Route::delete('/maintenances/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenances.destroy');
 
 
 Route::get('/real-timeTracking', function () {
