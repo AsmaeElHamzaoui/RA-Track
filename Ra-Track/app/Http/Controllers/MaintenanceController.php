@@ -43,5 +43,27 @@ class MaintenanceController extends Controller
         return view('maintenances.show', compact('maintenance'));
     }
 
-    
+    // Afficher le formulaire d'édition
+    public function edit(Maintenance $maintenance)
+    {
+        $planes = Plane::all();
+        return view('maintenances.edit', compact('maintenance', 'planes'));
+    }
+
+    // Mettre à jour une maintenance
+    public function update(Request $request, Maintenance $maintenance)
+    {
+        $request->validate([
+            'aircraft_id' => 'required|exists:planes,id',
+            'maintenance_type' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        $maintenance->update($request->all());
+
+        return redirect()->route('maintenances.index')->with('success', 'Maintenance mise à jour avec succès.');
+    }
+
+  
 }
