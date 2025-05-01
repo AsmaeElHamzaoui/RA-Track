@@ -144,11 +144,10 @@
                                 <div>
                                     <label for="aircraft-select" class="block text-sm font-medium text-gray-700">Avion</label>
                                     <select id="aircraft-select" name="aircraft_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                      @foreach($planes as $plane)
                                         <option>Sélectionner un avion...</option>
-                                        <option value="1">F-GHTY (Boeing 737)</option>
-                                        <option value="2">F-ABCD (Airbus A320)</option>
-                                        <option value="3">F-WXYZ (ATR 72)</option>
-                                        <!-- Ajouter dynamiquement les avions disponibles -->
+                                        <option value="{{ $plane->id }}">{{ $plane->registration }}</option>
+                                      @endforeach    
                                     </select>
                                 </div>
                                 <div>
@@ -163,13 +162,6 @@
                                     <label for="end-date" class="block text-sm font-medium text-gray-700">Date de Fin Prévue</label>
                                     <input type="date" name="end_date" id="end-date" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
-                                <!-- Optionnel: Champ durée (peut être calculé ou saisi) -->
-                                <!--
-                                <div>
-                                    <label for="duration" class="block text-sm font-medium text-gray-700">Durée (jours)</label>
-                                    <input type="number" name="duration" id="duration" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" min="1">
-                                </div>
-                                -->
                                 <div class="pt-2">
                                     <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                         Planifier
@@ -183,8 +175,6 @@
                              <h3 class="text-lg font-medium text-gray-900 mb-4">Calendrier des Maintenances</h3>
                              <!-- Zone où le calendrier sera rendu par JavaScript -->
                              <div id="maintenance-calendar">
-                                 <p class="text-center text-gray-500 pt-10">Le calendrier interactif sera affiché ici.</p>
-                                 <p class="text-center text-gray-400 text-sm">(Nécessite une bibliothèque JavaScript comme FullCalendar)</p>
                              </div>
                         </div>
                     </div>
