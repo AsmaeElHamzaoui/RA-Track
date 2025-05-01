@@ -88,9 +88,7 @@ Route::get('/real-timeTracking', function () {
  });
 
  
-Route::get('/coco', function () {
-     return view('dashboardAgent');
- });
+
 
 
     
