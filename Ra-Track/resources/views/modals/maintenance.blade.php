@@ -5,7 +5,8 @@
          <!-- Colonne Formulaire -->
          <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow">
              <h3 class="text-lg font-medium text-gray-900 mb-4">Nouvelle Planification</h3>
-             <form id="plan-maintenance-form" method="POST" action="{{ route('maintenaces.store') }}" class="space-y-4">
+             <form id="plan-maintenance-form" method="POST" action="{{ route('maintenances.store') }}" class="space-y-4">
+                @csrf
                  <div>
                      <label for="aircraft-select" class="block text-sm font-medium text-gray-700">Avion</label>
                      <select id="aircraft-select" name="aircraft_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
