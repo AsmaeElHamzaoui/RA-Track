@@ -529,7 +529,46 @@
                  }
         }
 
-        
+        function updateCalendarEvent(maintenance, isUpdating) {
+                 if (!calendarInstance) return;
+
+                 const eventData = {
+                     id: maintenance.id,
+                     title: `${maintenance.aircraft?.registration ?? 'Avion?'} - ${maintenance.maintenance_type}`,
+                     start: maintenance.start_date,
+                     end: maintenance.end_date ? new Date(new Date(maintenance.end_date).setDate(new Date(maintenance.end_date).getDate() + 1)).toISOString().split('T')[0] : null,
+                     extendedProps: {
+                         aircraft: maintenance.aircraft?.registration ?? 'N/A',
+                         type: maintenance.maintenance_type
+                     }
+                 };
+
+                 const existingEvent = calendarInstance.getEventById(maintenance.id);
+
+                 if (isUpdating && existingEvent) {
+                     existingEvent.setProp('title', eventData.title);
+                     existingEvent.setStart(eventData.start);
+                     existingEvent.setEnd(eventData.end);
+                     existingEvent.setExtendedProp('aircraft', eventData.extendedProps.aircraft);
+                     existingEvent.setExtendedProp('type', eventData.extendedProps.type);
+                 } else if (!isUpdating) {
+                     calendarInstance.addEvent(eventData);
+                 }
+             }
+
+             function displayFormErrors(errors) {
+                console.warn("Erreurs de validation:", errors);
+        }
+
+        function openModalForEdit(maintenanceId) {
+                 const editButton = document.querySelector(`.edit-maintenance-btn[data-id="${maintenanceId}"]`);
+                 if (editButton) {
+                     editButton.click();
+                 } else {
+                     console.warn(`Bouton Modifier pour l'ID ${maintenanceId} non trouvé dans la table.`);
+                 }
+        }
+
         });
     </script>
 </body>
