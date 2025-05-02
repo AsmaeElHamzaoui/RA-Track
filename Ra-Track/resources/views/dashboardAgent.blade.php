@@ -242,7 +242,10 @@
             </div>
         </main>
     </div>
-
+ 
+     <!-- modal pour ajouter une maintenance -->
+      @include('modals.maintenance')
+   
    
 </body>
 </html>
