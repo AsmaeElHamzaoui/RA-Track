@@ -635,7 +635,32 @@
             }
 
 
-  
+            // Gestion du menu burger
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarOverlay = document.querySelector('.sidebar-overlay');
+
+            if (mobileMenuButton && sidebar && sidebarOverlay) {
+                mobileMenuButton.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    sidebarOverlay.classList.toggle('active');
+                });
+
+                sidebarOverlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Fermer le sidebar quand un lien est cliqué (sur mobile)
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.remove('active');
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
         });
     </script>
 </body>
