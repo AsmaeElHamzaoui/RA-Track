@@ -246,6 +246,291 @@
      <!-- modal pour ajouter une maintenance -->
       @include('modals.maintenance')
    
-   
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainHeaderTitle = document.getElementById('main-header-title');
+
+            // --- Navigation Sidebar ---
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+
+                    link.classList.add('active');
+                    const targetId = link.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                        
+                        // Si on active la section calendrier, initialiser/rafraichir le calendrier
+                        if(targetId === 'calendar-view-section' && calendarInstance) {
+                            calendarInstance.render();
+                        }
+                    }
+
+                    if (mainHeaderTitle) {
+                        mainHeaderTitle.textContent = link.textContent.trim();
+                    }
+                });
+            });
+
+             // --- Initialisation FullCalendar ---
+             const calendarEl = document.getElementById('maintenance-calendar-container');
+             let calendarInstance = null;
+             if (calendarEl) {
+                  const maintenanceEvents = (@json($maintenances ?? [])).map(maint => ({
+                        id: maint.id,
+                        title: `${maint.aircraft?.registration ?? 'Avion?'} - ${maint.maintenance_type}`,
+                        start: maint.start_date,
+                        end: maint.end_date ? new Date(new Date(maint.end_date).setDate(new Date(maint.end_date).getDate() + 1)).toISOString().split('T')[0] : null,
+                        extendedProps: {
+                            aircraft: maint.aircraft?.registration ?? 'N/A',
+                            type: maint.maintenance_type
+                        }
+                    }));
+
+                 calendarInstance = new FullCalendar.Calendar(calendarEl, {
+                     initialView: 'dayGridMonth',
+                     locale: 'fr',
+                     buttonText: {
+                         today:    "Aujourd'hui",
+                         month:    'Mois',
+                         week:     'Semaine',
+                         day:      'Jour',
+                         list:     'Liste'
+                     },
+                     headerToolbar: {
+                         left: 'prev,next today',
+                         center: 'title',
+                         right: 'dayGridMonth,timeGridWeek,listWeek'
+                     },
+                     events: maintenanceEvents,
+                     editable: false,
+                     eventClick: function(info) {
+                        openModalForEdit(info.event.id);
+                     }
+                 });
+                 calendarInstance.render();
+             } else {
+                console.error("Élément #maintenance-calendar-container non trouvé.");
+             }
+
+            // --- Gestion du Modal de Maintenance ---
+            const modal = document.getElementById('maintenance-modal');
+            const openModalButton = document.getElementById('open-maintenance-modal-button');
+            const openModalButtonFromCalendar = document.getElementById('open-maintenance-modal-button-from-calendar');
+            const closeModalButton = document.getElementById('close-maintenance-modal-button');
+            const cancelModalButton = document.getElementById('cancel-modal-button');
+            const modalOverlay = modal.querySelector('.modal-overlay');
+            const modalForm = document.getElementById('maintenance-form');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMethodInput = document.getElementById('modal-form-method');
+            const maintenanceIdInput = document.getElementById('maintenance-id');
+            const submitButton = document.getElementById('submit-modal-button');
+
+            const openModal = () => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                modal.querySelector('.relative').classList.remove('scale-95');
+                modal.querySelector('.relative').classList.add('scale-100');
+                document.body.classList.add('modal-active');
+            };
+
+            const closeModal = () => {
+                modal.querySelector('.relative').classList.add('scale-95');
+                modal.querySelector('.relative').classList.remove('scale-100');
+                 modal.classList.add('opacity-0');
+                 modal.classList.remove('opacity-100');
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                    document.body.classList.remove('modal-active');
+                    resetModalForm();
+                }, 300);
+            };
+
+            const resetModalForm = () => {
+                modalForm.reset();
+                modalTitle.textContent = "Ajouter une Maintenance";
+                modalMethodInput.value = "POST";
+                maintenanceIdInput.value = "";
+                modalForm.action = "{{ route('maintenances.store') }}";
+                submitButton.textContent = "Enregistrer";
+            };
+
+            const fillModalForm = (data) => {
+                document.getElementById('modal-aircraft-select').value = data.aircraftId;
+                document.getElementById('modal-maintenance-type').value = data.type;
+                document.getElementById('modal-start-date').value = data.start.split('T')[0];
+                document.getElementById('modal-end-date').value = data.end.split('T')[0];
+                maintenanceIdInput.value = data.id;
+            };
+
+            if (openModalButton) {
+                openModalButton.addEventListener('click', () => {
+                    resetModalForm();
+                    openModal();
+                });
+            }
+
+            if (openModalButtonFromCalendar) {
+                openModalButtonFromCalendar.addEventListener('click', () => {
+                    resetModalForm();
+                    openModal();
+                });
+            }
+
+            if (closeModalButton) closeModalButton.addEventListener('click', closeModal);
+            if (cancelModalButton) cancelModalButton.addEventListener('click', closeModal);
+            if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+
+            // --- Gestion des boutons Modifier/Supprimer dans la liste ---
+            const maintenanceListBody = document.getElementById('maintenance-list-body');
+
+            if (maintenanceListBody) {
+                maintenanceListBody.addEventListener('click', async (event) => {
+                    const target = event.target;
+
+                    if (target.classList.contains('edit-maintenance-btn')) {
+                        const maintenanceId = target.dataset.id;
+                        const aircraftId = target.dataset.aircraftId;
+                        const type = target.dataset.type;
+                        const start = target.dataset.start;
+                        const end = target.dataset.end;
+
+                        resetModalForm();
+                        modalTitle.textContent = "Modifier la Maintenance";
+                        modalMethodInput.value = "PUT";
+                        modalForm.action = `/maintenances/${maintenanceId}`;
+                        submitButton.textContent = "Mettre à jour";
+
+                        fillModalForm({ id: maintenanceId, aircraftId, type, start, end });
+
+                        openModal();
+                    }
+
+                    if (target.classList.contains('delete-maintenance-btn')) {
+                        const maintenanceId = target.dataset.id;
+
+                        if (confirm('Êtes-vous sûr de vouloir supprimer cette maintenance ?')) {
+                            try {
+                                const response = await fetch(`/maintenances/${maintenanceId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        'Accept': 'application/json'
+                                    }
+                                });
+
+                                if (response.ok) {
+                                    const rowToRemove = document.getElementById(`maintenance-row-${maintenanceId}`);
+                                    if (rowToRemove) {
+                                        rowToRemove.remove();
+                                    }
+                                    if (calendarInstance) {
+                                        const eventToRemove = calendarInstance.getEventById(maintenanceId);
+                                        if (eventToRemove) {
+                                            eventToRemove.remove();
+                                        }
+                                    }
+                                } else {
+                                    const errorData = await response.json().catch(() => ({}));
+                                    alert(`Erreur lors de la suppression: ${errorData.message || response.statusText}`);
+                                }
+                            } catch (error) {
+                                console.error('Erreur réseau ou autre:', error);
+                                alert('Une erreur est survenue lors de la tentative de suppression.');
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (modalForm) {
+                modalForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const formData = new FormData(modalForm);
+                    const url = modalForm.action;
+                    const method = modalMethodInput.value === 'PUT' ? 'POST' : modalMethodInput.value;
+                    const isUpdating = modalMethodInput.value === 'PUT';
+
+                    if (isUpdating) {
+                         formData.append('_method', 'PUT');
+                    }
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                            },
+                             body: formData
+                        });
+
+                        if (response.ok) {
+                            const result = await response.json();
+                            console.log('Succès:', result);
+
+                            closeModal();
+                            updateMaintenanceTableRow(result.maintenance, isUpdating);
+                            updateCalendarEvent(result.maintenance, isUpdating);
+
+                        } else {
+                            const errorData = await response.json();
+                            console.error('Erreur:', errorData);
+                            alert(`Erreur: ${errorData.message || 'Vérifiez les champs du formulaire.'}`);
+                        }
+                    } catch (error) {
+                        console.error('Erreur réseau ou autre:', error);
+                        alert('Une erreur est survenue.');
+                    }
+                });
+            }
+
+        function updateMaintenanceTableRow(maintenance, isUpdating) {
+                 const tableBody = document.getElementById('maintenance-list-body');
+                 const existingRow = document.getElementById(`maintenance-row-${maintenance.id}`);
+                 const formattedStartDate = new Date(maintenance.start_date).toLocaleDateString('fr-FR');
+                 const formattedEndDate = new Date(maintenance.end_date).toLocaleDateString('fr-FR');
+
+                 const newRowHtml = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${maintenance.aircraft?.registration ?? 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${maintenance.maintenance_type}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formattedStartDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formattedEndDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                        <button class="text-indigo-600 hover:text-indigo-900 edit-maintenance-btn"
+                                data-id="${maintenance.id}"
+                                data-aircraft-id="${maintenance.aircraft_id}"
+                                data-type="${maintenance.maintenance_type}"
+                                data-start="${maintenance.start_date}"
+                                data-end="${maintenance.end_date}">
+                            Modifier
+                        </button>
+                        <button class="text-red-600 hover:text-red-900 delete-maintenance-btn" data-id="${maintenance.id}">
+                            Supprimer
+                        </button>
+                    </td>
+                 `;
+
+                 if (isUpdating && existingRow) {
+                     existingRow.innerHTML = newRowHtml;
+                 } else if (!isUpdating) {
+                     const newRow = tableBody.insertRow(0);
+                     newRow.id = `maintenance-row-${maintenance.id}`;
+                     newRow.innerHTML = newRowHtml;
+                     const emptyRow = tableBody.querySelector('td[colspan="5"]');
+                     if(emptyRow) emptyRow.closest('tr').remove();
+                 }
+        }
+
+        
+        });
+    </script>
 </body>
 </html>
