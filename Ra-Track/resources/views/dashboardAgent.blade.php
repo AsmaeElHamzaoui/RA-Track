@@ -25,10 +25,10 @@
         }
 
         #maintenance-calendar-container {
-            min-height: 400px;
+            max-height: 400px;
             border: 1px solid #4b5563;
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 0.7rem;
             background-color: #1f2937;
             color: #d1d5db;
         }
