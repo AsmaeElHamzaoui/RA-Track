@@ -20,9 +20,31 @@
       background-size: cover;
       background-position: center;
       position: relative;
-      /* Needed for absolute positioning of the attribution */
+
     }
 
+    @media (max-width: 1090px) {
+      .hero-section {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 1090px) {
+      .hero-section {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #section2 {
+        display: none;
+      }
+    }
+    @media (max-width: 1024px) {
+      #tag {
+        display: none;
+      }
+    }
     .hero-section .attribution {
       position: absolute;
       bottom: 10px;
@@ -546,9 +568,9 @@
           </div>
         </div>
       </section>
-    
+
       <!-- Tag & Catégories -->
-      <section class="top-section">
+      <section class="top-section" id="section2">
 
         <div class="nature-travel-wrapper mx-10">
           <div class="post-grid-item">
@@ -579,7 +601,7 @@
         </div>
 
 
-        <div class="category-tags-container w-[400px]">
+        <div class="category-tags-container w-[400px]" id="tag">
           <div class="categories ">
             <h2>Categories</h2>
             <ul>
@@ -612,12 +634,12 @@
           </div>
         </div>
       </section>
-      
+
 
     </div>
   </div>
 
- 
+
   @include('layouts.footer')
 
 </body>
