@@ -80,19 +80,32 @@
         }
 
         @media (max-width: 1024px) {
-             #img3,#text03,#text04{
-                display:none;
-            }
-        }
-        @media (max-width:  767px) {
-             #img2,#img1{
-                display:none;
-            }
-            #text03,#text04{
-                display:flex;
+
+            #img3,
+            #text03,
+            #text04 {
+                display: none;
             }
         }
 
+        @media (max-width: 1090px) {
+            .hero-section {
+                max-height: 500px;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            #img2,
+            #img1 {
+                display: none;
+            }
+
+            #text03,
+            #text04 {
+                display: flex;
+            }
+        }
     </style>
 </head>
 
@@ -178,7 +191,7 @@
 
                     <!-- Benefit 4 -->
                     <div class="flex" id="text04">
-                        <div class="mr-6" >
+                        <div class="mr-6">
                             <span class="benefit-number text-2xl font-bold" style="color:#162238;">04</span>
                         </div>
                         <div>
