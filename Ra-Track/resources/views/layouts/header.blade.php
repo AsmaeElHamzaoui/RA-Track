@@ -1,10 +1,12 @@
 <!-- Header -->
-<div class="header-container">
-    <header class="text-white py-4">
+<div class="header-container bg-gray-900"> <!-- Ajout d'un fond pour mieux voir -->
+    <header class="text-white py-4 relative"> <!-- Ajout de relative -->
         <div class="container mx-auto flex items-center justify-between px-4">
             <a href="/" class="text-2xl font-bold">LIMOWIDE</a>
-            <nav>
-                <ul class="flex items-center space-x-8">
+
+            <!-- Desktop Navigation -->
+            <nav id="desktop-nav" class="hidden md:block">
+                <ul class="flex items-center space-x-6 lg:space-x-8"> <!-- Espace réduit pour les écrans moyens -->
                     <li><a href="/" class="hover:text-gray-300">Home</a></li>
                     <li><a href="/about" class="hover:text-gray-300">About us</a></li>
                     <li><a href="/services" class="hover:text-gray-300">Services</a></li>
@@ -21,9 +23,8 @@
                     @endguest
 
                     @auth
-                        <li>
                         <li><a href="/myreservations" class="hover:text-gray-300">Reservations</a></li>
-  
+                        <li>
                             <form method="POST" action="/logout">
                                 @csrf
                                 <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600" style="background-color:#FFD476">
@@ -34,6 +35,16 @@
                     @endauth
                 </ul>
             </nav>
+
+            <!-- Burger Button -->
+            <button id="burger-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                 </svg>
+            </button>
         </div>
+
+        
     </header>
 </div>
+
