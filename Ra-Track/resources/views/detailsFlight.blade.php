@@ -44,7 +44,7 @@
     </style>
 </head>
 
-<body class="bg-slate-900 text-gray-200  md:p-4">
+<body class="bg-slate-900 text-gray-200 ">
 
     <!-- Header-->
     @include('layouts.header')
