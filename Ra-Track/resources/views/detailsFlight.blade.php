@@ -256,7 +256,7 @@
     </div> {{-- End Max Width Container --}}
 
 
-    <!-- Header-->
+    <!--Footer-->
     @include('layouts.footer')
 </body>
 
