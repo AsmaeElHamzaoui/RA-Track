@@ -44,7 +44,37 @@
             </button>
         </div>
 
-        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 absolute top-full left-0 w-full z-20">
+             <ul class="flex flex-col items-center space-y-4 py-4">
+                 <li><a href="/" class="block py-2 px-4 hover:text-gray-300 hover:bg-gray-700 rounded">Home</a></li>
+                 <li><a href="/about" class="block py-2 px-4 hover:text-gray-300 hover:bg-gray-700 rounded">About us</a></li>
+                 <li><a href="/services" class="block py-2 px-4 hover:text-gray-300 hover:bg-gray-700 rounded">Services</a></li>
+
+                 @guest
+                     <li><a href="/register" class="block py-2 px-4 hover:text-gray-300 hover:bg-gray-700 rounded">Register</a></li>
+                     <li>
+                         <a href="/login">
+                             <button class="text-black px-6 py-2 rounded-full hover:bg-yellow-600 w-full mt-2" style="background-color:#FFD476">
+                                 Sign In
+                             </button>
+                         </a>
+                     </li>
+                 @endguest
+
+                 @auth
+                     <li><a href="/myreservations" class="block py-2 px-4 hover:text-gray-300 hover:bg-gray-700 rounded">Reservations</a></li>
+                     <li>
+                         <form method="POST" action="/logout" class="w-full px-4">
+                             @csrf
+                             <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600 w-full mt-2" style="background-color:#FFD476">
+                                 Log Out
+                             </button>
+                         </form>
+                     </li>
+                 @endauth
+             </ul>
+        </div>
     </header>
 </div>
 
