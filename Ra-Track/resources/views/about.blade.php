@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +12,17 @@
         body {
             font-family: 'Montserrat', sans-serif;
         }
+
         .hero-section {
             /* L'image de fond et les styles associés restent les mêmes */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            position: relative; /* Needed for absolute positioning of the attribution */
+            position: relative;
+            /* Needed for absolute positioning of the attribution */
             /* La hauteur est maintenant gérée par les classes Tailwind ci-dessous */
         }
+
         .hero-section .attribution {
             position: absolute;
             bottom: 10px;
@@ -27,14 +31,18 @@
             font-size: 0.8rem;
             opacity: 0.7;
         }
+
         .hero-section .attribution a {
             color: white;
-            text-decoration: none; /* Optional: Remove underline from the link */
+            text-decoration: none;
+            /* Optional: Remove underline from the link */
         }
+
         .benefit-image {
             transform: rotate(3deg);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
+
         .benefit-number {
             font-weight: 700;
             color: #1a202c;
@@ -42,10 +50,12 @@
 
         .polaroid {
             background: #fff;
-            padding: 0.5rem; /* Reduced padding */
+            padding: 0.5rem;
+            /* Reduced padding */
             box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin-bottom: 1rem; /* Added margin */
+            margin-bottom: 1rem;
+            /* Added margin */
         }
 
         .polaroid.rotate-right {
@@ -57,7 +67,8 @@
         }
 
         .polaroid img {
-            border: 0.2rem solid white; /* Reduced border size */
+            border: 0.2rem solid white;
+            /* Reduced border size */
             border-bottom: none;
             display: block;
         }
@@ -67,8 +78,24 @@
             font-family: 'Shadows Into Light', cursive;
             font-size: 1.2rem;
         }
+
+        @media (max-width: 1024px) {
+             #img3,#text03,#text04{
+                display:none;
+            }
+        }
+        @media (max-width:  767px) {
+             #img2,#img1{
+                display:none;
+            }
+            #text03,#text04{
+                display:flex;
+            }
+        }
+
     </style>
 </head>
+
 <body class="bg-gray-50">
 
     <!-- Navigation -->
@@ -93,8 +120,8 @@
         </div>
     </div>
 
-     <!-- Main Content -->
-     <main class="container mx-auto px-6 py-12" style="background-color:#F1F0E9;">
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12" style="background-color:#F1F0E9;">
 
         <!-- Benefits Section -->
         <section class="mb-16">
@@ -137,7 +164,7 @@
                     </div>
 
                     <!-- Benefit 3 -->
-                    <div class="flex">
+                    <div class="flex" id="text03">
                         <div class="mr-6">
                             <span class="benefit-number text-2xl font-bold" style="color:#162238;">03</span>
                         </div>
@@ -150,8 +177,8 @@
                     </div>
 
                     <!-- Benefit 4 -->
-                    <div class="flex">
-                        <div class="mr-6">
+                    <div class="flex" id="text04">
+                        <div class="mr-6" >
                             <span class="benefit-number text-2xl font-bold" style="color:#162238;">04</span>
                         </div>
                         <div>
@@ -166,23 +193,23 @@
                 <!-- Right Column -->
                 <div class="space-y-12 mx-8 relative">
                     <!-- First Image - positioned to align with benefits 2-3 -->
-                    <div class="absolute top-24 right-0 w-full max-w-sm">
+                    <div class="absolute top-24 right-0 w-full max-w-sm" id="img1">
                         <div class="polaroid rotate-right">
                             <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80" alt="Scenic mountain lake view" class="benefit-image rounded-lg w-full h-48 object-cover">
                         </div>
                     </div>
 
                     <!-- Second Image - positioned to align with benefit 4 -->
-                    <div class="absolute top-64 mt-32 right-0 w-full max-w-sm">
+                    <div class="absolute top-64 mt-32 right-0 w-full max-w-sm" id="img2">
                         <div class="polaroid rotate-left">
                             <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Mountain landscape with lake" class="benefit-image rounded-lg w-full h-48 object-cover">
                         </div>
                     </div>
 
                     <!-- Third Image - positioned to align below -->
-                    <div class="absolute top-[75%] mt-[50px] right-0 w-full max-w-sm">
+                    <div class="absolute top-[75%] mt-[50px] right-0 w-full max-w-sm" id="img3">
                         <div class="polaroid rotate-right">
-                            <img src="{{ asset('images/airplan1.jpg') }}"  class="benefit-image rounded-lg w-full h-48 object-cover">
+                            <img src="{{ asset('images/airplan1.jpg') }}" class="benefit-image rounded-lg w-full h-48 object-cover">
                         </div>
                     </div>
                 </div>
@@ -271,4 +298,5 @@
     @include('layouts.footer')
 
 </body>
+
 </html>
