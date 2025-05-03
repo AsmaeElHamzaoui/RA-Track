@@ -78,3 +78,12 @@
     </header>
 </div>
 
+<!-- Script pour le Burger Menu -->
+<script>
+    const burgerButton = document.getElementById('burger-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    burgerButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
