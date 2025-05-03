@@ -48,7 +48,7 @@
 
     <!-- Header-->
     @include('layouts.header')
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto my-6">
 
 
 
@@ -56,7 +56,7 @@
         <h1 class="text-3xl font-bold mb-6 text-white text-center md:text-left">Détails du Vol {{ $flight->flight_number }}</h1>
 
         {{-- Carte principale contenant les détails du vol --}}
-        <div class="bg-slate-800 rounded-lg shadow-lg p-6 text-gray-200">
+        <div class="bg-slate-800  rounded-lg shadow-lg p-6 text-gray-200">
 
             {{-- Section Informations Générales --}}
             <h2 class="text-xl font-semibold mb-4 border-b border-slate-700 pb-2 text-white flex items-center">
@@ -255,6 +255,9 @@
 
     </div> {{-- End Max Width Container --}}
 
+
+    <!-- Header-->
+    @include('layouts.footer')
 </body>
 
 </html>
