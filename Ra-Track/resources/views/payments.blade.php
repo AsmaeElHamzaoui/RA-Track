@@ -6,7 +6,9 @@
     <title>Détails Réservation</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-b from-black via-gray-800 to-gray-900 text-white min-h-screen p-4 sm:p-6">
+<body class="bg-gradient-to-b from-black via-gray-800 to-gray-900 text-white min-h-screen">
+  <!-- Header-->
+  @include('layouts.header')
 
     <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl shadow-lg p-4 sm:p-6">
         <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Détails de la réservation et Paiement</h2>
