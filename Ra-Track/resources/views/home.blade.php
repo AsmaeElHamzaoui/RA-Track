@@ -51,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient( #0f0b3d,rgba(42, 37, 82, 0.28));
+            background: linear-gradient(#0f0b3d, rgba(42, 37, 82, 0.28));
             z-index: 1;
         }
 
@@ -153,6 +153,7 @@
         .control-btn:hover {
             background-color: rgba(255, 255, 255, 0.9);
         }
+
         .inputBox {
             padding: 12px 10px 12px 10px;
             border: none;
@@ -163,11 +164,11 @@
             font-weight: 300;
             font-size: 1em;
             box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.05),
-            5px 5px 15px rgba(0, 0, 0, 0.2);
+                5px 5px 15px rgba(0, 0, 0, 0.2);
             transition: 0.5s;
             outline: none;
         }
-       
+
         .inputBox:focus {
             color: #FFF;
             border: 1px solid #FFD476;
@@ -194,7 +195,7 @@
         <!-- Section 1 -->
         <section class="hero-content text-white">
             <div class="container mx-auto text-center px-4">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">ENJOY YOUR <span style="color:#FFD476;">INCREDIBLE</span>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">ENJOY YOUR <span style="color:#FFD476;">INCREDIBLE</span>
                     <br> RIDE WITH US!
                 </h1>
                 <!-- Flight Search Form Integrated Here -->
@@ -204,10 +205,10 @@
                             <label for="hero-departure" class="block text-sm text-gray-300 mb-1">Départ</label>
                             <div class="relative">
                                 <select id="hero-departure" class="inputBox" required class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                 <!-- Boucler sur les aéroports et remplir le select -->
-                                   @foreach ($airports as $airport)
-                                     <option value="{{ $airport->id }}">{{ $airport->name }}</option>
-                                   @endforeach
+                                    <!-- Boucler sur les aéroports et remplir le select -->
+                                    @foreach ($airports as $airport)
+                                    <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -215,10 +216,10 @@
                             <label for="hero-arrival" class="block text-sm text-gray-300 mb-1">Arrivée</label>
                             <div class="relative">
                                 <select id="hero-arrival" class="inputBox" required class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                  <!-- Boucler sur les aéroports et remplir le select -->
-                                   @foreach ($airports as $airport)
-                                     <option value="{{ $airport->id }}">{{ $airport->name }}</option>
-                                   @endforeach
+                                    <!-- Boucler sur les aéroports et remplir le select -->
+                                    @foreach ($airports as $airport)
+                                    <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -228,14 +229,14 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                         <div>
+                        <div>
                             <label for="hero-class" class="block text-sm text-gray-300 mb-1">Classe</label>
                             <div class="relative">
                                 <select id="hero-class" class="inputBox" class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                  <option value="Economique">Économique</option>
-                                  <option value="economy">Economy</option>
-                                  <option value="business">Business</option>
-                                  <option value="first">First</option>
+                                    <option value="Economique">Économique</option>
+                                    <option value="economy">Economy</option>
+                                    <option value="business">Business</option>
+                                    <option value="first">First</option>
                                 </select>
                             </div>
                         </div>
@@ -244,19 +245,19 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div class="relative">
                                     <select id="hero-adults" class="inputBox" class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                      <option value="1">1 Adulte</option>
-                                      <option value="2">2 Adultes</option>
-                                      <option value="3">3 Adultes</option>
-                                      <option value="4">4 Adultes</option>
+                                        <option value="1">1 Adulte</option>
+                                        <option value="2">2 Adultes</option>
+                                        <option value="3">3 Adultes</option>
+                                        <option value="4">4 Adultes</option>
                                     </select>
                                 </div>
                                 <div class="relative">
-                                <select id="hero-children" class="inputBox" class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
-                                    <option value="0">0 Enfant</option>
-                                    <option value="1">1 Enfant</option>
-                                    <option value="2">2 Enfants</option>
-                                    <option value="3">3 Enfants</option>
-                                </select>
+                                    <select id="hero-children" class="inputBox" class="w-full border border-gray-700 rounded p-2 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-yellow transition bg-darkblue-800 text-white">
+                                        <option value="0">0 Enfant</option>
+                                        <option value="1">1 Enfant</option>
+                                        <option value="2">2 Enfants</option>
+                                        <option value="3">3 Enfants</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -275,13 +276,13 @@
             </div>
         </section>
     </div>
-    
+
     <!-- Services Section -->
     <section class="py-16" style="background-image: url('https://c8.alamy.com/compfr/2dcj9xh/texture-hiver-neige-blanche-arriere-plan-des-vacances-de-noel-papier-peint-de-saison-blanc-frais-couleur-neige-nature-fond-d-ecran-premier-gel-texture-brillante-et-nette-2dcj9xh.jpg'); background-size: cover; background-position: center;">
         <div class="container mx-auto px-4">
             <!-- Section Header -->
             <div class="text-center mb-12">
-                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
                     We Offer the Following<br>
                     Photovoltaic Services
                 </h2><br>
@@ -358,12 +359,12 @@
         </div>
     </section>
 
-     <!-- Airport Transfer Carousel Section -->
-     <section class="py-12" style="background-image: url('https://img.freepik.com/photos-premium/carte-du-monde-blanche-utiliser-comme-illustration-pour-presentation_483511-3724.jpg'); background-size: cover; background-position: center;">
-        <h1 class="text-5xl pt-4 font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
-          Discover Popular Destination
+    <!-- Airport Transfer Carousel Section -->
+    <section class="py-12" style="background-image: url('https://img.freepik.com/photos-premium/carte-du-monde-blanche-utiliser-comme-illustration-pour-presentation_483511-3724.jpg'); background-size: cover; background-position: center;">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl pt-4 font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#162238] to-[#FFD476] font-[Figtre] text-center">
+            Discover Popular Destination
         </h1>
-       <div class="container mx-auto mt-24 p-4">
+        <div class="container mx-auto mt-24 p-4">
             <div class="w-full max-w-7xl mx-auto relative rounded-lg p-8">
                 <!-- Background Map Image -->
 
@@ -407,7 +408,7 @@
                         <!-- America -->
                         <div class="flex flex-col items-center">
                             <span class="text-xs font-bold mb-2" style="color:#FFD476;">AMERICA</span>
-                            <div class="diamond" ></div>
+                            <div class="diamond"></div>
                         </div>
 
                         <!-- Oceania -->
@@ -508,12 +509,12 @@
 
 
             </div>
-           
+
         </div>
     </section>
-    
-     <!-- Construction Services Section -->
-     <section class="bg-white py-16">
+
+    <!-- Construction Services Section -->
+    <section class="bg-white py-16">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Rebuild Construction -->
@@ -559,7 +560,7 @@
 
     <!-- script pour la crousel -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const track = document.getElementById('galleryTrack');
             const pauseBtn = document.getElementById('pauseBtn');
             const slowBtn = document.getElementById('slowBtn');
@@ -571,7 +572,7 @@
             let animationDuration = 20; // seconds
 
             // Toggle pause/play
-            pauseBtn.addEventListener('click', function () {
+            pauseBtn.addEventListener('click', function() {
                 if (isPaused) {
                     track.style.animationPlayState = 'running';
                     pauseIcon.classList.remove('hidden');
@@ -585,13 +586,13 @@
             });
 
             // Slow down animation
-            slowBtn.addEventListener('click', function () {
+            slowBtn.addEventListener('click', function() {
                 animationDuration += 5;
                 updateAnimationSpeed();
             });
 
             // Speed up animation
-            fastBtn.addEventListener('click', function () {
+            fastBtn.addEventListener('click', function() {
                 if (animationDuration > 5) {
                     animationDuration -= 5;
                     updateAnimationSpeed();
@@ -610,53 +611,53 @@
 
     <!-- script pour les données du formulaire -->
     <script>
-              document.addEventListener('DOMContentLoaded', function() {
-          
-                  // --- JS POUR LA REDIRECTION VERS BOOKING AVEC LES DONNÉES ---
-                  const searchButton = document.getElementById('searchFlightsBtn');
-          
-                  if (searchButton) {
-                      searchButton.addEventListener('click', function() {
-                          // 1. Récupérer les valeurs du formulaire
-                          const departure = document.getElementById('hero-departure').value;
-                          const arrival = document.getElementById('hero-arrival').value;
-                          const flightDate = document.getElementById('hero-flightDate').value;
-                          const flightClass = document.getElementById('hero-class').value;
-                          const adults = document.getElementById('hero-adults').value;
-                          const children = document.getElementById('hero-children').value;
-          
-                          // Vérification simple (optionnelle)
-                          if (!departure || !arrival || !flightDate) {
-                              alert("Veuillez renseigner au moins le départ, l'arrivée et la date.");
-                              return; // Arrête l'exécution si les champs requis sont vides
-                          }
-          
-                          // 2. Construire l'objet de paramètres
-                          const searchParams = new URLSearchParams();
-                          searchParams.append('departure', departure);
-                          searchParams.append('arrival', arrival);
-                          searchParams.append('date', flightDate);
-                          searchParams.append('class', flightClass);
-                          searchParams.append('adults', adults);
-                          searchParams.append('children', children);
-          
-                          // 3. Construire l'URL de destination
-                          // !! Adapte le chemin vers ta page bookingAirplane !!
-                          // Si elle est à la racine: '/bookingAirplane.html' ou juste '/bookingAirplane'
-                          // Si elle est dans un dossier 'pages': '/pages/bookingAirplane.html'
-                          const targetUrl = '/bookingAirplane?' + searchParams.toString();
-                          // J'utilise '/bookingAirplane' ici, ajuste si besoin.
-                          // Si tu n'utilises pas de serveur du tout et ouvres les fichiers localement,
-                          // utilise un chemin relatif comme 'bookingAirplane.html'
-          
-                          // 4. Rediriger l'utilisateur
-                          window.location.href = targetUrl;
-                      });
-                  } else {
-                      console.error("Bouton 'searchFlightsBtn' non trouvé.");
-                  }
-          
-              }); // Fin de DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- JS POUR LA REDIRECTION VERS BOOKING AVEC LES DONNÉES ---
+            const searchButton = document.getElementById('searchFlightsBtn');
+
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    // 1. Récupérer les valeurs du formulaire
+                    const departure = document.getElementById('hero-departure').value;
+                    const arrival = document.getElementById('hero-arrival').value;
+                    const flightDate = document.getElementById('hero-flightDate').value;
+                    const flightClass = document.getElementById('hero-class').value;
+                    const adults = document.getElementById('hero-adults').value;
+                    const children = document.getElementById('hero-children').value;
+
+                    // Vérification simple (optionnelle)
+                    if (!departure || !arrival || !flightDate) {
+                        alert("Veuillez renseigner au moins le départ, l'arrivée et la date.");
+                        return; // Arrête l'exécution si les champs requis sont vides
+                    }
+
+                    // 2. Construire l'objet de paramètres
+                    const searchParams = new URLSearchParams();
+                    searchParams.append('departure', departure);
+                    searchParams.append('arrival', arrival);
+                    searchParams.append('date', flightDate);
+                    searchParams.append('class', flightClass);
+                    searchParams.append('adults', adults);
+                    searchParams.append('children', children);
+
+                    // 3. Construire l'URL de destination
+                    // !! Adapte le chemin vers ta page bookingAirplane !!
+                    // Si elle est à la racine: '/bookingAirplane.html' ou juste '/bookingAirplane'
+                    // Si elle est dans un dossier 'pages': '/pages/bookingAirplane.html'
+                    const targetUrl = '/bookingAirplane?' + searchParams.toString();
+                    // J'utilise '/bookingAirplane' ici, ajuste si besoin.
+                    // Si tu n'utilises pas de serveur du tout et ouvres les fichiers localement,
+                    // utilise un chemin relatif comme 'bookingAirplane.html'
+
+                    // 4. Rediriger l'utilisateur
+                    window.location.href = targetUrl;
+                });
+            } else {
+                console.error("Bouton 'searchFlightsBtn' non trouvé.");
+            }
+
+        }); // Fin de DOMContentLoaded
     </script>
 
 </body>
