@@ -45,13 +45,13 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-800 font-sans p-4 md:p-8">
+<body class="bg-blue-900 text-gray-800 font-sans">
 
     <!-- Header -->
     @include('layouts.header')
 
     <!-- Main Content Area -->
-    <main class="container mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6 md:p-8">
+    <main class="container m-12 mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6 md:p-8">
 
         {{-- Le formulaire principal englobe TOUT maintenant --}}
         <form action="{{ route('reservation') }}" method="POST" id="final-booking-form">
@@ -243,5 +243,8 @@
     {{-- Pas besoin de jQuery ou du script AJAX pour cette approche --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
+
+    <!-- Footer  -->
+    @include('layouts.footer')
 </body>
 </html>
