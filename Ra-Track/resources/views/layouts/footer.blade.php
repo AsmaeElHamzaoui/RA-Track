@@ -1,9 +1,9 @@
-<footer class="text-gray-300 py-8 md:py-12" style="border-radius:50px 50px 0 0; background-color:#162238;">
+<footer class="text-gray-300 py-4 md:py-6" style="border-radius:20px 20px 0 0; background-color:#162238;">
     <div class="container mx-auto px-4">
         <!-- Logo & Socials Row (reste inchangé pour la visibilité, juste la disposition change) -->
-        <div class="flex flex-col md:flex-row items-center justify-between mx-4 md:mx-8 lg:mx-12 mb-8 md:mb-10 space-y-6 md:space-y-0">
+        <div class="flex flex-col md:flex-row items-center justify-between mx-4 md:mx-8 lg:mx-12 mb-2 md:mb-2 space-y-6 md:space-y-0">
             <a href="/">
-                <img src="/placeholder.svg?height=60&width=225" alt="LimoWide Logo" class="h-12 md:h-16">
+                <img src="/placeholder.svg?height=60&width=225" alt="LimoWide Logo" class="h-10 md:h-12">
             </a>
             <div class="flex space-x-4">
                 <a href="#" class="hover:text-white" style="color:#FFD476"><i class="fab fa-linkedin-in text-xl"></i></a>
@@ -16,7 +16,7 @@
 
         <!-- Grid principale - Mise à jour avec visibilité conditionnelle -->
         <!-- grid-cols-1 (Mobile) -> md:grid-cols-2 (Tablet) -> lg:grid-cols-6 (Desktop) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 px-4 md:px-0">
+        <div class="grid grid-cols-1 mx-20 md:grid-cols-2 lg:grid-cols-6  gap-4 md:gap-6 lg:gap-8 mb-2 md:mb-10 px-4 md:px-0">
 
             <!-- Company: Visible seulement sur lg et plus -->
             <div class="hidden lg:block text-center md:text-left">
@@ -87,13 +87,13 @@
         </div>
 
         <!-- Copyright & Payment Methods (reste inchangé pour la visibilité) -->
-        <div class="flex flex-col md:flex-row items-center justify-between mx-4 mt-6 border-t border-gray-700 pt-6 space-y-4 md:space-y-0">
+        <div class="flex flex-col md:flex-row items-center justify-between mx-4 mt-6 border-t border-gray-700 pt-4 space-y-4 md:space-y-0">
             <p class="text-xs text-center md:text-left">© 2024 Limowide. All rights reserved</p>
             <div class="flex items-center space-x-3">
-                <img class="h-5 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard">
-                <img class="h-5 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1280px-Visa_Inc._logo.svg.png" alt="Visa">
-                <img class="h-5 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png" alt="PayPal">
-                <img class="h-5 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/American_Express_logo_%282018%29.svg/1280px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                <img class="h-3 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard">
+                <img class="h-3 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1280px-Visa_Inc._logo.svg.png" alt="Visa">
+                <img class="h-3 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png" alt="PayPal">
+                <img class="h-3 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/American_Express_logo_%282018%29.svg/1280px-American_Express_logo_%282018%29.svg.png" alt="American Express">
             </div>
         </div>
     </div>
