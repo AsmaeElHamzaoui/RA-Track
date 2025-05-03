@@ -47,28 +47,8 @@
 
 <body class="bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-800 font-sans p-4 md:p-8">
 
-    <!-- Header (gardé tel quel) -->
-    <header class="container mx-auto max-w-6xl mb-8">
-        <nav class="flex justify-between items-center text-white">
-            <div class="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-                <span class="text-xl font-bold">AirBooking</span>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#" class="hover:text-gray-300">Accueil</a>
-                <a href="#" class="hover:text-gray-300">Vols</a>
-                <a href="#" class="hover:text-gray-300">Mes Réservations</a>
-                <a href="#" class="hover:text-gray-300">Contact</a>
-            </div>
-            <button class="md:hidden focus:outline-none text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </nav>
-    </header>
+    <!-- Header -->
+    @include('layouts.header')
 
     <!-- Main Content Area -->
     <main class="container mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6 md:p-8">
