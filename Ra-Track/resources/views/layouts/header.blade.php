@@ -31,7 +31,11 @@
                         <li>
                             <form method="POST" action="/logout">
                                 @csrf
-                                <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600" style="background-color:#FFD476">
+                                <button type="submit" class="text-black px-6 py-2 rounded-full hover:bg-red-600" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                                     Log Out
                                 </button>
                             </form>
