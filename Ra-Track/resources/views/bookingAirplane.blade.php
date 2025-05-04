@@ -263,7 +263,7 @@
               </div>
             </div>
           @empty
-            <div class="bg-darkblue-800 rounded-lg p-4 text-center text-gray-400">
+            <div class="bg-slate-900/70 backdrop-blur-sm rounded-lg p-4 text-center text-gray-100">
               Aucun vol trouvé correspondant à vos critères de recherche.
             </div>
           @endforelse
