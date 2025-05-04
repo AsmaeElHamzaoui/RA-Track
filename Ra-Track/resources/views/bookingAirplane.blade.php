@@ -23,6 +23,7 @@
     }
   </script>
   <style>
+    
     /* Styles CSS inchangés */
     body { background-color: #121826; color: white; }
     input[type="range"] { -webkit-appearance: none; appearance: none; background: #2d3748; height: 4px; border-radius: 2px; outline: none; }
@@ -36,25 +37,23 @@
   </style>
 </head>
 
-<body class="min-h-screen text-white" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
+<body class="min-h-screen text-white" style="background: linear-gradient(to bottom,rgb(22, 34, 56),rgb(255, 255, 255),#F1F0E9);">
   <!-- Header -->
   @include('layouts.header')
   <!-- Main Content -->
   <div class="p-4 md:p-8">
     <div class="max-w-6xl mx-auto">
-      <h1 class="text-2xl font-bold mb-2">Réservez votre vol</h1>
-      <p class="text-gray-400 text-sm mb-6">Sélectionnez votre vol, vos passagers et effectuez votre réservation.</p>
-
+      <h1 class="text-2xl text-gray-900 font-bold mb-2">Réservez votre vol</h1>
       <!-- Search Form -->
-      <div class="bg-darkblue-800 rounded-lg p-4 mb-6">
+      <div class="bg-slate-900/70 backdrop-blur-sm rounded-lg p-4 mb-6">
         {{-- Le formulaire pointe vers la route 'booking' avec la méthode GET --}}
         <form method="GET" action="{{ route('booking') }}">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-                <label for="booking-departure" class="block text-sm text-gray-400 mb-1">Départ</label>
+                <label for="booking-departure" class="block text-sm font-bold text-yellow-200 mb-1">Départ</label>
                 <div class="relative">
                   {{-- Le name="departure" sera utilisé dans le contrôleur --}}
-                  <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                  <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none" >
                     <option value="">Ville de départ</option> {{-- Option par défaut --}}
                     {{-- Boucle sur les aéroports fournis par le contrôleur --}}
                     @foreach ($airports as $airport)
@@ -67,10 +66,10 @@
                 </div>
             </div>
             <div>
-              <label for="booking-arrival" class="block text-sm text-gray-400 mb-1">Arrivée</label>
+              <label for="booking-arrival" class="block text-sm font-bold text-yellow-200 mb-1">Arrivée</label>
               <div class="relative">
                  {{-- Le name="arrival" sera utilisé dans le contrôleur --}}
-                <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
                   <option value="">Ville d'arrivée</option> {{-- Option par défaut --}}
                    {{-- Boucle sur les aéroports fournis par le contrôleur --}}
                   @foreach ($airports as $airport)
@@ -83,7 +82,7 @@
               </div>
             </div>
             <div>
-              <label for="booking-flightDate" class="block text-sm text-gray-400 mb-1">Date</label>
+              <label for="booking-flightDate" class="block text-sm font-bold text-yellow-200 mb-1">Date</label>
               {{-- Le name="date" sera utilisé dans le contrôleur --}}
               {{-- La valeur est pré-remplie avec la date de la requête précédente --}}
               <input
@@ -91,16 +90,16 @@
                 id="booking-flightDate"
                 name="date"
                 value="{{ request('date') }}"
-                class="w-full bg-darkblue-900 border border-gray-700 rounded p-2" />
+                class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2" />
             </div>
           </div>
           {{-- Garde les champs Classe et Passagers pour la cohérence de l'interface --}}
           {{-- Leurs valeurs seront aussi conservées après soumission grâce à request() --}}
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
              <div>
-                <label for="booking-class" class="block text-sm text-gray-400 mb-1">Classe</label>
+                <label for="booking-class" class="block text-sm font-bold text-yellow-200 mb-1">Classe</label>
                 <div class="relative">
-                  <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                  <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
                     <option value="Economique" {{ request('class') == 'Economique' ? 'selected' : '' }}>Économique</option>
                     <option value="economy" {{ request('class') == 'economy' ? 'selected' : '' }}>Economy</option>
                     <option value="business" {{ request('class') == 'business' ? 'selected' : '' }}>Business</option>
@@ -109,10 +108,10 @@
                 </div>
               </div>
              <div>
-                <label class="block text-sm text-gray-400 mb-1">Passagers</label>
+                <label class="block text-sm font-bold text-yellow-200 mb-1">Passagers</label>
                 <div class="grid grid-cols-2 gap-2">
                   <div class="relative">
-                    <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                    <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
                       {{-- Utilise 1 comme valeur par défaut si 'adults' n'est pas dans la requête --}}
                       <option value="1" {{ request('adults', '1') == '1' ? 'selected' : '' }}>1 Adulte</option>
                       <option value="2" {{ request('adults') == '2' ? 'selected' : '' }}>2 Adultes</option>
@@ -121,7 +120,7 @@
                     </select>
                   </div>
                   <div class="relative">
-                    <select id="booking-children" name="children" class="w-full bg-darkblue-900 border border-gray-700 rounded p-2 appearance-none">
+                    <select id="booking-children" name="children" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
                        {{-- Utilise 0 comme valeur par défaut si 'children' n'est pas dans la requête --}}
                       <option value="0" {{ request('children', '0') == '0' ? 'selected' : '' }}>0 Enfant</option>
                       <option value="1" {{ request('children') == '1' ? 'selected' : '' }}>1 Enfant</option>
@@ -133,7 +132,11 @@
               </div>
             <div class="flex items-end">
               {{-- Le bouton de type submit déclenche l'envoi du formulaire --}}
-              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition">
+              <button type="submit" class="w-full text- font-medium py-2 px-4 rounded transition" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                 Rechercher des Vols
               </button>
             </div>
@@ -145,11 +148,11 @@
       <!-- Results Section -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <!-- Filters (Partie Filtres - inchangée et non fonctionnelle pour le moment) -->
-        <div class="bg-darkblue-800 rounded-lg p-4">
-          <h2 class="font-bold mb-4">Filtres</h2>
+        <div class="bg-slate-900/70 backdrop-blur-sm rounded-lg p-4">
+          <h2 class="font-bold text-yellow-200 mb-4">Filtres</h2>
 
           <div class="mb-4">
-            <label class="block text-sm text-gray-400 mb-1">Prix maximum</label>
+            <label class="block text-sm font-meduim text-yellow-200 mb-1">Prix maximum</label>
             <input type="range" min="0" max="1000" step="10" value="500" id="priceRange" class="w-full" />
             <div class="flex justify-between text-sm text-gray-400">
               <span>0€</span>
@@ -158,7 +161,7 @@
           </div>
 
           <div class="mb-4">
-            <h3 class="text-sm font-medium mb-2">Heure de départ</h3>
+            <h3 class="text-sm font-meduim text-yellow-200 mb-2">Heure de départ</h3>
             <div class="space-y-2 text-sm">
               <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Matin (6h-12h)</span></label>
               <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>Après-midi (12h-18h)</span></label>
@@ -167,7 +170,7 @@
           </div>
 
           <div>
-            <h3 class="text-sm font-medium mb-2">Compagnies</h3>
+            <h3 class="text-sm font-meduim text-yellow-200 mb-2">Compagnies</h3>
             <div class="space-y-2 text-sm">
               <label class="flex items-center"><input type="checkbox" class="mr-2" checked /><span>Air France</span></label>
               <label class="flex items-center"><input type="checkbox" class="mr-2" /><span>KLM</span></label>
@@ -177,32 +180,32 @@
         </div>
 
         <!-- Flight Results -->
-        <div class="md:col-span-3">
+        <div class="md:col-span-3 ">
           {{-- Utilisation de @forelse pour boucler sur les vols ou afficher un message si la collection est vide --}}
           {{-- La variable $flights doit être passée par le contrôleur --}}
           @forelse ($flights as $flight)
             {{-- Début de la structure HTML pour UN résultat de vol (identique à ton exemple statique) --}}
-            <div class="bg-darkblue-800 rounded-lg p-4 mb-4">
+            <div class="bg-slate-900/70 backdrop-blur-sm rounded-lg p-4 mb-4">
               <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                 <div class="flex items-center mb-2 md:mb-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2 text-yellow-200">
                     <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path>
                     <polygon points="12 15 17 21 7 21 12 15"></polygon>
                   </svg>
                   <div>
                     {{-- Afficher le nom de la compagnie (adapte 'airline_name' si le nom de ta colonne est différent) --}}
-                    <div class="font-medium">{{ $flight->airline_name ?? 'Compagnie Aérienne' }}</div>
+                    <div class="font-medium text-gray-900">{{ $flight->airline_name ?? 'Compagnie Aérienne' }}</div>
                     {{-- Afficher le numéro de vol (adapte 'flight_number') --}}
                     <div class="text-xs text-gray-400">{{ $flight->flight_number ?? 'N/A' }}</div>
                   </div>
                 </div>
                  {{-- Afficher le prix (adapte 'price') --}}
-                <div class="text-xl font-bold">{{ $flight->price ?? 'N/A' }}€</div>
+                <div class="text-xl font-bold text-gray-900">{{ $flight->price ?? 'N/A' }}€</div>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <div class="text-sm text-gray-400">Départ</div>
+                  <div class="text-sm text-yellow-200">Départ</div>
                    {{-- Formater l'heure de départ (adapte 'departure_time') --}}
                    {{-- Assure-toi que Carbon est disponible, sinon utilise date() de PHP --}}
                   <div class="text-xl font-medium">{{ \Carbon\Carbon::parse($flight->departure_time)->format('H:i') }}</div>
@@ -217,15 +220,15 @@
                      {{ \Carbon\Carbon::parse($flight->departure_time)->diff(\Carbon\Carbon::parse($flight->arrival_time))->format('%hh %im') }}
                   </div>
                   <div class="w-full h-px bg-gray-700 my-2 relative">
-                    <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
-                    <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></div>
+                    <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-gray-900"></div>
+                    <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-gray-900"></div>
                   </div>
                    {{-- Tu peux ajouter une logique ici pour 'Direct' ou 'Escale' si tu as l'info --}}
                   <div class="text-xs text-gray-400">Direct</div>
                 </div>
 
                 <div>
-                  <div class="text-sm text-gray-400">Arrivée</div>
+                  <div class="text-sm text-yellow-200">Arrivée</div>
                   {{-- Formater l'heure d'arrivée (adapte 'arrival_time') --}}
                   <div class="text-xl font-medium">{{ \Carbon\Carbon::parse($flight->arrival_time)->format('H:i') }}</div>
                   {{-- Afficher le nom de l'aéroport d'arrivée via la relation Eloquent --}}
@@ -242,9 +245,19 @@
                  <input type="hidden" name="class" value="{{ request('class') }}">
                  <input type="hidden" name="adults" value="{{ request('adults') }}">
                  <input type="hidden" name="children" value="{{ request('children') }}">
-                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-3 rounded">Sélectionner</button>
+                 <button type="submit" class="font-medium py-1 px-3 rounded" style=" color: #162238;
+                                    border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">Sélectionner</button>
               </form>
-              <a href="{{ route('flights.show', ['id' => $flight->id]) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded ml-2"> {{-- Ajout de ml-2 pour l'espacement --}}
+              <a href="{{ route('flights.show', ['id' => $flight->id]) }}" class=" font-medium py-1 px-3 rounded ml-2"style=" color: #162238;
+                                    border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);"> {{-- Ajout de ml-2 pour l'espacement --}}
                     Détail
               </a>
               </div>
