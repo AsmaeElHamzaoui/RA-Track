@@ -45,13 +45,13 @@
     </style>
 </head>
 
-<body class="bg-blue-900 text-gray-800 font-sans">
+<body class="font-sans" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
 
     <!-- Header -->
     @include('layouts.header')
 
     <!-- Main Content Area -->
-    <main class="container m-12 mx-auto max-w-4xl bg-white rounded-lg shadow-lg p-6 md:p-8">
+    <main class="container bg-slate-900/70 backdrop-blur-sm m-12 mx-auto max-w-4xl rounded-lg shadow-lg p-6 md:p-8">
 
         {{-- Le formulaire principal englobe TOUT maintenant --}}
         <form action="{{ route('reservation') }}" method="POST" id="final-booking-form">
@@ -64,9 +64,9 @@
             <input type="hidden" name="children" value="{{ request('children') }}">
 
             <!-- Flight Details Summary (gardé tel quel) -->
-            <section class="border border-gray-200 rounded-lg p-4 mb-8">
-                 <h2 class="text-xl font-semibold mb-4 text-gray-700">Détails du vol</h2>
-                 <div class="mb-4 text-sm text-gray-600">
+            <section class="border border-yellow-200 rounded-lg p-4 mb-8">
+                 <h2 class="text-xl text-center font-semibold mb-4 text-yellow-200">Information du vol</h2>
+                 <div class="hidden mb-4 text-sm text-gray-600">
                      <p><strong>Compagnie :</strong> {{ $flight->airline_name }}</p>
                      <p><strong>Numéro de vol :</strong> {{ $flight->flight_number }}</p>
                      <p><strong>Prix (indicatif) :</strong> {{ $flight->price }}€</p>
@@ -74,11 +74,11 @@
                  <div class="flex flex-col sm:flex-row justify-between items-center text-sm gap-4">
                      <!-- Departure -->
                      <div class="flex items-center space-x-2">
-                         <i class="fas fa-plane-departure text-yellow-500 text-xl"></i>
+                         <i class="fas fa-plane-departure text-yellow-200 text-xl"></i>
                          <div>
                              <div class="text-gray-500">Départ</div>
-                             <div class="font-semibold">{{ $flight->departureAirport->name }} ({{ $flight->departureAirport->iata }})</div>
-                             <div>{{ \Carbon\Carbon::parse($flight->departure_time)->format('H:i') }}</div>
+                             <div class="font-semibold text-white">{{ $flight->departureAirport->name }}</div>
+                             <div class="font-semibold text-white">{{ \Carbon\Carbon::parse($flight->departure_time)->format('H:i') }}</div>
                          </div>
                      </div>
                      <!-- Arrow -->
@@ -88,11 +88,11 @@
                      <div class="sm:hidden text-center text-gray-500 text-xs my-2">▼</div>
                      <!-- Arrival -->
                      <div class="flex items-center space-x-2 text-left sm:text-right">
-                         <i class="fas fa-plane-arrival text-yellow-500 text-xl sm:order-last"></i>
+                         <i class="fas fa-plane-arrival ml-2 text-yellow-200 text-xl sm:order-last"></i>
                          <div class="sm:order-first">
                              <div class="text-gray-500">Arrivée</div>
-                             <div class="font-semibold">{{ $flight->arrivalAirport->name }} ({{ $flight->arrivalAirport->iata }})</div>
-                             <div>{{ \Carbon\Carbon::parse($flight->arrival_time)->format('H:i') }}</div>
+                             <div class="font-semibold text-white">{{ $flight->arrivalAirport->name }}</div>
+                             <div class="font-semibold text-white">{{ \Carbon\Carbon::parse($flight->arrival_time)->format('H:i') }}</div>
                          </div>
                      </div>
                  </div>
@@ -100,47 +100,47 @@
 
             <!-- Booking Information Display (gardé tel quel) -->
             <section class="mb-8">
-                <h2 class="text-xl font-semibold mb-4 text-gray-700">Informations de la réservation</h2>
+                <h2 class="text-xl font-semibold mb-4 text-center text-yellow-200">Informations de la réservation</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Champs readonly (gardés tels quels) -->
                     <div>
-                        <label for="departure_airport" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-plane-departure text-gray-500 mr-1"></i> Aéroport de départ
+                        <label for="departure_airport" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-plane-departure text-yellow-200 mr-1"></i> Aéroport de départ
                         </label>
-                        <input type="text" id="departure_airport" name="departure_airport_display" value="{{ $flight->departureAirport->name }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="departure_airport" name="departure_airport_display" value="{{ $flight->departureAirport->name }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                     </div>
                     <div>
-                        <label for="arrival_airport" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-plane-arrival text-gray-500 mr-1"></i> Aéroport d'arrivée
+                        <label for="arrival_airport" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-plane-arrival text-yellow-200 mr-1"></i> Aéroport d'arrivée
                         </label>
-                        <input type="text" id="arrival_airport" name="arrival_airport_display" value="{{ $flight->arrivalAirport->name }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="arrival_airport" name="arrival_airport_display" value="{{ $flight->arrivalAirport->name }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                     </div>
                      <div class="relative">
-                        <label for="departure_date" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-calendar-alt text-gray-500 mr-1"></i> Date de départ
+                        <label for="departure_date" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-calendar-alt text-yellow-200 mr-1"></i> Date de départ
                         </label>
-                        <input type="text" id="departure_date" name="departure_date_display" value="{{ \Carbon\Carbon::parse(request('date'))->format('d/m/Y') }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="departure_date" name="departure_date_display" value="{{ \Carbon\Carbon::parse(request('date'))->format('d/m/Y') }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                         <span class="absolute right-3 top-8 text-gray-400">
                             <i class="fas fa-calendar-day"></i>
                         </span>
                     </div>
                     <div>
-                        <label for="class" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-chair text-gray-500 mr-1"></i> Classe
+                        <label for="class" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-chair text-yellow-200 mr-1"></i> Classe
                         </label>
-                        <input type="text" id="class" name="class_display" value="{{ ucfirst(request('class')) }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="class" name="class_display" value="{{ ucfirst(request('class')) }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                     </div>
                     <div>
-                        <label for="num_adults" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-user text-gray-500 mr-1"></i> Nombre d'adultes
+                        <label for="num_adults" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-user text-yellow-200 mr-1"></i> Nombre d'adultes
                         </label>
-                        <input type="text" id="num_adults" name="num_adults_display" value="{{ request('adults') }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="num_adults" name="num_adults_display" value="{{ request('adults') }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                     </div>
                     <div>
-                        <label for="num_children" class="block text-sm font-medium text-gray-700 mb-1">
-                            <i class="fas fa-child text-gray-500 mr-1"></i> Nombre d'enfants
+                        <label for="num_children" class="block text-sm font-medium text-white mb-1">
+                            <i class="fas fa-child text-yellow-200 mr-1"></i> Nombre d'enfants
                         </label>
-                        <input type="text" id="num_children" name="num_children_display" value="{{ request('children') }}" readonly class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none">
+                        <input type="text" id="num_children" name="num_children_display" value="{{ request('children') }}" readonly class="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed focus:outline-none" style="background-color:rgb(228, 224, 199);">
                     </div>
                 </div>
             </section>
@@ -151,7 +151,7 @@
             @endphp
 
             @if($totalPassengers > 0)
-                <h2 class="text-xl font-semibold mb-4 text-gray-700">Informations des passagers</h2>
+                <h2 class="text-xl font-semibold mb-4 text-center text-yellow-200">Informations des passagers</h2>
                 {{-- Affichage global des erreurs de validation pour les passagers --}}
                 @if ($errors->has('passengers') || $errors->has('passengers.*'))
                     <div class="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded">
@@ -161,13 +161,13 @@
             @endif
 
             @for ($i = 0; $i < $totalPassengers; $i++) {{-- Index commence à 0 pour les tableaux --}}
-                <div class="passenger-section mb-6 p-4 border border-gray-200 rounded @if($errors->has('passengers.'.$i.'.*')) border-red-400 @endif"> {{-- Highlight si erreur pour ce passager --}}
-                    <h3 class="font-semibold mb-3 text-gray-600">Passager {{ $i + 1 }}</h3>
+                <div class="passenger-section mb-6 p-4 border border-yellow-200 rounded @if($errors->has('passengers.'.$i.'.*')) border-red-400 @endif"> {{-- Highlight si erreur pour ce passager --}}
+                    <h3 class="font-semibold mb-3 text-yellow-200">Passager {{ $i + 1 }}</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         {{-- Champs du formulaire avec noms en tableau --}}
                         <div>
                             {{-- Utilisation de old() pour conserver les valeurs en cas d'erreur de validation --}}
-                            <label for="pass_{{ $i }}_first_name" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+                            <label for="pass_{{ $i }}_first_name" class="block text-sm font-medium text-white mb-1">Prénom</label>
                             <input type="text"
                                    id="pass_{{ $i }}_first_name"
                                    name="passengers[{{ $i }}][firstname]"
@@ -181,7 +181,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="pass_{{ $i }}_last_name" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                            <label for="pass_{{ $i }}_last_name" class="block text-sm font-medium text-white mb-1">Nom</label>
                             <input type="text"
                                    id="pass_{{ $i }}_last_name"
                                    name="passengers[{{ $i }}][lastname]"
@@ -194,7 +194,7 @@
                             @enderror
                         </div>
                         <div>
-                             <label for="pass_{{ $i }}_gender" class="block text-sm font-medium text-gray-700 mb-1">Sexe</label>
+                             <label for="pass_{{ $i }}_gender" class="block text-sm font-medium text-white mb-1">Sexe</label>
                             <select id="pass_{{ $i }}_gender"
                                     name="passengers[{{ $i }}][gender]"
                                     required
@@ -210,7 +210,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="pass_{{ $i }}_age" class="block text-sm font-medium text-gray-700 mb-1">Âge</label>
+                            <label for="pass_{{ $i }}_age" class="block text-sm font-medium text-white mb-1">Âge</label>
                             <input type="number"
                                    id="pass_{{ $i }}_age"
                                    name="passengers[{{ $i }}][age]"
@@ -230,7 +230,11 @@
 
             <!-- Bouton final de réservation (reste au même endroit, mais soumet TOUT) -->
             <div class="mt-8 text-right">
-                <button type="submit" id="submit-final-booking" class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button type="submit" id="submit-final-booking" class="inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-md shadow-sm "style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                     <i class="fas fa-check mr-2"></i> Réserver maintenant
                 </button>
             </div>
