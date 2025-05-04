@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-b from-black via-gray-800 to-gray-900 text-white min-h-screen">
+<body class="text-white min-h-screen" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
     <!-- Header-->
     @include('layouts.header')
 
