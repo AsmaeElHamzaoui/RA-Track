@@ -15,7 +15,11 @@
                         <li><a href="/register" class="hover:text-gray-300">Register</a></li>
                         <li>
                             <a href="/login">
-                                <button class="text-black px-6 py-2 rounded-full hover:bg-yellow-600" style="background-color:#FFD476">
+                                <button class="text-black px-6 py-2 rounded-full hover:bg-yellow-600" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                                     Sign In
                                 </button>
                             </a>
