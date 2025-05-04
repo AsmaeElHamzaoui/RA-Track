@@ -36,7 +36,7 @@
   </style>
 </head>
 
-<body class="min-h-screen bg-darkblue-900 text-white">
+<body class="min-h-screen text-white" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
   <!-- Header -->
   @include('layouts.header')
   <!-- Main Content -->
