@@ -53,7 +53,7 @@
                 <label for="booking-departure" class="block text-sm font-bold text-yellow-200 mb-1">Départ</label>
                 <div class="relative">
                   {{-- Le name="departure" sera utilisé dans le contrôleur --}}
-                  <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none" >
+                  <select id="booking-departure" name="departure" class="w-full bg-darkblue-900 border rounded p-2 appearance-none" style="border-color :rgb(228, 224, 199)" >
                     <option value="">Ville de départ</option> {{-- Option par défaut --}}
                     {{-- Boucle sur les aéroports fournis par le contrôleur --}}
                     @foreach ($airports as $airport)
@@ -69,7 +69,7 @@
               <label for="booking-arrival" class="block text-sm font-bold text-yellow-200 mb-1">Arrivée</label>
               <div class="relative">
                  {{-- Le name="arrival" sera utilisé dans le contrôleur --}}
-                <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
+                <select id="booking-arrival" name="arrival" class="w-full bg-darkblue-900 border rounded p-2 appearance-none" style="border-color :rgb(228, 224, 199);">
                   <option value="">Ville d'arrivée</option> {{-- Option par défaut --}}
                    {{-- Boucle sur les aéroports fournis par le contrôleur --}}
                   @foreach ($airports as $airport)
@@ -90,7 +90,7 @@
                 id="booking-flightDate"
                 name="date"
                 value="{{ request('date') }}"
-                class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2" />
+                class="w-full bg-darkblue-900 border rounded p-2" style="border-color :rgb(228, 224, 199)";/>
             </div>
           </div>
           {{-- Garde les champs Classe et Passagers pour la cohérence de l'interface --}}
@@ -99,7 +99,7 @@
              <div>
                 <label for="booking-class" class="block text-sm font-bold text-yellow-200 mb-1">Classe</label>
                 <div class="relative">
-                  <select id="booking-class" name="class" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
+                  <select id="booking-class" name="class" class="w-full bg-darkblue-900 border rounded p-2 appearance-none" style="border-color :rgb(228, 224, 199);">
                     <option value="Economique" {{ request('class') == 'Economique' ? 'selected' : '' }}>Économique</option>
                     <option value="economy" {{ request('class') == 'economy' ? 'selected' : '' }}>Economy</option>
                     <option value="business" {{ request('class') == 'business' ? 'selected' : '' }}>Business</option>
@@ -111,7 +111,7 @@
                 <label class="block text-sm font-bold text-yellow-200 mb-1">Passagers</label>
                 <div class="grid grid-cols-2 gap-2">
                   <div class="relative">
-                    <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
+                    <select id="booking-adults" name="adults" class="w-full bg-darkblue-900 border rounded p-2 appearance-none" style="border-color :rgb(228, 224, 199);">
                       {{-- Utilise 1 comme valeur par défaut si 'adults' n'est pas dans la requête --}}
                       <option value="1" {{ request('adults', '1') == '1' ? 'selected' : '' }}>1 Adulte</option>
                       <option value="2" {{ request('adults') == '2' ? 'selected' : '' }}>2 Adultes</option>
@@ -120,7 +120,7 @@
                     </select>
                   </div>
                   <div class="relative">
-                    <select id="booking-children" name="children" class="w-full bg-darkblue-900 border border-yellow-200 rounded p-2 appearance-none">
+                    <select id="booking-children" name="children" class="w-full bg-darkblue-900 border rounded p-2 appearance-none" style="border-color :rgb(228, 224, 199);">
                        {{-- Utilise 0 comme valeur par défaut si 'children' n'est pas dans la requête --}}
                       <option value="0" {{ request('children', '0') == '0' ? 'selected' : '' }}>0 Enfant</option>
                       <option value="1" {{ request('children') == '1' ? 'selected' : '' }}>1 Enfant</option>
