@@ -2,7 +2,7 @@
 <div class="header-container "> 
     <header class="text-white py-4 relative"> <!-- Ajout de relative -->
         <div class="container mx-auto flex items-center justify-between px-4">
-            <a href="/" class="text-2xl font-bold"><img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt=""></a>
+            <a href="/" ><img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt=""></a>
 
             <!-- Desktop Navigation -->
             <nav id="desktop-nav" class="hidden md:block">
