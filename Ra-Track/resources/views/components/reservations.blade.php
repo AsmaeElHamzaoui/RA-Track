@@ -29,7 +29,7 @@
                          <td class="px-4 py-3">{{ $reservation->class }}</td>
                          <td class="px-4 py-3">{{ $reservation->created_at }}</td>
                          <td class="px-4 py-3 flex space-x-2">
-                             <button class="text-red-500 hover:text-red-400 delete-reservation"
+                             <button class="text-gray-900 hover:text-yellow-200 delete-reservation"
                                  title="Supprimer"
                                  data-reservation-id="{{ $reservation->id }}">
                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
