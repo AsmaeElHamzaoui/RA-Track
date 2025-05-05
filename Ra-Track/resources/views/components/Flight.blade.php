@@ -1,28 +1,31 @@
 <!-- ==================== SECTION GESTION DES VOLS ==================== -->
 <div id="flights-content" class="content-section hidden">
+   
+    <section class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md">
     <div class="flex justify-between items-center mb-6">
         <h3 class="text-xl font-semibold">Gestion des Vols</h3>
         {{-- Bouton pour ouvrir le modal d'ajout de vol --}}
-        <button id="open-add-flight-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+        <button id="open-add-flight-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             Ajouter un Vol
         </button>
     </div>
-
-    <section class="bg-navy-light p-4 rounded-lg shadow-md">
-        <h4 class="text-lg font-semibold mb-4">Liste des Vols</h4>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left">
                 <thead class="text-xs text-gray-400 uppercase border-b border-gray-700">
                     <tr>
-                        <th scope="col" class="px-4 py-3">N° Vol</th>
-                        <th scope="col" class="px-4 py-3">Départ</th>
-                        <th scope="col" class="px-4 py-3">Arrivée</th>
-                        <th scope="col" class="px-4 py-3">Avion</th>
-                        <th scope="col" class="px-4 py-3">Statut</th>
-                        <th scope="col" class="px-4 py-3">Actions</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">N° Vol</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">Départ</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">Arrivée</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">Avion</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">Statut</th>
+                        <th scope="col" class="px-4 py-3" style="color:#FFD476;">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="flight-table-body"> {{-- ID est toujours nécessaire pour les màj AJAX --}}
@@ -64,7 +67,7 @@
                             </td>
                             <td class="px-4 py-3 flex space-x-2">
                                 {{-- Bouton Modifier avec classe et data-id pour JS --}}
-                                <button class="edit-flight-button text-yellow-400 hover:text-yellow-300" title="Modifier" data-id="{{ $flight->id }}">
+                                <button class="edit-flight-button text-yellow-400 hover:text-yellow-200" title="Modifier" data-id="{{ $flight->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                     </svg>
