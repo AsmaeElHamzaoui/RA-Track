@@ -63,10 +63,7 @@
         }
 
         /* Assurer que la couleur navy-light est disponible comme variable CSS */
-        :root {
-            --tw-color-navy-light: #2A3F5F;
-        }
-
+       
         /* Styles pour le menu burger */
         .burger-menu {
             display: none;
@@ -125,7 +122,7 @@
                 <nav>
                     <ul>
                         <li class="mb-2">
-                            <a href="#" id="nav-dashboard" class="sidebar-link flex items-center space-x-3 p-2 rounded active" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                            <a href="#" id="nav-dashboard" class="sidebar-link bg-slate-900/70 backdrop-blur-sm flex items-center space-x-3 p-2 rounded active" style="color: #162238; border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -138,7 +135,7 @@
                         </li>
                         <!-- ==================== NOUVEAU LIEN SIDEBAR AÉROPORTS ==================== -->
                         <li class="mb-2">
-                            <a href="#" id="nav-airports" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-airports" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -152,7 +149,7 @@
                         </li>
                         <!-- ==================== FIN NOUVEAU LIEN SIDEBAR AÉROPORTS ==================== -->
                         <li class="mb-2">
-                            <a href="#" id="nav-flights" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-flights" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -165,7 +162,7 @@
                         </li>
                         <!-- ==================== NOUVEAU LIEN SIDEBAR AVIONS ==================== -->
                         <li class="mb-2">
-                            <a href="#" id="nav-aircraft" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-aircraft" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -179,7 +176,7 @@
                         </li>
                         <!-- ==================== FIN NOUVEAU LIEN SIDEBAR AVIONS ==================== -->
                         <li class="mb-2">
-                            <a href="#" id="nav-users" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-users" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -191,7 +188,7 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" id="nav-reservations" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-reservations" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -204,7 +201,7 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" id="nav-payments" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-payments" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -217,7 +214,7 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a href="#" id="nav-stats" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-navy-light text-white" style="border: 1px solid #FFD476;
+                            <a href="#" id="nav-stats" class="sidebar-link flex items-center space-x-3 p-2 rounded bg-slate-900/70 backdrop-blur-sm text-white" style="border: 1px solid #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
