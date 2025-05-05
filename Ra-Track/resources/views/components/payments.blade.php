@@ -25,7 +25,7 @@
                          <td class="px-4 py-3">{{ $payment->payment_method }}</td>
                          <td class="px-4 py-3">{{ $payment->payment_date }}</td>
                          <td class="px-4 py-3 flex space-x-2">
-                             <button class="text-red-500 hover:text-red-400 delete-payment"
+                             <button class="text-gray-900 hover:text-yellow-200 delete-payment"
                                  title="Supprimer"
                                  data-payment-id="{{ $payment->id }}">
                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
