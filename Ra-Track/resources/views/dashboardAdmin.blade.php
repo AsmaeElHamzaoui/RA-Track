@@ -66,6 +66,47 @@
         :root {
             --tw-color-navy-light: #2A3F5F;
         }
+
+        /* Styles pour le menu burger */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+
+            aside {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                z-index: 50;
+                transition: left 0.3s ease;
+            }
+
+            aside.active {
+                left: 0;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
     </style>
 
 </head>
@@ -73,7 +114,7 @@
 <body class="bg-navy text-gray-100">
 
     <div class="flex h-screen">
-        
+
         <!-- Sidebar -->
         <aside class="w-64 bg-navy-dark flex-shrink-0 p-4 flex flex-col justify-between">
             <div>
@@ -162,17 +203,15 @@
                 </nav>
             </div>
         </aside>
-
+        <div class="overlay"></div>
         <!-- Main Content -->
         <main class="flex-1 bg-navy p-6 md:p-8 overflow-y-auto relative">
 
             <!-- Header commun (peut être adapté par JS si besoin) -->
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                <div>
-                    <h2 id="main-title" class="text-2xl font-semibold">Tableau de Bord</h2>
-                    <p class="text-gray-400 text-sm">Aujourd'hui</p> <!-- Date dynamique peut être ajoutée avec JS -->
-                </div>
+                <div></div>
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    
                     <button class="relative p-2 rounded-full hover:bg-navy-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy focus:ring-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.017 5.454 1.31M5.25 17.082l4.125 4.125M18.75 17.082l-4.125 4.125M12 21a.75.75 0 0 1-.75-.75V18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75H12Z" />
@@ -189,40 +228,40 @@
             </header>
 
             <!-- ==================== Début des Sections ==================== -->
-                    <!--  Suivi du vol  -->
-                    @include('components.Dashboard')
-        
-                    <!--  gestion des aéroports -->
-                    @include('components.airport')
-        
-                    <!-- gestion des Vols  -->
-                    @include('components.Flight')
-        
-                    <!-- gestion des avions -->
-                    @include('components.plane')
-        
-                    <!-- gestion des réservations -->
-                    @include('components.reservations')
-        
-                    <!-- gestion des  utilisateurs -->
-                    @include('components.user')
-        
-                    <!-- gestion des paiements -->
-                    @include('components.payments')
-        
-                    <!-- gestion des statistiques -->
-                    @include('components.statistics')
+            <!--  Suivi du vol  -->
+            @include('components.Dashboard')
+
+            <!--  gestion des aéroports -->
+            @include('components.airport')
+
+            <!-- gestion des Vols  -->
+            @include('components.Flight')
+
+            <!-- gestion des avions -->
+            @include('components.plane')
+
+            <!-- gestion des réservations -->
+            @include('components.reservations')
+
+            <!-- gestion des  utilisateurs -->
+            @include('components.user')
+
+            <!-- gestion des paiements -->
+            @include('components.payments')
+
+            <!-- gestion des statistiques -->
+            @include('components.statistics')
             <!-- ====================  Fin des Sections  ==================== -->
 
             <!-- ====================  Début des modals  ==================== -->
-                    <!--  MODAL AÉROPORT  -->
-                    @include('modals.airport')
-        
-                    <!-- Modal  Vol -->
-                    @include('modals.flight')
-        
-                    <!--  MODAL AVION -->
-                    @include('modals.plane')
+            <!--  MODAL AÉROPORT  -->
+            @include('modals.airport')
+
+            <!-- Modal  Vol -->
+            @include('modals.flight')
+
+            <!--  MODAL AVION -->
+            @include('modals.plane')
             <!-- ====================  Fin des modals   ==================== -->
         </main>
 
@@ -326,7 +365,24 @@
 
         });
     </script>
+    <script>
+        // Gestion du menu burger
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const sidebar = document.querySelector('aside');
+            const overlay = document.querySelector('.overlay');
 
+            burgerMenu.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 
 </html>
