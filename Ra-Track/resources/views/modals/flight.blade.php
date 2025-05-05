@@ -1,9 +1,9 @@
 <!-- Modal Ajouter/Modifier Vol -->
-<div id="flight-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
-    <div class="bg-navy-light w-full max-w-lg p-6 rounded-lg shadow-xl m-4">
+<div id="flight-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop ">
+    <div class="bg-slate-700/70 backdrop-blur-sm w-full max-w-lg p-4 rounded-lg shadow-xl m-6">
         <div class="flex justify-between items-center mb-4">
-            <h4 id="flight-modal-title" class="text-xl font-semibold">Ajouter un Vol</h4>
-            <button class="close-modal text-gray-400 hover:text-white">
+            <h4 id="flight-modal-title" class="text-xl font-semibold text-yellow-200">Ajouter un Vol</h4>
+            <button class="close-modal text-yellow-200 hover:text-gray-900">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
@@ -81,13 +81,21 @@
                         @endforeach
                     </select>
                 </div>
-
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" class="close-modal px-4 py-2 rounded" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">Annuler</button>
+                    <button type="submit" class="px-4 py-2 rounded" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">Enregistrer</button>
+                </div>
             </div>
 
-            <div class="flex justify-end space-x-3 mt-6">
-                <button type="button" class="close-modal px-4 py-2 rounded bg-gray-600 hover:bg-gray-700 text-white">Annuler</button>
-                <button type="submit" class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white">Enregistrer</button>
-            </div>
+
         </form>
     </div>
 </div>
