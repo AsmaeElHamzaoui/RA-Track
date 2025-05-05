@@ -111,12 +111,12 @@
 
 </head>
 
-<body class="bg-navy text-gray-100">
+<body class="text-gray-100">
 
     <div class="flex h-screen">
 
         <!-- Sidebar -->
-        <aside class="w-64 bg-navy-dark flex-shrink-0 p-4 flex flex-col justify-between">
+        <aside class="w-64 flex-shrink-0 p-4 flex flex-col justify-between" style="background-color:rgb(22, 34, 56); border-right: 1px solid #ccc;">
             <div>
                 <div class="flex items-center space-x-2 p-2 mb-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-400 transform -rotate-45">
@@ -205,7 +205,7 @@
         </aside>
         <div class="overlay"></div>
         <!-- Main Content -->
-        <main class="flex-1 bg-navy p-6 md:p-8 overflow-y-auto relative">
+        <main class="flex-1 p-6 md:p-8 overflow-y-auto relative" style="background: linear-gradient(to right,rgb(22, 34, 56),rgba(22, 34, 56, 0.71),#F1F0E9);">
 
             <!-- Header commun (peut être adapté par JS si besoin) -->
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
