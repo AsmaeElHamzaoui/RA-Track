@@ -1,19 +1,18 @@
  <!-- ==================== Section Utilisateurs ==================== -->
  <div id="users-content" class="content-section hidden">
-     <div class="flex justify-between items-center mb-6">
-         <h3 class="text-xl font-semibold">Gestion des Utilisateurs</h3>
-     </div>
-     <section class="bg-navy-light p-4 rounded-lg shadow-md">
-         <h4 class="text-lg font-semibold mb-4">Liste des Utilisateurs</h4>
+     <section class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md">
+         <div class="flex justify-between items-center mb-6">
+             <h3 class="text-xl font-semibold">Gestion des Utilisateurs</h3>
+         </div>
          <div class="overflow-x-auto">
              <table class="w-full text-sm text-left">
                  <thead class="text-xs text-gray-400 uppercase border-b border-gray-700">
                      <tr>
-                         <th scope="col" class="px-4 py-3">Nom</th>
-                         <th scope="col" class="px-4 py-3">Email</th>
-                         <th scope="col" class="px-4 py-3">Rôle</th>
-                         <th scope="col" class="px-4 py-3">Date d'ajout</th>
-                         <th scope="col" class="px-4 py-3">Actions</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Nom</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Email</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Rôle</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Date d'ajout</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Actions</th>
                      </tr>
                  </thead>
                  <tbody>
