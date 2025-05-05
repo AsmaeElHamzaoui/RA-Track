@@ -15,10 +15,10 @@
         </button>
     </div>
 
-    <section class="p-4 rounded-lg shadow-md">
+    <section>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-400">
-                <thead class="text-xs text-gray-300 uppercase border-b border-gray-700 bg-navy-light">
+                <thead class="text-xs text-gray-300 uppercase">
                     <tr>
                         <th scope="col" class="py-3 px-6" style="color:#FFD476;">Code IATA</th>
                         <th scope="col" class="py-3 px-6" style="color:#FFD476;">Nom Aéroport</th>
@@ -32,7 +32,7 @@
                     {{-- Sera remplacé/mis à jour par le script jQuery lors des opérations CRUD --}}
                     @isset($airports) {{-- Vérifie si la variable $airports existe --}}
                         @forelse($airports as $airport)
-                            <tr class="bg-navy border-b border-gray-700 hover:bg-navy-light">
+                            <tr class="">
                                 <td class="py-4 px-6 font-medium text-white whitespace-nowrap">{{ $airport->code_iata }}</td>
                                 <td class="py-4 px-6 text-white">{{ $airport->name }}</td>
                                 <td class="py-4 px-6 text-white">{{ $airport->location }}</td>

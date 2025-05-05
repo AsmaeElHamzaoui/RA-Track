@@ -181,7 +181,7 @@ $(document).ready(function() {
                         // Ajouter une ligne dans le tableau avec les données de l'aéroport
                         // Assure-toi que les classes et data-id sont corrects sur les boutons
                         $airportTableBody.append(`
-                            <tr class="bg-navy border-b border-gray-700 hover:bg-navy-light">
+                            <tr class="border-b border-gray-700">
                                 <td class="py-4 px-6 font-medium text-white whitespace-nowrap">${airport.code_iata}</td>
                                 <td class="py-4 px-6">${airport.name}</td>
                                 <td class="py-4 px-6">${airport.location}</td>
