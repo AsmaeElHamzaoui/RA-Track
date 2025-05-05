@@ -369,7 +369,24 @@
 
         });
     </script>
-    
+    <script>
+        // Gestion du menu burger
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const sidebar = document.querySelector('aside');
+            const overlay = document.querySelector('.overlay');
+
+            burgerMenu.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 
 </html>
