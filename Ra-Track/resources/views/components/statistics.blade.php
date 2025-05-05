@@ -4,20 +4,20 @@
 
              <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                  <!-- Statistique Clé 1 -->
-                 <div class="bg-navy-light p-5 rounded-lg shadow-md">
-                     <h4 class="text-sm text-gray-400 mb-2">Total Vols </h4>
+                 <div class="bg-slate-900/70 backdrop-blur-sm p-5 rounded-lg shadow-md" style="border-left: 3px solid #FFD476;">
+                     <h4 class="text-sm text-yellow-200 mb-2">Total Vols </h4>
                      <p class="text-3xl font-bold">{{ $totalFlights }}</p>
                      <p class="text-xs text-green-400 mt-1">+5% vs mois dernier</p>
                  </div>
                   <!-- Statistique Clé 2 -->
-                 <div class="bg-navy-light p-5 rounded-lg shadow-md">
-                     <h4 class="text-sm text-gray-400 mb-2">Total Avions</h4>
+                 <div class="bg-slate-900/70 backdrop-blur-sm p-5 rounded-lg shadow-md" style="border-left: 3px solid #FFD476;">
+                     <h4 class="text-sm text-yellow-200 mb-2">Total Avions</h4>
                      <p class="text-3xl font-bold">{{ $totalPlanes }}</p>
                      <p class="text-xs text-red-400 mt-1">-0.5% vs mois dernier</p>
                  </div>
                  <!-- Statistique Clé 3 -->
-                 <div class="bg-navy-light p-5 rounded-lg shadow-md">
-                     <h4 class="text-sm text-gray-400 mb-2">Airport le plus active</h4>
+                 <div class="bg-slate-900/70 backdrop-blur-sm p-5 rounded-lg shadow-md" style="border-left: 3px solid #FFD476;">
+                     <h4 class="text-sm text-yellow-200 mb-2">Airport le plus active</h4>
                      <p class="text-3xl font-bold truncate">{{ $activeAirportName }}</p>
                      <p class="text-xs text-gray-400 mt-1">350 vols ce mois</p>
                  </div>
@@ -25,16 +25,16 @@
 
              <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                  <!-- Graphique 1: Vols par Statut -->
-                <div class="bg-navy-light p-4 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold mb-3">Répartition des Statuts de Vol</h4>
+                <div class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md" style="border-left: 3px solid #FFD476; border-right: 3px solid #FFD476;">
+                    <h4 class="text-lg font-semibold mb-3 text-yellow-200">Répartition des Statuts de Vol</h4>
                     <div class="h-64"> <!-- Hauteur fixe pour le canvas -->
                          <canvas id="flightStatusChart"></canvas>
                     </div>
                 </div>
 
                 <!-- Graphique 2: Vols par Mois -->
-                <div class="bg-navy-light p-4 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold mb-3">Nombre de Vols par Mois</h4>
+                <div class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md" style="border-left: 3px solid #FFD476; border-right: 3px solid #FFD476;">
+                    <h4 class="text-lg font-semibold mb-3 text-yellow-200">Nombre de Vols par Mois</h4>
                      <div class="h-64">
                         <canvas id="monthlyFlightsChart"></canvas>
                     </div>
@@ -44,15 +44,15 @@
 
               <!-- Section pour les Nouveaux Graphiques -->
     <section class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-navy-light p-4 rounded-lg shadow-md">
-            <h4 class="text-lg font-semibold mb-3">Paiements vs Réservations (6 derniers mois)</h4>
+        <div class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md" style="border-left: 3px solid #FFD476; border-right: 3px solid #FFD476;">
+            <h4 class="text-lg font-semibold mb-3 text-yellow-200">Paiements vs Réservations (6 derniers mois)</h4>
              <div class="h-80"> <!-- Hauteur légèrement augmentée pour les barres -->
                 <canvas id="monthlyRevenueVsReservationsChart"></canvas>
             </div>
         </div>
 
-        <div class="bg-navy-light p-4 rounded-lg shadow-md">
-            <h4 class="text-lg font-semibold mb-3">Top 6 Vols les Plus Réservés</h4>
+        <div class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md" style="border-left: 3px solid #FFD476; border-right: 3px solid #FFD476;">
+            <h4 class="text-lg font-semibold mb-3 text-yellow-200">Top 6 Vols les Plus Réservés</h4>
              <div class="h-80">
                 <canvas id="topFlightsChart"></canvas>
             </div>
