@@ -19,7 +19,6 @@
                      @foreach($users as $user)
                      <tr class="border-b border-gray-700 hover:bg-gray-700">
                          <td class="px-4 py-3 font-medium whitespace-nowrap flex items-center space-x-2">
-                             <img src="https://via.placeholder.com/32/FFFFFF/808080?text=JP" alt="Avatar" class="w-8 h-8 rounded-full">
                              <span>{{ $user->name }}</span>
                          </td>
                          <td class="px-4 py-3">{{ $user->email }}</td>
