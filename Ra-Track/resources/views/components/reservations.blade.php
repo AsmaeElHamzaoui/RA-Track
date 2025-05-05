@@ -1,21 +1,20 @@
  <!-- ==================== Section Utilisateurs ==================== -->
  <div id="reservations-content" class="content-section hidden">
-     <div class="flex justify-between items-center mb-6">
-         <h3 class="text-xl font-semibold">Gestion des réservations</h3>
-     </div>
-     <section class="bg-navy-light p-4 rounded-lg shadow-md">
-         <h4 class="text-lg font-semibold mb-4">Liste des réservations</h4>
+     <section class="bg-slate-900/70 backdrop-blur-sm p-4 rounded-lg shadow-md">
+         <div class="flex justify-between items-center mb-6">
+             <h3 class="text-xl font-semibold">Gestion des réservations</h3>
+         </div>
          <div class="overflow-x-auto">
              <table class="w-full text-sm text-left">
                  <thead class="text-xs text-gray-400 uppercase border-b border-gray-700">
                      <tr>
-                         <th scope="col" class="px-4 py-3">Nom</th>
-                         <th scope="col" class="px-4 py-3">Vol</th>
-                         <th scope="col" class="px-4 py-3">Aéaroport départ</th>
-                         <th scope="col" class="px-4 py-3">Aéaroport d'arrivé</th>
-                         <th scope="col" class="px-4 py-3">Class</th>
-                         <th scope="col" class="px-4 py-3">Temps de réservation</th>
-                         <th scope="col" class="px-4 py-3">Action</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Nom</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Vol</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Aéaroport départ</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Aéaroport d'arrivé</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Class</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Temps de réservation</th>
+                         <th scope="col" class="px-4 py-3" style="color:#FFD476;">Action</th>
                      </tr>
                  </thead>
                  <tbody>
@@ -49,38 +48,37 @@
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
  <script>
-    $(document).ready(function() {
-    // Lorsque le bouton de suppression est cliqué
-    $('.delete-reservation').on('click', function(e) {
-        e.preventDefault(); // Empêche l'action par défaut du bouton
+     $(document).ready(function() {
+         // Lorsque le bouton de suppression est cliqué
+         $('.delete-reservation').on('click', function(e) {
+             e.preventDefault(); // Empêche l'action par défaut du bouton
 
-        // Récupérer l'ID de la réservation à supprimer à partir de l'élément cliqué
-        var reservationId = $(this).data('reservation-id');
-        
-        // Confirmer la suppression via une boîte de dialogue
-        if (confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')) {
-            // Effectuer la requête AJAX pour supprimer la réservation
-            $.ajax({
-                url: '/reservations/' + reservationId, // L'URL de l'API de suppression
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}', // Assurez-vous d'ajouter le token CSRF
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        // Supprimer la ligne du tableau
-                        $('tr[data-reservation-id="' + reservationId + '"]').remove();
-                        alert('Réservation supprimée avec succès.');
-                    } else {
-                        alert('Une erreur est survenue lors de la suppression de la réservation.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Une erreur est survenue. Veuillez réessayer.');
-                }
-            });
-        }
-    });
-});
+             // Récupérer l'ID de la réservation à supprimer à partir de l'élément cliqué
+             var reservationId = $(this).data('reservation-id');
 
+             // Confirmer la suppression via une boîte de dialogue
+             if (confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')) {
+                 // Effectuer la requête AJAX pour supprimer la réservation
+                 $.ajax({
+                     url: '/reservations/' + reservationId, // L'URL de l'API de suppression
+                     type: 'DELETE',
+                     data: {
+                         _token: '{{ csrf_token() }}', // Assurez-vous d'ajouter le token CSRF
+                     },
+                     success: function(response) {
+                         if (response.status === 'success') {
+                             // Supprimer la ligne du tableau
+                             $('tr[data-reservation-id="' + reservationId + '"]').remove();
+                             alert('Réservation supprimée avec succès.');
+                         } else {
+                             alert('Une erreur est survenue lors de la suppression de la réservation.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         alert('Une erreur est survenue. Veuillez réessayer.');
+                     }
+                 });
+             }
+         });
+     });
  </script>
