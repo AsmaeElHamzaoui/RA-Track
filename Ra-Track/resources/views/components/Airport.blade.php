@@ -1,9 +1,13 @@
 <!-- ==================== SECTION GESTION DES AÉROPORTS ==================== -->
-<div id="airports-content" class="content-section hidden bg-navy-dark p-6 rounded-lg shadow-lg">
+<div id="airports-content" class="content-section hidden bg-slate-900/70 backdrop-blur-sm p-6 rounded-lg shadow-lg">
     <div class="flex justify-between items-center mb-6">
         <h3 class="text-xl font-semibold text-white">Gestion des Aéroports</h3>
         {{-- Bouton pour ouvrir le modal d'ajout d'aéroport --}}
-        <button id="open-add-airport-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+        <button id="open-add-airport-modal" class="font-bold py-2 px-4 rounded inline-flex items-center" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
@@ -11,16 +15,15 @@
         </button>
     </div>
 
-    <section class="bg-navy-light p-4 rounded-lg shadow-md">
-        <h4 class="text-lg font-semibold mb-4 text-white">Liste des Aéroports</h4>
+    <section class="p-4 rounded-lg shadow-md">
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-400">
                 <thead class="text-xs text-gray-300 uppercase border-b border-gray-700 bg-navy-light">
                     <tr>
-                        <th scope="col" class="py-3 px-6">Code IATA</th>
-                        <th scope="col" class="py-3 px-6">Nom Aéroport</th>
-                        <th scope="col" class="py-3 px-6">Localisation</th>
-                        <th scope="col" class="py-3 px-6">Actions</th>
+                        <th scope="col" class="py-3 px-6" style="color:#FFD476;">Code IATA</th>
+                        <th scope="col" class="py-3 px-6" style="color:#FFD476;">Nom Aéroport</th>
+                        <th scope="col" class="py-3 px-6" style="color:#FFD476;">Localisation</th>
+                        <th scope="col" class="py-3 px-6" style="color:#FFD476;">Actions</th>
                     </tr>
                 </thead>
                 {{-- ID crucial pour que le script jQuery puisse rafraîchir le contenu --}}
