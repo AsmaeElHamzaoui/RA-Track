@@ -242,17 +242,17 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
-                    <button class="relative p-2 rounded-full hover:bg-navy-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy focus:ring-white">
+                    <button class="relative p-2 rounded-full bg-slate-900/70 backdrop-blur-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.017 5.454 1.31M5.25 17.082l4.125 4.125M18.75 17.082l-4.125 4.125M12 21a.75.75 0 0 1-.75-.75V18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75H12Z" />
                         </svg>
-                        <span class="absolute top-1 right-1 block h-3 w-3 rounded-full bg-red-500 ring-2 ring-navy">
-                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                        <span class="absolute top-1 right-1 block h-3 w-3 rounded-full bg-yellow-200 ring-2 ring-yellow-700">
+                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-200 opacity-75"></span>
                         </span>
                     </button>
                     <div class="flex items-center space-x-2">
-                        <img src="https://via.placeholder.com/40/FFFFFF/808080?text=JP" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-gray-500">
-                        <span>John Pilot</span>
+                        <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-gray-500">
+                        <span class="font-bold" style="color:#162238;">John Pilot</span>
                     </div>
                 </div>
             </header>
