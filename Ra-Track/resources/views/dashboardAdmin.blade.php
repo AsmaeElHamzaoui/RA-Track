@@ -113,7 +113,7 @@
     <div class="flex h-screen">
 
         <!-- Sidebar -->
-        <aside class="w-64 flex-shrink-0 p-4 flex flex-col justify-between" style="background-color:rgb(22, 34, 56); border-right: 1px solid #ccc;">
+        <aside class="w-64 flex-shrink-0 p-4 flex flex-col justify-between" style="background-color:rgb(22, 34, 56); border-right: 1px solid #FFD476;box-shadow: 0 4px 8px rgb(254, 254, 254);">
             <div>
                 <div class="flex items-center space-x-2 p-2 mb-10">
                     <img src="{{ asset('images/logo.png') }}" alt="LimoWide Logo" class="h-6 md:h-8">
@@ -252,7 +252,7 @@
                     </button>
                     <div class="flex items-center space-x-2">
                         <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-gray-500">
-                        <span class="font-bold" style="color:#162238;">John Pilot</span>
+                        <span class="font" style="color:#162238;">John Pilot</span>
                     </div>
                 </div>
             </header>
