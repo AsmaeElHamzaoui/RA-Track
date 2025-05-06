@@ -29,7 +29,7 @@
             border: 1px solid #4b5563;
             border-radius: 0.5rem;
             padding: 0.7rem;
-            background-color: #1f2937;
+            background-color:rgb(93, 103, 117);
             color: #d1d5db;
         }
 
@@ -39,11 +39,11 @@
         }
 
         #maintenance-calendar-container .fc-day-today {
-            background-color: rgba(75, 85, 99, 0.5);
+            background-color: rgb(114, 132, 158);
         }
 
         #maintenance-calendar-container .fc-event {
-            background-color: #3b82f6;
+            background-color:rgb(197, 198, 198);
             border-color: #2563eb;
         }
 
@@ -86,7 +86,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
+                background-color: rgba(189, 26, 26, 0.5);
                 z-index: 30;
             }
 
@@ -121,30 +121,27 @@
     <div class="sidebar-overlay"></div>
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <aside class="sidebar w-64 bg-white shadow-md flex flex-col">
+        <aside class="sidebar w-64 shadow-md flex flex-col" style="background-color:#162238;">
             <!-- Logo/Marque -->
-            <div class="p-6 border-b flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471M11.42 15.17 5.877 21m5.543-5.83L7.05 13.47l-2.54 2.541A2.652 2.652 0 0 0 2.988 21l2.889-.011m5.543-5.83.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471m0 0L13.47 7.05l2.54-2.541A2.652 2.652 0 0 0 21 2.988l-.011 2.889m-5.83 5.543-5.543 5.543" />
-                </svg>
-                <span class="text-xl font-bold text-gray-800">Maintenance Hub</span>
+            <div class="p-6 flex items-center space-x-3">
+            <img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt="">
             </div>
 
             <!-- Navigation -->
             <nav class="flex-1 p-4 space-y-2">
-                <a href="#" id="nav-current-maintenance" class="sidebar-link flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 active" data-target="current-maintenance-section">
+                <a href="#" id="nav-current-maintenance"  class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 active" data-target="current-maintenance-section">
                     <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471M11.42 15.17 5.877 21m5.543-5.83L7.05 13.47l-2.54 2.541A2.652 2.652 0 0 0 2.988 21l2.889-.011m5.543-5.83.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471m0 0L13.47 7.05l2.54-2.541A2.652 2.652 0 0 0 21 2.988l-.011 2.889m-5.83 5.543-5.543 5.543" />
                     </svg>
-                    Avions en Maintenance
+                     en Maintenance
                 </a>
-                <a href="#" id="nav-maintenance-planning" class="sidebar-link flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100" data-target="maintenance-planning-section">
+                <a href="#" id="nav-maintenance-planning" class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100" data-target="maintenance-planning-section">
                     <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                     </svg>
-                    Planification Maintenance
+                    Planification
                 </a>
-                <a href="#" id="nav-calendar-view" class="sidebar-link flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100" data-target="calendar-view-section">
+                <a href="#" id="nav-calendar-view" class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100" data-target="calendar-view-section">
                     <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                     </svg>
@@ -156,7 +153,7 @@
         <!-- Contenu Principal -->
         <main class="flex-1 flex flex-col overflow-hidden">
             <!-- Barre d'En-tête Supérieure -->
-            <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+            <header class="p-4 flex justify-between items-center">
                 <div>
                     <h1 id="main-header-title" class="text-xl font-semibold text-gray-700">Avions en Maintenance</h1>
                 </div>
@@ -222,7 +219,11 @@
                 <section id="maintenance-planning-section" class="content-section">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-gray-800">Planification des Maintenances</h2>
-                        <button id="open-maintenance-modal-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button id="open-maintenance-modal-button" class="font-bold py-2 px-4 rounded inline-flex items-center"style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                                    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    5px 5px 15px rgba(0, 0, 0, 0.35),
+                                    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                                    inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -252,7 +253,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($maintenance->start_date)->format('d/m/Y') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($maintenance->end_date)->format('d/m/Y') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                        <button class="text-indigo-600 hover:text-indigo-900 edit-maintenance-btn"
+                                        <button class="text-gary-900 hover:text-yellow-400 edit-maintenance-btn"
                                             data-id="{{ $maintenance->id }}"
                                             data-aircraft-id="{{ $maintenance->aircraft_id }}"
                                             data-type="{{ $maintenance->maintenance_type }}"
@@ -260,7 +261,7 @@
                                             data-end="{{ $maintenance->end_date }}">
                                             Modifier
                                         </button>
-                                        <button class="text-red-600 hover:text-red-900 delete-maintenance-btn" data-id="{{ $maintenance->id }}">
+                                        <button class="text-gray-900 hover:text-yellow-400 delete-maintenance-btn" data-id="{{ $maintenance->id }}">
                                             Supprimer
                                         </button>
                                     </td>
@@ -282,16 +283,6 @@
 
                 <!-- Section 3: Vue Calendrier -->
                 <section id="calendar-view-section" class="content-section">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-semibold text-gray-800">Vue Calendrier des Maintenances</h2>
-                        <button id="open-maintenance-modal-button-from-calendar" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            Ajouter Maintenance
-                        </button>
-                    </div>
-
                     <!-- Calendrier -->
                     <div id="maintenance-calendar-container">
                         <!-- Le calendrier FullCalendar sera injecté ici par JavaScript -->
