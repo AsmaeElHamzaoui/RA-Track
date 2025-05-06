@@ -29,7 +29,7 @@
             border: 1px solid #4b5563;
             border-radius: 0.5rem;
             padding: 0.7rem;
-            background-color:rgb(93, 103, 117);
+            background-color: rgb(93, 103, 117);
             color: #d1d5db;
         }
 
@@ -43,7 +43,7 @@
         }
 
         #maintenance-calendar-container .fc-event {
-            background-color:rgb(197, 198, 198);
+            background-color: rgb(197, 198, 198);
             border-color: #2563eb;
         }
 
@@ -124,16 +124,16 @@
         <aside class="sidebar w-64 shadow-md flex flex-col" style="background-color:#162238;">
             <!-- Logo/Marque -->
             <div class="p-6 flex items-center space-x-3">
-            <img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt="">
+                <img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt="">
             </div>
 
             <!-- Navigation -->
             <nav class="flex-1 p-4 space-y-2">
-                <a href="#" id="nav-current-maintenance"  class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 active" data-target="current-maintenance-section">
+                <a href="#" id="nav-current-maintenance" class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 active" data-target="current-maintenance-section">
                     <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471M11.42 15.17 5.877 21m5.543-5.83L7.05 13.47l-2.54 2.541A2.652 2.652 0 0 0 2.988 21l2.889-.011m5.543-5.83.471.471a1.402 1.402 0 0 1 1.982 0l3.018-3.018a1.402 1.402 0 0 1 0-1.982l-.471-.471m0 0L13.47 7.05l2.54-2.541A2.652 2.652 0 0 0 21 2.988l-.011 2.889m-5.83 5.543-5.543 5.543" />
                     </svg>
-                     en Maintenance
+                    en Maintenance
                 </a>
                 <a href="#" id="nav-maintenance-planning" class="sidebar-link bg-white flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100" data-target="maintenance-planning-section">
                     <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -158,7 +158,7 @@
                     <h1 id="main-header-title" class="text-xl font-semibold text-gray-700">Avions en Maintenance</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                <button class="relative p-2 rounded-full bg-slate-900/70 backdrop-blur-sm">
+                    <button class="relative p-2 rounded-full bg-slate-900/70 backdrop-blur-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.017 5.454 1.31M5.25 17.082l4.125 4.125M18.75 17.082l-4.125 4.125M12 21a.75.75 0 0 1-.75-.75V18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75H12Z" />
                         </svg>
@@ -167,6 +167,17 @@
                         </span>
                     </button>
                     <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-blue-300">
+                    <form method="POST" action="/logout" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/70 backdrop-blur-sm text-yellow-200 hover:bg-red-200">
+                        @csrf
+                        <button>
+                            <!-- Icône logout -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10v1m0 4v2" />
+                            </svg>
+                        </button>
+                    </form>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -221,7 +232,7 @@
                 <section id="maintenance-planning-section" class="content-section">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-gray-800">Planification des Maintenances</h2>
-                        <button id="open-maintenance-modal-button" class="font-bold py-2 px-4 rounded inline-flex items-center"style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
+                        <button id="open-maintenance-modal-button" class="font-bold py-2 px-4 rounded inline-flex items-center" style="color: #162238; border: 1px solid #FFD476;background: #FFD476;
                                     box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
