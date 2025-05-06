@@ -45,7 +45,7 @@
 
     <div class="container mx-auto px-4 py-12 max-w-7xl">
         <div class="text-center mb-12 animate-fade-in">
-            <h1 class="text-4xl font-bold text-green-400 mb-4 animate-pulse-slow">
+            <h1 class="text-4xl font-bold text-yellow-200 mb-4 animate-pulse-slow">
                 <i class="fas fa-calendar-check mr-3"></i>
                 Mes Réservations
             </h1>
@@ -65,22 +65,6 @@
                                 <i class="fas fa-arrow-right mx-2 text-gray-500"></i> 
                                 {{ $reservation->flight->arrivalAirport->name }}
                             </h3>
-                            <span class="bg-yellow-900/50 text-yellow-400 text-sm font-semibold px-3 py-1 rounded-full border border-yellow-800">
-                                {{ ucfirst($reservation->class) }}
-                            </span>
-                        </div>
-
-                        <div class="grid md:grid-cols-3 gap-6 mb-6">
-                            <div class="flex items-start">
-                                <div class="bg-gray-700 p-3 rounded-full mr-4 text-yellow-400">
-                                    <i class="fas fa-calendar-day"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Date de départ</h4>
-                                    <p class="text-lg font-medium text-white">{{ $reservation->date }}</p>
-                                </div>
-                            </div>
-
                             <div class="flex items-start">
                                 <div class="bg-gray-700 p-3 rounded-full mr-4 text-yellow-400">
                                     <i class="fas fa-clock"></i>
@@ -92,20 +76,17 @@
                                     </p>
                                 </div>
                             </div>
+                            <span class="bg-yellow-900/50 text-yellow-400 text-sm font-semibold px-3 py-1 rounded-full border border-yellow-800">
+                                {{ ucfirst($reservation->class) }}
+                            </span>
+                        </div>
 
-                            <div class="flex items-start">
-                                <div class="bg-gray-700 p-3 rounded-full mr-4 text-yellow-400">
-                                    <i class="fas fa-barcode"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Référence</h4>
-                                    <p class="text-lg font-medium text-white">{{ $reservation->booking_reference }}</p>
-                                </div>
-                            </div>
+                        <div class="grid md:grid-cols-3 gap-6 mb-6">
+                          
                         </div>
 
                         <div class="border-t border-gray-700 pt-6">
-                            <h4 class="text-lg font-semibold text-yellow-400 mb-4 flex items-center">
+                            <h4 class="text-lg font-semibold text-yellow-200 mb-4 flex items-center">
                                 <i class="fas fa-users mr-2"></i>
                                 Passagers
                             </h4>
