@@ -108,6 +108,17 @@
                         </span>
                     </button>
                     <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-blue-300">
+                    <form method="POST" action="/logout" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/70 backdrop-blur-sm text-yellow-200 hover:bg-red-200"> 
+                            @csrf
+                            <button>
+                            <!-- Icône logout -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10v1m0 4v2" />
+                            </svg>
+                            </button>
+                        </form>
                     <button id="sidebar-toggle" class="md:hidden text-gray-600 hover:text-gray-800">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

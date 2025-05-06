@@ -167,7 +167,7 @@
                         </span>
                     </button>
                     <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-blue-300">
-                    <form method="POST" action="/logout" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/70 backdrop-blur-sm text-yellow-200 hover:bg-red-200">
+                    <form method="POST" action="/logout" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/70 backdrop-blur-sm text-yellow-200">
                         @csrf
                         <button>
                             <!-- Icône logout -->
