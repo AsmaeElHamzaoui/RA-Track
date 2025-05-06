@@ -25,7 +25,16 @@
             }
         }
     </script>
-
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    <!-- Include Leaflet.curve plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-curve@0.8.2/leaflet.curve.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -63,7 +72,7 @@
         }
 
         /* Assurer que la couleur navy-light est disponible comme variable CSS */
-       
+
         /* Styles pour le menu burger */
         .burger-menu {
             display: none;
@@ -104,6 +113,27 @@
                 display: block;
             }
         }
+
+        /* Set styles for the airplane SVG icon */
+        .plane-svg-icon {
+            width: 24px;
+            height: 24px;
+            fill: #F59E0B;
+            /* Tailwind yellow-500 */
+        }
+
+        /* Remove default Leaflet icon background/border */
+        .dummy-transparent-bg {
+            background-color: transparent !important;
+            border: none !important;
+        }
+
+        /* Center the icon properly within its container */
+        .leaflet-marker-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 </head>
@@ -141,7 +171,7 @@
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                                 <!-- Icône Aéroport (Exemple: Bâtiment ou Tour) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"  style="color:#FFD476">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" style="color:#FFD476">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M8.25 21h7.5M12 3v18m0 0v-6.75m0 6.75H9.75m2.25 0h2.25m-2.25 0V12m0 9V9.75M12 9.75h-2.25m2.25 0h2.25M12 9.75V6m0 3.75v-1.5m0 1.5V3" />
                                 </svg>
                                 <span>Gestion des Aéroports</span>
@@ -154,7 +184,7 @@
                                     5px 5px 15px rgba(0, 0, 0, 0.35),
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform -rotate-45"  style="color:#FFD476">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform -rotate-45" style="color:#FFD476">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                 </svg>
                                 <span>Gestion des Vols</span>
@@ -168,7 +198,7 @@
                                     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
                                     inset 5px 5px 15px rgba(0, 0, 0, 0.35);">
                                 <!-- Icône Avion (peut être changée si souhaité) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"  style="color:#FFD476">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" style="color:#FFD476">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h17.5" />
                                 </svg>
                                 <span>Gestion des Avions</span>
