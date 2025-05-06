@@ -228,7 +228,121 @@ document.addEventListener('DOMContentLoaded', function() {
         return { position: { lat: currentLat, lng: currentLng }, rotation: rotation, progress: progress };
     }
 
+    // --- Mise à jour des Marqueurs sur la carte ---
+    function updateFlightMarkers() {
+        if (!allFlightsData || allFlightsData.length === 0) return;
+
+        let displayedFlightsCount = 0;
+
+        allFlightsData.forEach(flight => {
+            const flightState = calculateCurrentPositionAndRotation(flight);
+
+            if (!flightState) {
+                 if (flightDataStore[flight.id]) {
+                    activeFlightsLayer.removeLayer(flightDataStore[flight.id].marker);
+                    delete flightDataStore[flight.id];
+                 }
+                 return;
+            }
+
+            const randomAltitude = Math.floor(8000 + Math.random() * 4000);
+            const randomSpeed = Math.floor(700 + Math.random() * 250);
+            const departureAirport = staticAirports[flight.departure_code];
+            const arrivalAirport = staticAirports[flight.arrival_code];
+
+            const tooltipContent = `<b>Vol: ${flight.flight_number}</b><br>` +
+                                   `${flight.plane.airline || 'N/A'} - ${flight.plane.model || 'N/A'}<br>` +
+                                   `De: ${flight.departure_code} (${departureAirport.name})<br>` +
+                                   `À: ${flight.arrival_code} (${arrivalAirport.name})<br>` +
+                                   `Progression: ${(flightState.progress * 100).toFixed(1)}%<br>` +
+                                   `--- Simulation ---<br>` +
+                                   `Altitude: ${randomAltitude} m<br>` +
+                                   `Vitesse: ${randomSpeed} km/h`;
+
+            if (flightDataStore[flight.id]) {
+                const marker = flightDataStore[flight.id].marker;
+                marker.setLatLng([flightState.position.lat, flightState.position.lng]);
+                marker.setIcon(createPlaneIcon(flightState.rotation));
+                marker.setTooltipContent(tooltipContent);
+                displayedFlightsCount++;
+
+            } else {
+                try {
+                    const newMarker = L.marker([flightState.position.lat, flightState.position.lng], {
+                        icon: createPlaneIcon(flightState.rotation),
+                        flightData: flight
+                    })
+                    .bindTooltip(tooltipContent, {
+                        permanent: false,
+                        direction: 'top',
+                        offset: L.point(0, -14)
+                    })
+                    .on('click', onFlightClick)
+                    .addTo(activeFlightsLayer);
+
+                    flightDataStore[flight.id] = { marker: newMarker, data: flight };
+                    displayedFlightsCount++;
+                } catch (e) {
+                     console.error(`Erreur lors de la création du marqueur pour le vol ${flight.flight_number}:`, e);
+                }
+            }
+        });
+
+        const countElement = document.getElementById('active-flights-count');
+        if (countElement) {
+             countElement.textContent = displayedFlightsCount;
+        }
+    }
+
  
+
+    // --- Chargement des données JSON et Démarrage de la simulation ---
+    async function loadAndStartSimulation() {
+        try {
+            const response = await fetch('{{ asset('data/flights_data.json') }}?_=' + new Date().getTime());
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP! Statut: ${response.status}`);
+            }
+            const rawFlightData = await response.json();
+
+            if (!Array.isArray(rawFlightData)) {
+                 throw new Error("Le fichier JSON ne contient pas un tableau de vols.");
+            }
+
+            const nowMs = new Date().getTime();
+            allFlightsData = rawFlightData.map(flight => {
+                flight.departure_time_ms = parseRelativeTime(flight.departure_time, nowMs);
+                flight.arrival_time_ms = parseRelativeTime(flight.arrival_time, nowMs);
+
+                if (!staticAirports[flight.departure_code] || !staticAirports[flight.arrival_code]) {
+                    console.warn(`Vol ${flight.flight_number} ignoré: aéroport inconnu.`);
+                    return null;
+                }
+                 if (isNaN(flight.departure_time_ms) || isNaN(flight.arrival_time_ms)) {
+                     console.warn(`Vol ${flight.flight_number} ignoré: temps invalides.`);
+                     return null;
+                 }
+
+                return flight;
+            }).filter(flight => flight !== null);
+
+            console.log(`Données de vol chargées: ${allFlightsData.length} vols valides.`);
+
+            initializeMap();
+            updateFlightMarkers();
+
+            const UPDATE_INTERVAL_MS = 2500;
+            if (updateInterval) clearInterval(updateInterval);
+            updateInterval = setInterval(updateFlightMarkers, UPDATE_INTERVAL_MS);
+
+        } catch (error) {
+            console.error("Erreur de chargement des données:", error);
+             const mapDiv = document.getElementById('map');
+             if(mapDiv) mapDiv.innerHTML = `<p class="text-red-500 p-4 text-center">Erreur: ${error.message}</p>`;
+             const countElement = document.getElementById('active-flights-count');
+             if (countElement) countElement.textContent = 'Erreur';
+        }
+    }
 
     // --- Lancement ---
     loadAndStartSimulation();
