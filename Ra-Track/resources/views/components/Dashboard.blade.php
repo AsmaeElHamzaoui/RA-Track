@@ -182,7 +182,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+    // --- Calcul Position & Rotation ---
+    function calculateCurrentPositionAndRotation(flight) {
+        const departureAirport = staticAirports[flight.departure_code];
+        const arrivalAirport = staticAirports[flight.arrival_code];
+
+        if (!departureAirport || !arrivalAirport) {
+            return null;
+        }
+
+        const now = new Date().getTime();
+        const departureTime = flight.departure_time_ms;
+        const arrivalTime = flight.arrival_time_ms;
+
+        if (isNaN(departureTime) || isNaN(arrivalTime)) {
+             return null;
+        }
+
+        if (now < departureTime) return { position: departureAirport, rotation: 0, progress: 0 };
+        if (now >= arrivalTime) return { position: arrivalAirport, rotation: 0, progress: 1 };
+
+        const totalDuration = arrivalTime - departureTime;
+        if (totalDuration <= 0) {
+             return { position: arrivalAirport, rotation: 0, progress: 1 };
+        }
+
+        const elapsedTime = now - departureTime;
+        const progress = Math.min(elapsedTime / totalDuration, 1);
+
+        const currentLat = departureAirport.lat + (arrivalAirport.lat - departureAirport.lat) * progress;
+        const currentLng = departureAirport.lng + (arrivalAirport.lng - departureAirport.lng) * progress;
+
+        const dLng = toRadians(arrivalAirport.lng - departureAirport.lng);
+        const lat1 = toRadians(departureAirport.lat);
+        const lat2 = toRadians(arrivalAirport.lat);
+
+        const y = Math.sin(dLng) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) -
+                  Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+        let bearing = toDegrees(Math.atan2(y, x));
+        bearing = (bearing + 360) % 360;
+
+        const rotation = bearing;
+
+        return { position: { lat: currentLat, lng: currentLng }, rotation: rotation, progress: progress };
+    }
+
+ 
 
     // --- Lancement ---
     loadAndStartSimulation();
