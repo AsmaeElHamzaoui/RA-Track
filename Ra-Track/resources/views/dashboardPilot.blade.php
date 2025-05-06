@@ -288,11 +288,11 @@
 
     <!-- Add Report Modal -->
     <div id="add-report-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="relative mx-auto p-6 border w-full max-w-md shadow-lg rounded-md bg-white">
+        <div class="relative mx-auto p-6 border w-full max-w-md shadow-lg rounded-md relative bg-slate-900/70 ">
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <h3 class="text-lg font-medium text-gray-900" id="modal-title">Add Flight Report</h3>
-                <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-lg font-medium text-yellow-200" id="modal-title">Add Flight Report</h3>
+                <button id="close-modal-btn" class="text-yellow-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
