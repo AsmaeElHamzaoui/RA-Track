@@ -70,61 +70,110 @@
 </div>
 
 <script>
-    // Initialize the map when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        // Coordinates (Approximate)
-        const cdgCoords = [49.0097, 2.5479]; // Paris CDG
-        const jfkCoords = [40.6413, -73.7781]; // New York JFK
-        // Estimate current position (Manually placed for visual representation)
-        const planePosition = [48.5, -35]; // Slightly adjusted position
-        // Calculate approximate bearing from CDG towards JFK for initial rotation
-        const angleRad = Math.atan2(jfkCoords[1] - cdgCoords[1], jfkCoords[0] - cdgCoords[0]);
-        const angleDeg = angleRad * (180 / Math.PI);
-        const planeHeading = angleDeg + 90; // Adjusting based on SVG orientation
+document.addEventListener('DOMContentLoaded', function() {
+    let map;
+    let activeFlightsLayer = L.layerGroup();
+    let flightDataStore = {}; // Stocke les marqueurs et données par ID de vol
+    let updateInterval;
+    let selectedPath = null; // Garde la trace du chemin sélectionné et affiché
+    let allFlightsData = []; // Variable globale pour stocker les données chargées du JSON
 
-        // 1. Create Map Instance
-        const map = L.map('map', {
-            zoomControl: false // Hide default zoom controls
-        }).setView([48, -30], 3.5); // Center roughly between Paris & NY, zoom level 3.5
+    // --- Données Statiques des Aéroports ---
+    const staticAirports = {
+        'CDG': { name: 'Paris Charles de Gaulle', lat: 49.0097, lng: 2.5479 },
+        'JFK': { name: 'New York John F. Kennedy', lat: 40.6413, lng: -73.7781 },
+        'LHR': { name: 'Londres Heathrow', lat: 51.4700, lng: -0.4543 },
+        'LAX': { name: 'Los Angeles International', lat: 33.9416, lng: -118.4085 },
+        'DXB': { name: 'Dubaï International', lat: 25.2532, lng: 55.3657 },
+        'HND': { name: 'Tokyo Haneda', lat: 35.5494, lng: 139.7798 },
+        'AMS': { name: 'Amsterdam Schiphol', lat: 52.3105, lng: 4.7683 },
+        'FRA': { name: 'Francfort Airport', lat: 50.0379, lng: 8.5622 },
+        'SIN': { name: 'Singapour Changi', lat: 1.3644, lng: 103.9915 },
+        'SYD': { name: 'Sydney Kingsford Smith', lat: -33.9399, lng: 151.1753 },
+        'HKG': { name: 'Hong Kong International', lat: 22.3080, lng: 113.9185 },
+        'DOH': { name: 'Doha Hamad International', lat: 25.2731, lng: 51.6081 },
+        'IST': { name: 'Istanbul Airport', lat: 41.2753, lng: 28.7519 },
+        'NRT': { name: 'Tokyo Narita', lat: 35.7719, lng: 140.3928 },
+        'AUH': { name: 'Abu Dhabi International', lat: 24.4330, lng: 54.6511 },
+        'DFW': { name: 'Dallas/Fort Worth International', lat: 32.8998, lng: -97.0403 },
+        'ORD': { name: 'Chicago O\'Hare International', lat: 41.9742, lng: -87.9073 },
+        'ATL': { name: 'Hartsfield-Jackson Atlanta', lat: 33.6407, lng: -84.4277 },
+        'LAS': { name: 'Las Vegas McCarran', lat: 36.0840, lng: -115.1537 },
+        'SFO': { name: 'San Francisco International', lat: 37.6213, lng: -122.3790 },
+        'PEK': { name: 'Beijing Capital International', lat: 40.0799, lng: 116.6031 },
+        'PVG': { name: 'Shanghai Pudong International', lat: 31.1444, lng: 121.8053 },
+        'CAN': { name: 'Guangzhou Baiyun International', lat: 23.3924, lng: 113.2988 },
+        'ICN': { name: 'Seoul Incheon International', lat: 37.4602, lng: 126.4407 },
+        'MIA': { name: 'Miami International', lat: 25.7959, lng: -80.2871 },
+        'ACC': { name: 'Accra Kotoka International', lat: 5.6052, lng: -0.1667 },
+        'LOS': { name: 'Lagos Murtala Muhammed', lat: 6.5774, lng: 3.3210 },
+        'GRU': { name: 'São Paulo/Guarulhos International', lat: -23.4319, lng: -46.4731 },
+        'EZE': { name: 'Buenos Aires Ministro Pistarini', lat: -34.8222, lng: -58.5358 },
+        'EWR': { name: 'Newark Liberty International', lat: 40.6925, lng: -74.1687 },
+        'BOM': { name: 'Mumbai Chhatrapati Shivaji', lat: 19.0896, lng: 72.8656 },
+        'BOS': { name: 'Boston Logan International', lat: 42.3656, lng: -71.0096 },
+        'JNB': { name: 'Johannesburg O.R. Tambo', lat: -26.1392, lng: 28.2460 },
+        'SCL': { name: 'Santiago Arturo Merino Benítez', lat: -33.3928, lng: -70.7900 },
+        'YYZ': { name: 'Toronto Pearson International', lat: 43.6777, lng: -79.6248 }
+    };
 
-        // 2. Add Tile Layer (Using Esri World Imagery for colored satellite view)
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-            maxZoom: 18
-        }).addTo(map);
+    // --- Fonctions Utilitaires ---
+    function toRadians(degrees) { return degrees * Math.PI / 180; }
+    function toDegrees(radians) { return radians * 180 / Math.PI; }
+    function hoursToMs(h) { return h * 60 * 60 * 1000; }
 
-        // 3. Define Airplane Icon using SVG
-        const planeIcon = L.divIcon({
-            html: `<svg xmlns="http://www.w3.org/2000/svg" class="plane-svg-icon" style="transform: rotate(${planeHeading}deg);" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`,
-            className: 'dummy-transparent-bg',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-        });
+    function parseRelativeTime(timeString, nowMs) {
+        if (typeof timeString !== 'string') return nowMs;
 
-        // 4. Draw Curved Flight Path using Leaflet.curve
-        const pathCoords = [
-            'M', cdgCoords, // Move to start
-            'C', // Curve command
-            [52, -10], // Control point 1
-            [45, -50], // Control point 2
-            jfkCoords // End point
-        ];
+        const parts = timeString.split('_');
+        if (parts.length !== 2) {
+            console.warn(`Format de temps invalide: ${timeString}`);
+            return nowMs;
+        }
 
-        const flightPath = L.curve(pathCoords, {
-            color: '#F59E0B', // Tailwind yellow-500
-            weight: 2.5,
-            opacity: 0.8,
-        }).addTo(map);
+        const direction = parts[0].toUpperCase();
+        const valuePart = parts[1].replace('H', '');
+        const hours = parseFloat(valuePart);
 
-        // Fit map bounds to the path slightly zoomed out
-        map.fitBounds(flightPath.getBounds().pad(0.2));
+        if (isNaN(hours)) {
+             console.warn(`Valeur de temps invalide: ${timeString}`);
+             return nowMs;
+        }
 
-        // 5. Add Airplane Marker
-        const planeMarker = L.marker(planePosition, {
-            icon: planeIcon
-        }).addTo(map);
+        if (direction === 'PAST') {
+            return nowMs - hoursToMs(hours);
+        } else if (direction === 'FUTURE') {
+            return nowMs + hoursToMs(hours);
+        }
 
-        // Optional: You could add multiple flight paths and markers here
-        // to show multiple flights on the dashboard map
-    });
+        console.warn(`Direction de temps inconnue: ${timeString}`);
+        return nowMs;
+    }
+
+    // --- Initialisation Carte ---
+    function initializeMap() {
+        try {
+             map = L.map('map', { zoomControl: true }).setView([25, 10], 3);
+             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+                 subdomains: 'abcd', maxZoom: 19
+             }).addTo(map);
+             activeFlightsLayer.addTo(map);
+
+             const recenterBtn = document.getElementById('recenter-map-btn');
+             if (recenterBtn) {
+                 recenterBtn.addEventListener('click', () => map.setView([25, 10], 3));
+             }
+         } catch (e) {
+             console.error("Erreur lors de l'initialisation de la carte Leaflet:", e);
+              const mapDiv = document.getElementById('map');
+              if(mapDiv) mapDiv.innerHTML = '<p class="text-red-500 p-4">Impossible d\'initialiser la carte.</p>';
+         }
+    }
+
+   
+
+    // --- Lancement ---
+    loadAndStartSimulation();
+});
 </script>

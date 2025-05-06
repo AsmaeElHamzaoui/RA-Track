@@ -35,6 +35,7 @@
         crossorigin=""></script>
     <!-- Include Leaflet.curve plugin -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet-curve@0.8.2/leaflet.curve.min.js"></script>
+    <script src="https://unpkg.com/leaflet.curve"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,25 +115,47 @@
             }
         }
 
-        /* Set styles for the airplane SVG icon */
         .plane-svg-icon {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            /* Ajustez si besoin */
+            height: 28px;
             fill: #F59E0B;
-            /* Tailwind yellow-500 */
+            /* Couleur avion */
+            filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.7));
+            /* Ombre légère */
+            transition: transform 0.3s linear;
+            /* Animation rotation */
         }
 
-        /* Remove default Leaflet icon background/border */
+        /* Enlever fond/bordure par défaut Leaflet */
         .dummy-transparent-bg {
             background-color: transparent !important;
             border: none !important;
+            box-shadow: none !important;
         }
 
-        /* Center the icon properly within its container */
+        /* Centrer l'icône SVG */
         .leaflet-marker-icon {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* Style pour le tooltip au survol */
+        .leaflet-tooltip {
+            background-color: rgba(22, 34, 56, 0.9) !important;
+            border: 1px solid #FFD476 !important;
+            color: #E2E8F0 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+            border-radius: 4px !important;
+            padding: 6px 10px !important;
+            font-size: 11px !important;
+            white-space: nowrap !important;
+        }
+
+        .leaflet-tooltip-top::before {
+            /* Flèche du tooltip */
+            border-top-color: rgba(22, 34, 56, 0.9) !important;
         }
     </style>
 
