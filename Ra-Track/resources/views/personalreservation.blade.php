@@ -26,8 +26,8 @@
                     },
                     boxShadow: {
                         'card': '0 4px 20px rgba(0, 0, 0, 0.3)',
-                        'card-hover': '0 8px 25px rgba(74, 222, 128, 0.2)',
-                        'glow': '0 0 15px rgba(74, 222, 128, 0.5)',
+                        'card-hover': '0 8px 25px rgba(222, 188, 74, 0.2)',
+                        'glow': '0 0 15px rgba(222, 173, 74, 0.5)',
                         'inner-glow': 'inset 0 0 10px rgba(251, 191, 36, 0.3)',
                     }
                 }
@@ -39,7 +39,7 @@
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-black text-white min-h-screen font-sans antialiased">
+<body class=" text-white min-h-screen font-sans antialiased" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
     <!-- Header -->
     @include('layouts.header')
 
@@ -56,7 +56,7 @@
 
         <div class="bg-gray-900 rounded-xl shadow-2xl p-6 mb-8 border border-gray-700">
             @forelse($reservations as $reservation)
-                <div class="card mb-8 last:mb-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-green-400 transition-all duration-300 hover:shadow-glow">
+                <div class="card mb-8 last:mb-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-yellow-200 transition-all duration-300 hover:shadow-glow">
                     <div class="card-body p-6">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                             <h3 class="text-2xl font-bold text-white mb-2 md:mb-0">
