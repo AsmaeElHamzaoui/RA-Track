@@ -18,7 +18,7 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     boxShadow: {
-                        'glow': '0 0 15px rgba(74, 222, 128, 0.5)',
+                        'glow': '0 0 15px rgba(193, 188, 115, 0.5)',
                         'glow-sm': '0 0 8px rgba(74, 222, 128, 0.3)',
                         'inner-glow': 'inset 0 0 10px rgba(251, 191, 36, 0.3)',
                     }
@@ -31,7 +31,7 @@
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-black text-white min-h-screen font-sans antialiased">
+<body class="text-white min-h-screen font-sans antialiased" style="background: linear-gradient(to bottom,rgb(22, 34, 56),#F1F0E9);">
     <!-- Header-->
     @include('layouts.header')
 
@@ -78,7 +78,7 @@
         
         <div class="space-y-4">
             @forelse ($reservation->passengers as $passenger)
-            <div class="bg-gray-800/80 hover:bg-gray-700/90 p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-md border border-gray-700 transition-all duration-300 hover:shadow-glow-sm hover:border-gray-600">
+            <div class="bg-gray-800/80 p-5 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-md border border-gray-700 transition-all duration-300 hover:shadow-glow-sm hover:border-gray-600">
                 <div class="flex-1">
                     <p class="font-bold text-lg text-white">{{ $passenger->firstname }} {{ $passenger->lastname }}</p>
                     <p class="text-sm text-gray-400 mt-1">Siège : {{ $passenger->seat_number ?? 'Assignation en cours...' }}</p>
