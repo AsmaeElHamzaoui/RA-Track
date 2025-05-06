@@ -245,14 +245,14 @@
                                     </td>
                                     <td class="px-6 py-4">{{ $report->comment }}</td>
                                     <td class="px-6 py-4">
-                                        <button class="edit-report-btn bg-yellow-500 text-white px-2 py-1 rounded"
+                                        <button class="edit-report-btn bg-gray-900 text-white px-2 py-1 rounded"
                                             data-id="{{ $report->id }}"
                                             data-flight-id="{{ $report->flight_id }}"
                                             data-comment="{{ $report->comment }}"
                                             data-file-name="{{ basename($report->report_path) }}">
                                             Modifier
                                         </button>
-                                        <button class="delete-report-btn bg-red-500 text-white px-2 py-1 rounded" data-id="{{ $report->id }}">Supprimer</button>
+                                        <button class="delete-report-btn bg-gray-900 text-white px-2 py-1 rounded" data-id="{{ $report->id }}">Supprimer</button>
                                     </td>
                                 </tr>
                                 @empty
