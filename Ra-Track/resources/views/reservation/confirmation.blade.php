@@ -36,7 +36,7 @@
     @include('layouts.header')
 
     <div class="container mx-auto px-4 py-8 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white rounded-xl shadow-2xl my-6 border border-gray-700 max-w-4xl transition-all duration-300 hover:shadow-glow">
-        <h1 class="text-4xl font-extrabold text-green-400 mb-6 text-center tracking-tight animate-pulse-slow">
+        <h1 class="text-4xl font-extrabold text-yellow-200 mb-6 text-center tracking-tight animate-pulse-slow">
             <i class="fas fa-check-circle mr-3"></i>Paiement Réussi !
         </h1>
         
@@ -45,7 +45,7 @@
         </p>
 
         <div class="bg-gray-800/70 p-6 rounded-xl mb-8 shadow-inner-glow border border-gray-700 backdrop-blur-sm transition-all duration-500 hover:border-gray-600">
-            <h2 class="text-2xl font-bold mb-4 text-yellow-400 flex items-center">
+            <h2 class="text-2xl font-bold mb-4 text-yellow-200 flex items-center">
                 <i class="fas fa-receipt mr-2"></i>Détails de la Réservation
             </h2>
             <div class="grid md:grid-cols-2 gap-4">
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <h2 class="text-2xl font-bold mb-6 text-yellow-400 flex items-center">
+        <h2 class="text-2xl font-bold mb-6 text-yellow-200 flex items-center">
             <i class="fas fa-ticket-alt mr-2"></i>Vos Billets Électroniques
         </h2>
         
