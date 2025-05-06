@@ -45,10 +45,10 @@
 -  Lien vers le repository GitHub contenant :[Repo · Asmae_Elhamzaoui_RA-Track](https://github.com/AsmaeElHamzaoui/RA-Track)
 
 -  Le diagramme du cas d'utilisation :
- ![Structure du projet](./asset/vidéo/USUser.png)
+ ![Structure du projet](./RA-Track/public/images/SGVUCD.jpg)
 
 -  Le diagramme de classe :
- ![Structure du projet](./asset/vidéo/class.png)
+ ![Structure du projet](./RA-Track/public/images/SGVCD.jpg)
 
 ## Installation
 
