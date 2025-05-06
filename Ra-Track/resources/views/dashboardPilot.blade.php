@@ -359,7 +359,42 @@
 
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Éléments existants...
 
+            // Nouveaux éléments pour la sidebar responsive
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.querySelector('aside');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+            // Fonction pour basculer la sidebar
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+            }
+
+            // Événements
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+            }
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', toggleSidebar);
+            }
+
+            // Fermer la sidebar quand un lien est cliqué (sur mobile)
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Le reste de votre code JavaScript existant...
+        });
+    </script>
 </body>
 
 </html>
