@@ -42,7 +42,7 @@
 
 ## Table des matières
 
--  Lien vers le repository GitHub contenant :[Repo · Asmae_Elhamzaoui_manager](https://github.com/AsmaeElHamzaoui/RA-Track)
+-  Lien vers le repository GitHub contenant :[Repo · Asmae_Elhamzaoui_RA-Track](https://github.com/AsmaeElHamzaoui/RA-Track)
 
 -  Le diagramme du cas d'utilisation :
  ![Structure du projet](./asset/vidéo/USUser.png)
