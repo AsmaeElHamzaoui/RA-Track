@@ -305,7 +305,19 @@
                     </button>
                     <div class="flex items-center space-x-2">
                         <img src="https://www.thoughtco.com/thmb/PJ2sFBaDHkbvJfTrxOoXd-BvkMo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/passenger-airplane-landing-at-dusk-867657758-5c79c087c9e77c0001d19d1a.jpg" alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-gray-500">
-                        <span class="font" style="color:#162238;">John Pilot</span>
+                        <form method="POST" action="/logout" class="w-10 h-10 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200"> 
+                            @csrf
+                            <button>
+                            <!-- Icône logout -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10v1m0 4v2" />
+                            </svg>
+                            </button>
+                        </form>
+                        </a>
+
                     </div>
                 </div>
             </header>
