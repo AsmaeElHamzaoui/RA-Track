@@ -294,7 +294,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
- 
+   function onFlightClick(e) {
+    try {
+        // 1. Récupérer les données du vol
+        const clickedFlightData = e.target?.options?.flightData;
+        if (!clickedFlightData) {
+            console.error("Aucune donnée de vol trouvée sur le marqueur");
+            return;
+        }
+
+        // 2. Récupérer les aéroports
+        const departureAirport = staticAirports[clickedFlightData.departure_code];
+        const arrivalAirport = staticAirports[clickedFlightData.arrival_code];
+
+        if (!departureAirport || !arrivalAirport) {
+            console.error("Aéroports manquants dans staticAirports :", 
+                        clickedFlightData.departure_code, 
+                        clickedFlightData.arrival_code);
+            return;
+        }
+
+        // 3. Supprimer l'ancien trajet si existant
+        if (selectedPath) {
+            activeFlightsLayer.removeLayer(selectedPath);
+        }
+
+        // 4. Créer le nouveau trajet
+        const start = [departureAirport.lat, departureAirport.lng];
+        const end = [arrivalAirport.lat, arrivalAirport.lng];
+        
+        selectedPath = L.polyline([start, end], {
+            color: '#FFD476',
+            weight: 1.5,
+            opacity: 0.7,
+            dashArray: '10,5'
+        }).addTo(activeFlightsLayer);
+
+        // 5. Centrer la carte
+        map.fitBounds([start, end]);
+
+    } catch (error) {
+        console.error("Erreur dans onFlightClick:", error);
+    }
+}
 
     // --- Chargement des données JSON et Démarrage de la simulation ---
     async function loadAndStartSimulation() {
