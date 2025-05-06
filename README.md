@@ -110,4 +110,4 @@ cd RA-Track
 
 
 ## Structure du Projet
- ![Structure du projet](./asset/vidéo/structure.png)
+ ![Structure du projet](images/structure.png)
