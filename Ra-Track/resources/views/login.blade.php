@@ -229,7 +229,7 @@
 
         <!-- Section du Logo et Texte (à droite) -->
         <div class="logo-section">
-            <img src="URL_DE_VOTRE_LOGO" alt="Logo LimoWide"> <!-- Remplacez par l'URL de votre logo -->
+            <img class="h-10 w-32" src="{{ asset('images/logo.png') }}" alt="">
             <p>Bienvenue chez LimoWide. Connectez-vous pour accéder à votre compte!</p>
         </div>
     </div>
