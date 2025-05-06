@@ -30,6 +30,38 @@
             height: 1.25em;
             margin-right: 0.5em;
         }
+
+        /* Styles pour la sidebar responsive */
+    @media (max-width: 767px) {
+        aside {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100vh;
+            z-index: 50;
+            transition: left 0.3s ease;
+        }
+        
+        aside.active {
+            left: 0;
+        }
+        
+        /* Overlay pour le fond sombre quand la sidebar est ouverte */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            display: none;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+    }
     </style>
 </head>
 
